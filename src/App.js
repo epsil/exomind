@@ -6,43 +6,33 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      countryNames: [],
-      loading: false
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    this.setState({ loading: true });
-    fetch('https://restcountries.eu/rest/v1/all')
-      .then(response => response.json())
-      .then(json => json.map(country => country.name))
-      .then(countryNames => this.setState({ countryNames, loading: false }));
+    fetch('index.md')
+      .then(response => response.text())
+      .then(text => this.setState({ markdown: text }));
+      // .then(response => response.json())
+      // .then(json => json.map(country => country.name))
+      // .then(countryNames => this.setState({ countryNames, loading: false }));
   }
 
   render() {
-    const { countryNames, loading } = this.state;
-    return loading ? (
+    return this.state.markdown ? (
       <div>
         <Helmet>
-          <title>Loading Country Names...</title>
+          <title>Markdown</title>
         </Helmet>
-        <div>Loading Country Names...</div>
-      </div>
-    ) : !countryNames.length ? (
-      <div>
-        <Helmet>
-          <title>No country Names</title>
-        </Helmet>
-        <div>No country Names</div>
+        <h1>Markdown</h1>
+        <pre>{this.state.markdown}</pre>
       </div>
     ) : (
       <div>
         <Helmet>
-          <title>Country Names</title>
+          <title>Loading Markdown ...</title>
         </Helmet>
-        <h1>Country Names</h1>
-        <ul>{countryNames.map((x, i) => <li key={i}>{x}</li>)}</ul>
+        <h1>Loading Markdown ...</h1>
       </div>
     );
   }
