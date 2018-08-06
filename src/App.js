@@ -10,6 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.createMarkup = this.createMarkup.bind(this);
   }
 
   componentDidMount() {
@@ -19,6 +20,12 @@ class App extends Component {
       .then(html => this.setState({ markdown: html }));
   }
 
+  createMarkup() {
+    return {
+      __html: this.state.markdown
+    };
+  }
+
   render() {
     return this.state.markdown ? (
       <div>
@@ -26,7 +33,7 @@ class App extends Component {
           <title>Markdown</title>
         </Helmet>
         <h1>Markdown</h1>
-        <div dangerouslySetInnerHTML={{__html: this.state.markdown}}></div>
+        <div dangerouslySetInnerHTML={this.createMarkup()}></div>
       </div>
     ) : (
       <div>
