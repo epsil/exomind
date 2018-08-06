@@ -26,7 +26,7 @@ class App extends Component {
           <title>Markdown</title>
         </Helmet>
         <h1>Markdown</h1>
-        <pre>{this.state.markdown}</pre>
+        <div dangerouslySetInnerHTML={{__html: this.state.markdown}}></div>
       </div>
     ) : (
       <div>
