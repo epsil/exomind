@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import fetch from 'isomorphic-fetch';
+import MarkdownIt from 'markdown-it';
 import './App.css';
+
+var md = new MarkdownIt();
 
 class App extends Component {
   constructor(props) {
@@ -12,10 +15,8 @@ class App extends Component {
   componentDidMount() {
     fetch('index.md')
       .then(response => response.text())
-      .then(text => this.setState({ markdown: text }));
-      // .then(response => response.json())
-      // .then(json => json.map(country => country.name))
-      // .then(countryNames => this.setState({ countryNames, loading: false }));
+      .then(text => md.render(text))
+      .then(html => this.setState({ markdown: html }));
   }
 
   render() {
