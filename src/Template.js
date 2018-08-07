@@ -11,6 +11,9 @@ class Template extends Component {
         </Helmet>
         <header>
           <h1>{this.props.title}</h1>
+          {this.props.author &&
+           <h2>{this.props.author}</h2>
+          }
         </header>
         <article dangerouslySetInnerHTML={{__html: this.props.content}}>
         </article>
