@@ -44,37 +44,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.createMarkup = this.createMarkup.bind(this);
   }
 
   componentDidMount() {
     fetch('index.md')
       .then(response => response.text())
       .then(text => this.setState({
+        loaded: true,
         markdown: text,
         html: md.render(text)
       }));
   }
 
-  createMarkup() {
-    return {
-      __html: this.state.markdown
-    };
-  }
-
-  loadingScreen () {
-    return (
-      <div>
-        <Helmet>
-          <title>Loading Markdown ...</title>
-        </Helmet>
-        <h1>Loading Markdown ...</h1>
-      </div>
-    );
-  }
-
   render() {
-    if (this.state.markdown) {
+    if (this.state.loaded) {
       return <Template {...this.state}/>;
     } else {
       return <LoadingScreen/>;
