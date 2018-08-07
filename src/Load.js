@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import 'bootstrap/dist/css/bootstrap.css';
 
 class LoadingScreen extends Component {
   render() {
