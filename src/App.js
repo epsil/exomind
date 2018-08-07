@@ -6,6 +6,40 @@ import './App.css';
 
 var md = new MarkdownIt();
 
+class Template extends Component {
+  render() {
+    return (
+      <div className="container">
+        <Helmet>
+          <title>Markdown</title>
+        </Helmet>
+        <h1>Markdown</h1>
+        <p><strong>HTML</strong></p>
+        <hr/>
+        <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
+        <hr/>
+        <p><strong>Markdown</strong></p>
+        <hr/>
+        <pre>{this.props.markdown}</pre>
+        <hr/>
+      </div>
+    );
+  }
+}
+
+class LoadingScreen extends Component {
+  render() {
+    return (
+      <div>
+        <Helmet>
+          <title>Loading Markdown ...</title>
+        </Helmet>
+        <h1>Loading Markdown ...</h1>
+      </div>
+    );
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,8 +50,10 @@ class App extends Component {
   componentDidMount() {
     fetch('index.md')
       .then(response => response.text())
-      .then(text => md.render(text))
-      .then(html => this.setState({ markdown: html }));
+      .then(text => this.setState({
+        markdown: text,
+        html: md.render(text)
+      }));
   }
 
   createMarkup() {
@@ -26,16 +62,8 @@ class App extends Component {
     };
   }
 
-  render() {
-    return this.state.markdown ? (
-      <div>
-        <Helmet>
-          <title>Markdown</title>
-        </Helmet>
-        <h1>Markdown</h1>
-        <div dangerouslySetInnerHTML={this.createMarkup()}></div>
-      </div>
-    ) : (
+  loadingScreen () {
+    return (
       <div>
         <Helmet>
           <title>Loading Markdown ...</title>
@@ -43,6 +71,14 @@ class App extends Component {
         <h1>Loading Markdown ...</h1>
       </div>
     );
+  }
+
+  render() {
+    if (this.state.markdown) {
+      return <Template {...this.state}/>;
+    } else {
+      return <LoadingScreen/>;
+    }
   }
 }
 
