@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import fetch from 'isomorphic-fetch';
 import MarkdownIt from 'markdown-it';
+import matter from 'gray-matter';
 import './App.css';
 
 var md = new MarkdownIt();
@@ -11,14 +12,18 @@ class Template extends Component {
     return (
       <div className="container">
         <Helmet>
-          <title>Markdown</title>
+          <title>{this.props.title}</title>
         </Helmet>
-        <h1>Markdown</h1>
+        <h1>{this.props.title}</h1>
         <p><strong>HTML</strong></p>
         <hr/>
-        <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
+        <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
         <hr/>
-        <p><strong>Markdown</strong></p>
+        <p><strong>HTML source</strong></p>
+        <hr/>
+        <pre>{this.props.content}</pre>
+        <hr/>
+        <p><strong>Markdown source</strong></p>
         <hr/>
         <pre>{this.props.markdown}</pre>
         <hr/>
@@ -32,9 +37,9 @@ class LoadingScreen extends Component {
     return (
       <div>
         <Helmet>
-          <title>Loading Markdown ...</title>
+          <title>&hellip;</title>
         </Helmet>
-        <h1>Loading Markdown ...</h1>
+        <h1>&hellip;</h1>
       </div>
     );
   }
@@ -49,10 +54,12 @@ class App extends Component {
   componentDidMount() {
     fetch('index.md')
       .then(response => response.text())
-      .then(text => this.setState({
-        loaded: true,
-        markdown: text,
-        html: md.render(text)
+      .then(text => this.setState(matter(text.trim())))
+      .then(() => this.setState(this.state.data))
+      .then(() => this.setState({
+        markdown: this.state.content.trim(),
+        content: md.render(this.state.content),
+        loaded: true
       }));
   }
 
