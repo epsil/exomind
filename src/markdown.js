@@ -17,6 +17,10 @@ markdown.inline = function (str) {
 
 markdown.toText = function (str) {
   var html = markdown(str);
+  return markdown.HTMLtoText(html);
+}
+
+markdown.HTMLtoText = function (html) {
   var div = document.createElement('div');
   div.innerHTML = html;
   var text = div.innerText || div.textContent;
