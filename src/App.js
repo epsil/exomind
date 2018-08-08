@@ -8,7 +8,7 @@ import './App.css';
 
 var settings = {
   noindex: true
-}
+};
 
 class App extends Component {
   constructor(props) {
@@ -21,17 +21,19 @@ class App extends Component {
       .then(response => response.text())
       .then(text => this.setState(matter(text.trim())))
       .then(() => this.setState(this.state.data))
-      .then(() => this.setState({
-        markdown: this.state.content.trim(),
-        content: markdown(this.state.content)
-      }));
+      .then(() =>
+        this.setState({
+          markdown: this.state.content.trim(),
+          content: markdown(this.state.content)
+        })
+      );
   }
 
   render() {
     if (this.state.markdown) {
-      return <Template {...this.state}/>;
+      return <Template {...this.state} />;
     } else {
-      return <LoadingScreen/>;
+      return <LoadingScreen />;
     }
   }
 }

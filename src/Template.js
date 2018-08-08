@@ -8,21 +8,28 @@ class Template extends Component {
     return (
       <div className="container">
         <Helmet>
-          <html prefix="og: http://ogp.me/ns#" {...(this.props.lang ? {lang: this.props.lang} : {})} />
+          <html
+            prefix="og: http://ogp.me/ns#"
+            {...(this.props.lang ? { lang: this.props.lang } : {})}
+          />
           <title>{markdown.toText(this.props.title)}</title>
-          <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-          {this.props.referrer ? <meta content="{this.props.referrer}" name="referrer"/> :
-           <meta content="no-referrer" name="referrer"/>}
-          {this.props.noindex && <meta content="noindex" name="robots"/>}
+          <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+          {this.props.referrer ? (
+            <meta content="{this.props.referrer}" name="referrer" />
+          ) : (
+            <meta content="no-referrer" name="referrer" />
+          )}
+          {this.props.noindex && <meta content="noindex" name="robots" />}
         </Helmet>
         <header>
-        <h1 dangerouslySetInnerHTML={{__html: markdown.inline(this.props.title)}}></h1>
-          {this.props.author &&
-           <h2>{this.props.author}</h2>
-          }
+          <h1
+            dangerouslySetInnerHTML={{
+              __html: markdown.inline(this.props.title)
+            }}
+          />
+          {this.props.author && <h2>{this.props.author}</h2>}
         </header>
-        <article dangerouslySetInnerHTML={{__html: this.props.content}}>
-        </article>
+        <article dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>
     );
   }
