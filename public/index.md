@@ -1,5 +1,6 @@
 ---
-title: Markdown test
+title: Markdown *test*
+author: Forfatter
 ---
 
 This is a *Markdown* file ...

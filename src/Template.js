@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import markdown from './markdown';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Template extends Component {
@@ -7,10 +8,11 @@ class Template extends Component {
     return (
       <div className="container">
         <Helmet>
-          <title>{this.props.title}</title>
+          <html prefix="og: http://ogp.me/ns#" {...(this.props.lang ? {lang: this.props.lang} : {})} />
+          <title>{markdown.toText(this.props.title)}</title>
         </Helmet>
         <header>
-          <h1>{this.props.title}</h1>
+        <h1 dangerouslySetInnerHTML={{__html: markdown.inline(this.props.title)}}></h1>
           {this.props.author &&
            <h2>{this.props.author}</h2>
           }
