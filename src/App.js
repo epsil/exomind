@@ -6,10 +6,14 @@ import Template from './Template';
 import LoadingScreen from './Load';
 import './App.css';
 
+var settings = {
+  noindex: true
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = settings;
   }
 
   componentDidMount() {

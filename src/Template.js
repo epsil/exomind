@@ -13,6 +13,7 @@ class Template extends Component {
           <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
           {this.props.referrer ? <meta content="{this.props.referrer}" name="referrer"/> :
            <meta content="no-referrer" name="referrer"/>}
+          {this.props.noindex && <meta content="noindex" name="robots"/>}
         </Helmet>
         <header>
         <h1 dangerouslySetInnerHTML={{__html: markdown.inline(this.props.title)}}></h1>
