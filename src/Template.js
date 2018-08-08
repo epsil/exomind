@@ -10,6 +10,9 @@ class Template extends Component {
         <Helmet>
           <html prefix="og: http://ogp.me/ns#" {...(this.props.lang ? {lang: this.props.lang} : {})} />
           <title>{markdown.toText(this.props.title)}</title>
+          <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+          {this.props.referrer ? <meta content="{this.props.referrer}" name="referrer"/> :
+           <meta content="no-referrer" name="referrer"/>}
         </Helmet>
         <header>
         <h1 dangerouslySetInnerHTML={{__html: markdown.inline(this.props.title)}}></h1>
