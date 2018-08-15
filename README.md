@@ -1,7 +1,7 @@
-Markdown wiki
-=============
+Exomind
+=======
 
-Markdown-based wiki, implemented in [React](REACT.md).
+A Markdown-based wiki implemented in [React](REACT.md).
 
 Organization
 ------------
