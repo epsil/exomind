@@ -35,31 +35,6 @@ The wiki can also be served locally. To do this, run `npm run http` (requires [N
 
 One can also open the `index.html` files directly from disk, without starting up a web server first. Unfortunately, this only works in Firefox; other browsers impose limits on [resource sharing](http://en.wikipedia.org/wiki/Same-origin_policy), and therefore require that a web server is running.
 
-Versioning
-----------
-
-The wiki uses [Git](https://git-scm.com/) to keep track of changes. The wiki is a regular Git repository, and standard Git commands work as one would expect.
-
-It is optional, but highly recommended, to set up a remote repository for the wiki (`git remote`). Then one can back up the wiki and synchronize it across machines with `git push` and `git pull`.
-
-Searching
----------
-
-Since Markdown files are plain text, the wiki is easily searchable. A `grep` command for finding the string `markdown` would be:
-
-    grep -Ri --exclude-dir="node_modules" --exclude-dir="resources" --include="*.md" "markdown" .
-
-A shorthand for the above is `npm run search`. Thus, to search for `markdown`:
-
-    npm run search markdown
-
-Editing
--------
-
-A wiki page is edited by opening its `index.md` file in a text editor, making changes, and committing them with Git. A shorthand command for this is `npm run commit`. To synchronize the changes, one can use `npm run push`. One can also use standard Git commands (`git commit` and `git push`) for the same tasks.
-
-The wiki can be edited online simply by hosting the repository at GitHub, BitBucket or a similar service. These websites lets one edit Markdown files with a user-friendly web interface.
-
 Markup
 ------
 
@@ -138,6 +113,31 @@ Then one can reference them with a Markdown link:
 ```
 
 Thus, the wiki can serve as a repository not only for Markdown documents, but for any kind of file that is related to the subject.
+
+Editing
+-------
+
+A wiki page is edited by opening its `index.md` file in a text editor, making changes, and committing them with Git. A shorthand command for this is `npm run commit`. To synchronize the changes, one can use `npm run push`. One can also use standard Git commands (`git commit` and `git push`) for the same tasks.
+
+The wiki can be edited online simply by hosting the repository at GitHub, BitBucket or a similar service. These websites lets one edit Markdown files with a user-friendly web interface.
+
+Searching
+---------
+
+Since Markdown files are plain text, the wiki is easily searchable. A `grep` command for finding the string `markdown` would be:
+
+    grep -Ri --exclude-dir="node_modules" --exclude-dir="resources" --include="*.md" "markdown" .
+
+A shorthand for the above is `npm run search`. Thus, to search for `markdown`:
+
+    npm run search markdown
+
+Versioning
+----------
+
+The wiki uses [Git](https://git-scm.com/) to keep track of changes. The wiki is a regular Git repository, and standard Git commands work as one would expect.
+
+It is optional, but highly recommended, to set up a remote repository for the wiki (`git remote`). Then one can back up the wiki and synchronize it across machines with `git push` and `git pull`.
 
 Future compatibility
 --------------------
