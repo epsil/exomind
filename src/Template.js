@@ -21,8 +21,12 @@ class Template extends Component {
             <meta content="no-referrer" name="referrer" />
           )}
           {this.props.noindex && <meta content="noindex" name="robots" />}
-          {this.props.author && <meta content={markdown.toText(this.props.author)} name="author" />}
-          {this.props.date && <meta content={util.dateFormat(this.props.date)} name="date" />}
+          {this.props.author && (
+            <meta content={markdown.toText(this.props.author)} name="author" />
+          )}
+          {this.props.date && (
+            <meta content={util.dateFormat(this.props.date)} name="date" />
+          )}
         </Helmet>
         <header>
           <h1
