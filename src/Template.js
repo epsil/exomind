@@ -182,52 +182,43 @@ class Template extends Component {
             href={util.urlRelative(this.props.path, '/_assets/css/wiki.css')}
             rel="stylesheet"
           />
-          // <link href={this.props.url} rel="canonical" />
+          {/* <link href={this.props.url} rel="canonical" /> */}
           <link
             href={this.props.file}
             rel="alternate"
             title="Markdown"
             type="text/markdown"
           />
-          ...
-          {this.props.css
-            ? this.props.css.map(x => (
-                <link
-                  href={util.urlRelative(this.props.path, x)}
-                  rel="stylesheet"
-                  type="text/css"
-                />
-              ))
-            : []}
-          ...
-          {this.props.stylesheet
-            ? this.props.stylesheet.map(x => (
-                <link
-                  href={util.urlRelative(this.props.path, x)}
-                  rel="stylesheet"
-                  type="text/css"
-                />
-              ))
-            : []}
-          ...
-          {this.props.js
-            ? this.props.js.map(x => (
-                <script
-                  src={util.urlRelative(this.props.path, x)}
-                  type="text/javascript"
-                />
-              ))
-            : []}
-          ...
-          {this.props.script
-            ? this.props.script.map(x => (
-                <script
-                  src={util.urlRelative(this.props.path, x)}
-                  type="text/javascript"
-                />
-              ))
-            : []}
-          ...
+          {this.props.css &&
+            this.props.css.map(x => (
+              <link
+                href={util.urlRelative(this.props.path, x)}
+                rel="stylesheet"
+                type="text/css"
+              />
+            ))}
+          {this.props.stylesheet &&
+            this.props.stylesheet.map(x => (
+              <link
+                href={util.urlRelative(this.props.path, x)}
+                rel="stylesheet"
+                type="text/css"
+              />
+            ))}
+          {this.props.js &&
+            this.props.js.map(x => (
+              <script
+                src={util.urlRelative(this.props.path, x)}
+                type="text/javascript"
+              />
+            ))}
+          {this.props.script &&
+            this.props.script.map(x => (
+              <script
+                src={util.urlRelative(this.props.path, x)}
+                type="text/javascript"
+              />
+            ))}
           {this.props.mathjax && [
             <script type="text/x-mathjax-config">{`
 MathJax.Hub.Config({
@@ -260,6 +251,98 @@ MathJax.Hub.Config({
           {this.props.author && <h2>{this.props.author}</h2>}
         </header>
         <article dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container-fluid topbar">
+            <ul class="nav nav-pills navbar-left">
+              <li role="presentation">
+                <a href="/" title={markdown.toText(this.props['home-title'])}>
+                  <i class="fa fa-home" />
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-pills navbar-right">
+              {this.props.nav &&
+                this.props.nav.map(x => (
+                  <li
+                    dangerouslySetInnerHTML={{ __html: markdown.inline(x) }}
+                  />
+                ))}
+              {/* <li role="presentation"><a href={this.props.facebook} target="_blank" title={markdown.toText(this.props['facebook-title'])}><i class="fa fa-facebook-square"></i></li> */}
+              {/* <li role="presentation"><a href={this.props.twitter} target="_blank" title={markdown.toText(this.props['twitter-title'])}><i class="fa fa-twitter-square"></i></li> */}
+              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i class="fa fa-linkedin-square"></i></li> */}
+              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i class="fa fa-linkedin-square"></i></li> */}
+              <li role="presentation">
+                <a
+                  href="/tmp/clipboard/"
+                  target="_blank"
+                  title={markdown.toText(this.props['clipboard-title'])}
+                >
+                  <i class="fa fa-clipboard" />
+                </a>
+              </li>
+              {this.props['github-repo']
+                ? [
+                    <li role="presentation">
+                      <a
+                        href={this.props.github}
+                        title={markdown.toText(this.props['github-repo-title'])}
+                      >
+                        <i class="fa fa-github" />
+                      </a>
+                    </li>,
+                    <li role="presentation">
+                      <a
+                        href={this.props['github-edit']}
+                        title={markdown.toText(this.props['github-edit-title'])}
+                      >
+                        <i class="fa fa-edit" />
+                      </a>
+                    </li>,
+                    /* <li role="presentation"><a href={this.props['github-history']} title={markdown.toText(this.props['github-history-title'])}><i class="fa fa-history"></i></a></li>, */
+                    <li role="presentation">
+                      <a
+                        href={this.props['github-raw']}
+                        title={markdown.toText(this.props['markdown-title'])}
+                      >
+                        <i class="fa fa-download" />
+                      </a>
+                    </li>
+                  ]
+                : this.props['bitbucket-repo']
+                  ? [
+                      <li role="presentation">
+                        <a
+                          href={this.props.bitbucket}
+                          title={markdown.toText(
+                            this.props['bitbucket-repo-title']
+                          )}
+                        >
+                          <i class="fa fa-edit" />
+                        </a>
+                      </li>,
+                      /* <li role="presentation"><a href={this.props['bitbucket-history']} title={markdown.toText(this.props['bitbucket-history-title'])}><i class="fa fa-history"></i></a></li>, */
+                      <li role="presentation">
+                        <a
+                          href={this.props.file}
+                          title={markdown.toText(this.props['markdown-title'])}
+                        >
+                          <i class="fa fa-download" />
+                        </a>
+                      </li>
+                    ]
+                  : [
+                      <li role="presentation">
+                        <a
+                          href={this.props.file}
+                          title={markdown.toText(this.props['markdown-title'])}
+                        >
+                          <i class="fa fa-download" />
+                        </a>
+                      </li>
+                    ]}
+            </ul>
+          </div>
+        </nav>
       </div>
     );
   }
