@@ -340,8 +340,49 @@ MathJax.Hub.Config({
                         </a>
                       </li>
                     ]}
+              {this.props.toc && (
+                <li role="presentation">
+                  <a
+                    id="toc-button"
+                    href="#toc"
+                    data-toggle="collapse"
+                    title={markdown.toText(this.props['toc-title'])}
+                  >
+                    <i class="fa fa-list" />
+                  </a>
+                </li>
+              )}
             </ul>
+            <form
+              action="https://www.google.com/search"
+              class="navbar-form"
+              method="get"
+              target="_blank"
+            >
+              <div class="form-group" style="display: inline;">
+                <div class="input-group" style="display: table;">
+                  <span class="input-group-addon" style="width: 1%;">
+                    <span class="glyphicon glyphicon-search" />
+                  </span>
+                  <input
+                    accesskey="."
+                    autocomplete="off"
+                    class="form-control"
+                    name="q"
+                    title={markdown.toText(this.props['search-title'])}
+                    type="text"
+                  />
+                </div>
+              </div>
+            </form>
           </div>
+          {this.props.toc && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: this.props.toc
+              }}
+            />
+          )}
         </nav>
       </div>
     );
