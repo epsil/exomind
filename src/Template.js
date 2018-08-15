@@ -242,15 +242,6 @@ MathJax.Hub.Config({
             src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')}
           />
         </Helmet>
-        <header>
-          <h1
-            dangerouslySetInnerHTML={{
-              __html: markdown.inline(this.props.title)
-            }}
-          />
-          {this.props.author && <h2>{this.props.author}</h2>}
-        </header>
-        <article dangerouslySetInnerHTML={{ __html: this.props.content }} />
         <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid topbar">
             <ul class="nav nav-pills navbar-left">
@@ -359,9 +350,9 @@ MathJax.Hub.Config({
               method="get"
               target="_blank"
             >
-              <div class="form-group" style="display: inline;">
-                <div class="input-group" style="display: table;">
-                  <span class="input-group-addon" style="width: 1%;">
+              <div class="form-group" style={{ display: 'inline' }}>
+                <div class="input-group" style={{ display: 'table' }}>
+                  <span class="input-group-addon" style={{ width: '1%' }}>
                     <span class="glyphicon glyphicon-search" />
                   </span>
                   <input
@@ -384,6 +375,15 @@ MathJax.Hub.Config({
             />
           )}
         </nav>
+        <header>
+          <h1
+            dangerouslySetInnerHTML={{
+              __html: markdown.inline(this.props.title)
+            }}
+          />
+          {this.props.author && <h2>{this.props.author}</h2>}
+        </header>
+        <article dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>
     );
   }
