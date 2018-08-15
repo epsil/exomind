@@ -189,6 +189,67 @@ class Template extends Component {
             title="Markdown"
             type="text/markdown"
           />
+          ...
+          {this.props.css
+            ? this.props.css.map(x => (
+                <link
+                  href={util.urlRelative(this.props.path, x)}
+                  rel="stylesheet"
+                  type="text/css"
+                />
+              ))
+            : []}
+          ...
+          {this.props.stylesheet
+            ? this.props.stylesheet.map(x => (
+                <link
+                  href={util.urlRelative(this.props.path, x)}
+                  rel="stylesheet"
+                  type="text/css"
+                />
+              ))
+            : []}
+          ...
+          {this.props.js
+            ? this.props.js.map(x => (
+                <script
+                  src={util.urlRelative(this.props.path, x)}
+                  type="text/javascript"
+                />
+              ))
+            : []}
+          ...
+          {this.props.script
+            ? this.props.script.map(x => (
+                <script
+                  src={util.urlRelative(this.props.path, x)}
+                  type="text/javascript"
+                />
+              ))
+            : []}
+          ...
+          {this.props.mathjax && [
+            <script type="text/x-mathjax-config">{`
+MathJax.Hub.Config({
+  'HTML-CSS': {
+    preferredFont: 'STIX'
+  },
+  TeX: {
+    equationNumbers: {
+      autoNumber: 'all'
+    }
+  }
+})
+`}</script>,
+            <script
+              async
+              src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+              type="text/javascript"
+            />
+          ]}
+          <script
+            src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')}
+          />
         </Helmet>
         <header>
           <h1
