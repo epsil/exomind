@@ -27,6 +27,60 @@ class Template extends Component {
           {this.props.date && (
             <meta content={util.dateFormat(this.props.date)} name="date" />
           )}
+          {this.props.abstract && (
+            <meta content={markdown.toText(this.props.abstract)} name="description" />
+          )}
+          {this.props.keywords && (
+            <meta content={markdown.toText(this.props.keywords)} name="keywords" />
+          )}
+          {this.props.md5 && (
+            <meta content={this.props.md5} name="md5" />
+          )}
+          <meta content="text/css" http-equiv="Content-Style-Type" />
+          <meta content="width=device-width, initial-scale=1" name="viewport" />
+          {this.props.title && (
+            <meta content={markdown.toText(this.props.title)} name="DC.Title" />
+          )}
+          {this.props.author && (
+            <meta content={markdown.toText(this.props.author)} name="DC.Creator" />
+          )}
+          {this.props.date && (
+            <meta content={util.dateFormat(this.props.date)} name="DC.Date" />
+          )}
+          {this.props.abstract && (
+            <meta content={markdown.toText(this.props.abstract)} name="DC.Description" />
+          )}
+          {this.props.lang && (
+            <meta content={this.props.lang} name="DC.Language" />
+          )}
+          <meta name="DC.Format" content="text/html" />
+          {this.props.title && (
+            <meta content={markdown.toText(this.props.title)} name="og:title" />
+          )}
+          {this.props.abstract && (
+            <meta content={markdown.toText(this.props.abstract)} name="og:description" />
+          )}
+          {this.props.lang && (
+            <meta content={this.props.lang} name="og:locale" />
+          )}
+          <meta property="og:type" content="article" />
+          {this.props.url && (
+            <meta content={this.props.url} name="og:url" />
+          )}
+          {this.props['site-name'] && (
+            <meta content={this.props['site-name']} name="og:site_name" />
+          )}
+          {this.props.image && (
+              <meta content={util.urlResolve(this.props.path, this.props.image)} name="og:image" />
+          )}
+          {this.props['cover-image'] && (
+              <meta content={util.urlResolve(this.props.path, this.props['cover-image'])} name="og:image" />
+          )}
+          {this.props.video && (
+              <meta content={this.props.video} name="og:video" />
+          )}
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@github" />
         </Helmet>
         <header>
           <h1
