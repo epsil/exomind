@@ -130,54 +130,51 @@ class Template extends Component {
               />
             )
           )}
-          {this.props.icon
-            ? [
-                <link
-                  href={util.urlRelative(this.props.path, this.props.icon)}
-                  rel="icon"
-                  type="image/x-icon"
-                />,
-                <link
-                  href={util.urlRelative(this.props.path, this.props.icon)}
-                  rel="apple-touch-icon"
-                />
-              ]
-            : this.props.path && [
+          {this.props.icon ? (
+            <>
+              <link
+                href={util.urlRelative(this.props.path, this.props.icon)}
+                rel="icon"
+                type="image/x-icon"
+              />
+              <link
+                href={util.urlRelative(this.props.path, this.props.icon)}
+                rel="apple-touch-icon"
+              />
+            </>
+          ) : (
+            this.props.path && (
+              <>
                 <link
                   href={util.urlRelative(this.props.path, '/favicon.ico')}
                   rel="icon"
                   type="image/x-icon"
-                />,
-                ...(this.props.image
-                  ? [
-                      <link
-                        href={util.urlRelative(
-                          this.props.path,
-                          this.props.image
-                        )}
-                        rel="apple-touch-icon"
-                      />
-                    ]
-                  : this.props['cover-image']
-                    ? [
-                        <link
-                          href={util.urlRelative(
-                            this.props.path,
-                            this.props['cover-image']
-                          )}
-                          rel="apple-touch-icon"
-                        />
-                      ]
-                    : [
-                        <link
-                          href={util.urlRelative(
-                            this.props.path,
-                            '/apple-touch-icon.png'
-                          )}
-                          rel="apple-touch-icon"
-                        />
-                      ])
-              ]}
+                />
+                {this.props.image ? (
+                  <link
+                    href={util.urlRelative(this.props.path, this.props.image)}
+                    rel="apple-touch-icon"
+                  />
+                ) : this.props['cover-image'] ? (
+                  <link
+                    href={util.urlRelative(
+                      this.props.path,
+                      this.props['cover-image']
+                    )}
+                    rel="apple-touch-icon"
+                  />
+                ) : (
+                  <link
+                    href={util.urlRelative(
+                      this.props.path,
+                      '/apple-touch-icon.png'
+                    )}
+                    rel="apple-touch-icon"
+                  />
+                )}
+              </>
+            )
+          )}
           <link
             href={util.urlRelative(this.props.path, '/_assets/css/wiki.css')}
             rel="stylesheet"
@@ -219,8 +216,9 @@ class Template extends Component {
                 type="text/javascript"
               />
             ))}
-          {this.props.mathjax && [
-            <script type="text/x-mathjax-config">{`
+          {this.props.mathjax && (
+            <>
+              <script type="text/x-mathjax-config">{`
 MathJax.Hub.Config({
   'HTML-CSS': {
     preferredFont: 'STIX'
@@ -231,13 +229,14 @@ MathJax.Hub.Config({
     }
   }
 })
-`}</script>,
-            <script
-              async
-              src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-              type="text/javascript"
-            />
-          ]}
+`}</script>
+              <script
+                async
+                src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+                type="text/javascript"
+              />
+            </>
+          )}
           <script
             src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')}
           />
@@ -271,66 +270,66 @@ MathJax.Hub.Config({
                   <i class="fa fa-clipboard" />
                 </a>
               </li>
-              {this.props['github-repo']
-                ? [
-                    <li role="presentation">
-                      <a
-                        href={this.props.github}
-                        title={markdown.toText(this.props['github-repo-title'])}
-                      >
-                        <i class="fa fa-github" />
-                      </a>
-                    </li>,
-                    <li role="presentation">
-                      <a
-                        href={this.props['github-edit']}
-                        title={markdown.toText(this.props['github-edit-title'])}
-                      >
-                        <i class="fa fa-edit" />
-                      </a>
-                    </li>,
-                    /* <li role="presentation"><a href={this.props['github-history']} title={markdown.toText(this.props['github-history-title'])}><i class="fa fa-history"></i></a></li>, */
-                    <li role="presentation">
-                      <a
-                        href={this.props['github-raw']}
-                        title={markdown.toText(this.props['markdown-title'])}
-                      >
-                        <i class="fa fa-download" />
-                      </a>
-                    </li>
-                  ]
-                : this.props['bitbucket-repo']
-                  ? [
-                      <li role="presentation">
-                        <a
-                          href={this.props.bitbucket}
-                          title={markdown.toText(
-                            this.props['bitbucket-repo-title']
-                          )}
-                        >
-                          <i class="fa fa-edit" />
-                        </a>
-                      </li>,
-                      /* <li role="presentation"><a href={this.props['bitbucket-history']} title={markdown.toText(this.props['bitbucket-history-title'])}><i class="fa fa-history"></i></a></li>, */
-                      <li role="presentation">
-                        <a
-                          href={this.props.file}
-                          title={markdown.toText(this.props['markdown-title'])}
-                        >
-                          <i class="fa fa-download" />
-                        </a>
-                      </li>
-                    ]
-                  : [
-                      <li role="presentation">
-                        <a
-                          href={this.props.file}
-                          title={markdown.toText(this.props['markdown-title'])}
-                        >
-                          <i class="fa fa-download" />
-                        </a>
-                      </li>
-                    ]}
+              {this.props['github-repo'] ? (
+                <>
+                  <li role="presentation">
+                    <a
+                      href={this.props.github}
+                      title={markdown.toText(this.props['github-repo-title'])}
+                    >
+                      <i class="fa fa-github" />
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a
+                      href={this.props['github-edit']}
+                      title={markdown.toText(this.props['github-edit-title'])}
+                    >
+                      <i class="fa fa-edit" />
+                    </a>
+                  </li>
+                  {/* <li role="presentation"><a href={this.props['github-history']} title={markdown.toText(this.props['github-history-title'])}><i class="fa fa-history"></i></a></li> */}
+                  <li role="presentation">
+                    <a
+                      href={this.props['github-raw']}
+                      title={markdown.toText(this.props['markdown-title'])}
+                    >
+                      <i class="fa fa-download" />
+                    </a>
+                  </li>
+                </>
+              ) : this.props['bitbucket-repo'] ? (
+                <>
+                  <li role="presentation">
+                    <a
+                      href={this.props.bitbucket}
+                      title={markdown.toText(
+                        this.props['bitbucket-repo-title']
+                      )}
+                    >
+                      <i class="fa fa-edit" />
+                    </a>
+                  </li>
+                  {/* <li role="presentation"><a href={this.props['bitbucket-history']} title={markdown.toText(this.props['bitbucket-history-title'])}><i class="fa fa-history"></i></a></li> */}
+                  <li role="presentation">
+                    <a
+                      href={this.props.file}
+                      title={markdown.toText(this.props['markdown-title'])}
+                    >
+                      <i class="fa fa-download" />
+                    </a>
+                  </li>
+                </>
+              ) : (
+                <li role="presentation">
+                  <a
+                    href={this.props.file}
+                    title={markdown.toText(this.props['markdown-title'])}
+                  >
+                    <i class="fa fa-download" />
+                  </a>
+                </li>
+              )}
               {this.props.toc && (
                 <li role="presentation">
                   <a
@@ -384,6 +383,132 @@ MathJax.Hub.Config({
           {this.props.author && <h2>{this.props.author}</h2>}
         </header>
         <article dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        <article class="h-entry" id="main">
+          <header>
+            {this.props['include-before'] && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.props['include-before']
+                }}
+              />
+            )}
+            {this.props.title ? (
+              <>
+                <h1 class="p-name">
+                  <a
+                    class="u-uid u-url"
+                    href={this.props.url}
+                    rel="bookmark"
+                    title="Permalink"
+                    dangerouslySetInnerHTML={{
+                      __html: markdown.inline(this.props.title)
+                    }}
+                  />
+                </h1>
+                {this.props.subtitle && (
+                  <h2
+                    dangerouslySetInnerHTML={{
+                      __html: markdown.inline(this.props.subtitle)
+                    }}
+                  />
+                )}
+                {this.props.author ? (
+                  this.props.author.name ? (
+                    <p class="author">
+                      {this.props.author.url ? (
+                        <a
+                          class="p-author h-card"
+                          href={this.props.author.url}
+                          dangerouslySetInnerHTML={{
+                            __html: markdown.inline(this.props.author.name)
+                          }}
+                        />
+                      ) : (
+                        <span
+                          class="p-author"
+                          dangerouslySetInnerHTML={{
+                            __html: markdown.inline(this.props.author.name)
+                          }}
+                        />
+                      )}
+                      {this.props.author &&
+                        this.props.date && <span>&bull;</span>}
+                      {this.props.date && (
+                        <time
+                          class="dt-published"
+                          datetime={util.dateFormat(this.props.date)}
+                        >
+                          {util.dateFormat(this.props.date)}
+                        </time>
+                      )}
+                    </p>
+                  ) : (
+                    <p class="author">
+                      {this.props['author-url'] ? (
+                        <a
+                          class="p-author h-card"
+                          href={this.props['author-url']}
+                          dangerouslySetInnerHTML={{
+                            __html: markdown.inline(this.props.author)
+                          }}
+                        />
+                      ) : this.props['author-email'] ? (
+                        <a
+                          class="p-author h-card"
+                          href="mailto:{this.props['author-email']}"
+                          dangerouslySetInnerHTML={{
+                            __html: markdown.inline(this.props.author)
+                          }}
+                        />
+                      ) : (
+                        <span
+                          class="p-author"
+                          dangerouslySetInnerHTML={{
+                            __html: markdown.inline(this.props.author)
+                          }}
+                        />
+                      )}
+                      {this.props.author &&
+                        this.props.date && <span>&bull;</span>}
+                      {this.props.date && (
+                        <time
+                          class="dt-published"
+                          datetime={util.dateFormat(this.props.date)}
+                        >
+                          {util.dateFormat(this.props.date)}
+                        </time>
+                      )}
+                    </p>
+                  )
+                ) : (
+                  this.props.date && (
+                    <p>
+                      <time
+                        class="dt-published"
+                        datetime={util.dateFormat(this.props.date)}
+                      >
+                        {util.dateFormat(this.props.date)}
+                      </time>
+                    </p>
+                  )
+                )}
+              </>
+            ) : (
+              this.props.date && (
+                <h1 class="p-name">
+                  <a
+                    class="u-uid u-url"
+                    href={this.props.url}
+                    title="Permalink"
+                    dangerouslySetInnerHTML={{
+                      __html: util.dateFormat(this.props.date)
+                    }}
+                  />
+                </h1>
+              )
+            )}
+          </header>
+        </article>
       </div>
     );
   }
