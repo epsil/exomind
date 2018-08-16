@@ -8,9 +8,9 @@ function markdown(str) {
 }
 
 markdown.inline = function(str) {
-  var html = markdown(str);
+  var html = markdown(str).trim();
   if (html.match(/^<p>/) && html.match(/<\/p>$/)) {
-    html = html.substring(3, str.length - 4);
+    html = html.substring(3, html.length - 4);
   }
   return html;
 };

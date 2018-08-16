@@ -423,7 +423,12 @@ MathJax.Hub.Config({
                         />
                       )}
                       {this.props.author &&
-                        this.props.date && <span>&bull;</span>}
+                        this.props.date && (
+                          <React.Fragment>
+                            {' '}
+                            <span>&bull;</span>{' '}
+                          </React.Fragment>
+                        )}
                       {this.props.date && (
                         <time
                           class="dt-published"
@@ -460,7 +465,12 @@ MathJax.Hub.Config({
                         />
                       )}
                       {this.props.author &&
-                        this.props.date && <span>&bull;</span>}
+                        this.props.date && (
+                          <React.Fragment>
+                            {' '}
+                            <span>&bull;</span>{' '}
+                          </React.Fragment>
+                        )}
                       {this.props.date && (
                         <time
                           class="dt-published"
