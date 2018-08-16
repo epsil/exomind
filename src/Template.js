@@ -382,7 +382,6 @@ MathJax.Hub.Config({
           />
           {this.props.author && <h2>{this.props.author}</h2>}
         </header>
-        <article dangerouslySetInnerHTML={{ __html: this.props.content }} />
         <article class="h-entry" id="main">
           <header>
             {this.props['include-before'] && (
@@ -507,7 +506,77 @@ MathJax.Hub.Config({
                 </h1>
               )
             )}
+            {this.props.abstract && (
+              <p
+                class="p-summary"
+                dangerouslySetInnerHTML={{
+                  __html: markdown.inline(this.props.abstract)
+                }}
+              />
+            )}
+            {this.props.image ? (
+              <figure>
+                <img
+                  alt="{this.props['image-alt'] && this.props['image-alt']}"
+                  class="u-photo"
+                  {...(this.props['image-height']
+                    ? { height: this.props['image-height'] }
+                    : {})}
+                  {...(this.props['image-width']
+                    ? { width: this.props['image-width'] }
+                    : {})}
+                  src={util.urlRelative(this.props.path, this.props.image)}
+                />
+              </figure>
+            ) : (
+              this.props['cover-image'] && (
+                <figure>
+                  <img
+                    alt="{this.props['image-alt'] && this.props['image-alt']}"
+                    class="u-photo"
+                    {...(this.props['image-height']
+                      ? { height: this.props['image-height'] }
+                      : {})}
+                    {...(this.props['image-width']
+                      ? { width: this.props['image-width'] }
+                      : {})}
+                    src={util.urlRelative(this.props.path, this.props.image)}
+                  />
+                </figure>
+              )
+            )}
           </header>
+          <section class="e-content{this.props.indent ? ' indent' : ''}{this.props.sidenotes ? ' sidenotes' : ''}">
+            <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
+            {this.props.footnotes &&
+              (this.props['footnotes-title'] ? (
+                <>
+                  <h1
+                    dangerouslySetInnerHTML={{
+                      __html: markdown.inline(this.props['footnotes-title'])
+                    }}
+                  />
+                  <div
+                    dangerouslySetInnerHTML={{ __html: this.props.footnotes }}
+                  />
+                </>
+              ) : (
+                <>
+                  <hr class="footnotes-sep" />
+                  <section
+                    class="footnotes"
+                    dangerouslySetInnerHTML={{ __html: this.props.footnotes }}
+                  />
+                </>
+              ))}
+            {this.props['include-after'] && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.props['include-after']
+                }}
+              />
+            )}
+          </section>
         </article>
       </div>
     );
