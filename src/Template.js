@@ -131,7 +131,7 @@ class Template extends Component {
             )
           )}
           {this.props.icon ? (
-            <>
+            <React.Fragment>
               <link
                 href={util.urlRelative(this.props.path, this.props.icon)}
                 rel="icon"
@@ -141,10 +141,10 @@ class Template extends Component {
                 href={util.urlRelative(this.props.path, this.props.icon)}
                 rel="apple-touch-icon"
               />
-            </>
+            </React.Fragment>
           ) : (
             this.props.path && (
-              <>
+              <React.Fragment>
                 <link
                   href={util.urlRelative(this.props.path, '/favicon.ico')}
                   rel="icon"
@@ -172,7 +172,7 @@ class Template extends Component {
                     rel="apple-touch-icon"
                   />
                 )}
-              </>
+              </React.Fragment>
             )
           )}
           <link
@@ -217,7 +217,7 @@ class Template extends Component {
               />
             ))}
           {this.props.mathjax && (
-            <>
+            <React.Fragment>
               <script type="text/x-mathjax-config">{`
 MathJax.Hub.Config({
   'HTML-CSS': {
@@ -235,7 +235,7 @@ MathJax.Hub.Config({
                 src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
                 type="text/javascript"
               />
-            </>
+            </React.Fragment>
           )}
           <script
             src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')}
@@ -271,7 +271,7 @@ MathJax.Hub.Config({
                 </a>
               </li>
               {this.props['github-repo'] ? (
-                <>
+                <React.Fragment>
                   <li role="presentation">
                     <a
                       href={this.props.github}
@@ -297,9 +297,9 @@ MathJax.Hub.Config({
                       <i class="fa fa-download" />
                     </a>
                   </li>
-                </>
+                </React.Fragment>
               ) : this.props['bitbucket-repo'] ? (
-                <>
+                <React.Fragment>
                   <li role="presentation">
                     <a
                       href={this.props.bitbucket}
@@ -319,7 +319,7 @@ MathJax.Hub.Config({
                       <i class="fa fa-download" />
                     </a>
                   </li>
-                </>
+                </React.Fragment>
               ) : (
                 <li role="presentation">
                   <a
@@ -374,14 +374,6 @@ MathJax.Hub.Config({
             />
           )}
         </nav>
-        <header>
-          <h1
-            dangerouslySetInnerHTML={{
-              __html: markdown.inline(this.props.title)
-            }}
-          />
-          {this.props.author && <h2>{this.props.author}</h2>}
-        </header>
         <article class="h-entry" id="main">
           <header>
             {this.props['include-before'] && (
@@ -392,7 +384,7 @@ MathJax.Hub.Config({
               />
             )}
             {this.props.title ? (
-              <>
+              <React.Fragment>
                 <h1 class="p-name">
                   <a
                     class="u-uid u-url"
@@ -491,7 +483,7 @@ MathJax.Hub.Config({
                     </p>
                   )
                 )}
-              </>
+              </React.Fragment>
             ) : (
               this.props.date && (
                 <h1 class="p-name">
@@ -550,7 +542,7 @@ MathJax.Hub.Config({
             <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
             {this.props.footnotes &&
               (this.props['footnotes-title'] ? (
-                <>
+                <React.Fragment>
                   <h1
                     dangerouslySetInnerHTML={{
                       __html: markdown.inline(this.props['footnotes-title'])
@@ -559,15 +551,15 @@ MathJax.Hub.Config({
                   <div
                     dangerouslySetInnerHTML={{ __html: this.props.footnotes }}
                   />
-                </>
+                </React.Fragment>
               ) : (
-                <>
+                <React.Fragment>
                   <hr class="footnotes-sep" />
                   <section
                     class="footnotes"
                     dangerouslySetInnerHTML={{ __html: this.props.footnotes }}
                   />
-                </>
+                </React.Fragment>
               ))}
             {this.props['include-after'] && (
               <div
