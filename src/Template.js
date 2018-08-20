@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 class Template extends Component {
   render() {
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <html
             prefix="og: http://ogp.me/ns#"
@@ -241,33 +241,33 @@ MathJax.Hub.Config({
             src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')}
           />
         </Helmet>
-        <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container-fluid topbar">
-            <ul class="nav nav-pills navbar-left">
+        <nav className="navbar navbar-default fixed-top">
+          <div className="container-fluid topbar">
+            <ul className="nav nav-pills navbar-left">
               <li role="presentation">
                 <a href="/" title={markdown.toText(this.props['home-title'])}>
-                  <i class="fa fa-home" />
+                  <i className="fa fa-home" />
                 </a>
               </li>
             </ul>
-            <ul class="nav nav-pills navbar-right">
+            <ul className="nav nav-pills navbar-right">
               {this.props.nav &&
                 this.props.nav.map(x => (
                   <li
                     dangerouslySetInnerHTML={{ __html: markdown.inline(x) }}
                   />
                 ))}
-              {/* <li role="presentation"><a href={this.props.facebook} target="_blank" title={markdown.toText(this.props['facebook-title'])}><i class="fa fa-facebook-square"></i></li> */}
-              {/* <li role="presentation"><a href={this.props.twitter} target="_blank" title={markdown.toText(this.props['twitter-title'])}><i class="fa fa-twitter-square"></i></li> */}
-              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i class="fa fa-linkedin-square"></i></li> */}
-              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i class="fa fa-linkedin-square"></i></li> */}
+              {/* <li role="presentation"><a href={this.props.facebook} target="_blank" title={markdown.toText(this.props['facebook-title'])}><i className="fa fa-facebook-square"></i></li> */}
+              {/* <li role="presentation"><a href={this.props.twitter} target="_blank" title={markdown.toText(this.props['twitter-title'])}><i className="fa fa-twitter-square"></i></li> */}
+              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i className="fa fa-linkedin-square"></i></li> */}
+              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i className="fa fa-linkedin-square"></i></li> */}
               <li role="presentation">
                 <a
                   href="/tmp/clipboard/"
                   target="_blank"
                   title={markdown.toText(this.props['clipboard-title'])}
                 >
-                  <i class="fa fa-clipboard" />
+                  <i className="fa fa-clipboard" />
                 </a>
               </li>
               {this.props['github-repo'] ? (
@@ -277,7 +277,7 @@ MathJax.Hub.Config({
                       href={this.props.github}
                       title={markdown.toText(this.props['github-repo-title'])}
                     >
-                      <i class="fa fa-github" />
+                      <i className="fa fa-github" />
                     </a>
                   </li>
                   <li role="presentation">
@@ -285,16 +285,16 @@ MathJax.Hub.Config({
                       href={this.props['github-edit']}
                       title={markdown.toText(this.props['github-edit-title'])}
                     >
-                      <i class="fa fa-edit" />
+                      <i className="fa fa-edit" />
                     </a>
                   </li>
-                  {/* <li role="presentation"><a href={this.props['github-history']} title={markdown.toText(this.props['github-history-title'])}><i class="fa fa-history"></i></a></li> */}
+                  {/* <li role="presentation"><a href={this.props['github-history']} title={markdown.toText(this.props['github-history-title'])}><i className="fa fa-history"></i></a></li> */}
                   <li role="presentation">
                     <a
                       href={this.props['github-raw']}
                       title={markdown.toText(this.props['markdown-title'])}
                     >
-                      <i class="fa fa-download" />
+                      <i className="fa fa-download" />
                     </a>
                   </li>
                 </React.Fragment>
@@ -307,16 +307,16 @@ MathJax.Hub.Config({
                         this.props['bitbucket-repo-title']
                       )}
                     >
-                      <i class="fa fa-edit" />
+                      <i className="fa fa-edit" />
                     </a>
                   </li>
-                  {/* <li role="presentation"><a href={this.props['bitbucket-history']} title={markdown.toText(this.props['bitbucket-history-title'])}><i class="fa fa-history"></i></a></li> */}
+                  {/* <li role="presentation"><a href={this.props['bitbucket-history']} title={markdown.toText(this.props['bitbucket-history-title'])}><i className="fa fa-history"></i></a></li> */}
                   <li role="presentation">
                     <a
                       href={this.props.file}
                       title={markdown.toText(this.props['markdown-title'])}
                     >
-                      <i class="fa fa-download" />
+                      <i className="fa fa-download" />
                     </a>
                   </li>
                 </React.Fragment>
@@ -326,7 +326,7 @@ MathJax.Hub.Config({
                     href={this.props.file}
                     title={markdown.toText(this.props['markdown-title'])}
                   >
-                    <i class="fa fa-download" />
+                    <i className="fa fa-download" />
                   </a>
                 </li>
               )}
@@ -338,26 +338,26 @@ MathJax.Hub.Config({
                     data-toggle="collapse"
                     title={markdown.toText(this.props['toc-title'])}
                   >
-                    <i class="fa fa-list" />
+                    <i className="fa fa-list" />
                   </a>
                 </li>
               )}
             </ul>
             <form
               action="https://www.google.com/search"
-              class="navbar-form"
+              className="navbar-form"
               method="get"
               target="_blank"
             >
-              <div class="form-group" style={{ display: 'inline' }}>
-                <div class="input-group" style={{ display: 'table' }}>
-                  <span class="input-group-addon" style={{ width: '1%' }}>
-                    <span class="glyphicon glyphicon-search" />
+              <div className="form-group" style={{ display: 'inline' }}>
+                <div className="input-group" style={{ display: 'table' }}>
+                  <span className="input-group-addon" style={{ width: '1%' }}>
+                    <span className="glyphicon glyphicon-search" />
                   </span>
                   <input
                     accesskey="."
                     autocomplete="off"
-                    class="form-control"
+                    className="form-control"
                     name="q"
                     title={markdown.toText(this.props['search-title'])}
                     type="text"
@@ -374,7 +374,7 @@ MathJax.Hub.Config({
             />
           )}
         </nav>
-        <article class="h-entry" id="main">
+        <article className="h-entry" id="main">
           <header>
             {this.props['include-before'] && (
               <div
@@ -385,9 +385,9 @@ MathJax.Hub.Config({
             )}
             {this.props.title ? (
               <React.Fragment>
-                <h1 class="p-name">
+                <h1 className="p-name">
                   <a
-                    class="u-uid u-url"
+                    className="u-uid u-url"
                     href={this.props.url}
                     rel="bookmark"
                     title="Permalink"
@@ -405,10 +405,10 @@ MathJax.Hub.Config({
                 )}
                 {this.props.author ? (
                   this.props.author.name ? (
-                    <p class="author">
+                    <p className="author">
                       {this.props.author.url ? (
                         <a
-                          class="p-author h-card"
+                          className="p-author h-card"
                           href={this.props.author.url}
                           dangerouslySetInnerHTML={{
                             __html: markdown.inline(this.props.author.name)
@@ -416,7 +416,7 @@ MathJax.Hub.Config({
                         />
                       ) : (
                         <span
-                          class="p-author"
+                          className="p-author"
                           dangerouslySetInnerHTML={{
                             __html: markdown.inline(this.props.author.name)
                           }}
@@ -431,7 +431,7 @@ MathJax.Hub.Config({
                         )}
                       {this.props.date && (
                         <time
-                          class="dt-published"
+                          className="dt-published"
                           datetime={util.dateFormat(this.props.date)}
                         >
                           {util.dateFormat(this.props.date)}
@@ -439,10 +439,10 @@ MathJax.Hub.Config({
                       )}
                     </p>
                   ) : (
-                    <p class="author">
+                    <p className="author">
                       {this.props['author-url'] ? (
                         <a
-                          class="p-author h-card"
+                          className="p-author h-card"
                           href={this.props['author-url']}
                           dangerouslySetInnerHTML={{
                             __html: markdown.inline(this.props.author)
@@ -450,7 +450,7 @@ MathJax.Hub.Config({
                         />
                       ) : this.props['author-email'] ? (
                         <a
-                          class="p-author h-card"
+                          className="p-author h-card"
                           href="mailto:{this.props['author-email']}"
                           dangerouslySetInnerHTML={{
                             __html: markdown.inline(this.props.author)
@@ -458,7 +458,7 @@ MathJax.Hub.Config({
                         />
                       ) : (
                         <span
-                          class="p-author"
+                          className="p-author"
                           dangerouslySetInnerHTML={{
                             __html: markdown.inline(this.props.author)
                           }}
@@ -473,7 +473,7 @@ MathJax.Hub.Config({
                         )}
                       {this.props.date && (
                         <time
-                          class="dt-published"
+                          className="dt-published"
                           datetime={util.dateFormat(this.props.date)}
                         >
                           {util.dateFormat(this.props.date)}
@@ -485,7 +485,7 @@ MathJax.Hub.Config({
                   this.props.date && (
                     <p>
                       <time
-                        class="dt-published"
+                        className="dt-published"
                         datetime={util.dateFormat(this.props.date)}
                       >
                         {util.dateFormat(this.props.date)}
@@ -496,9 +496,9 @@ MathJax.Hub.Config({
               </React.Fragment>
             ) : (
               this.props.date && (
-                <h1 class="p-name">
+                <h1 className="p-name">
                   <a
-                    class="u-uid u-url"
+                    className="u-uid u-url"
                     href={this.props.url}
                     title="Permalink"
                     dangerouslySetInnerHTML={{
@@ -510,7 +510,7 @@ MathJax.Hub.Config({
             )}
             {this.props.abstract && (
               <p
-                class="p-summary"
+                className="p-summary"
                 dangerouslySetInnerHTML={{
                   __html: markdown.inline(this.props.abstract)
                 }}
@@ -520,7 +520,7 @@ MathJax.Hub.Config({
               <figure>
                 <img
                   alt="{this.props['image-alt'] && this.props['image-alt']}"
-                  class="u-photo"
+                  className="u-photo"
                   {...(this.props['image-height']
                     ? { height: this.props['image-height'] }
                     : {})}
@@ -535,7 +535,7 @@ MathJax.Hub.Config({
                 <figure>
                   <img
                     alt="{this.props['image-alt'] && this.props['image-alt']}"
-                    class="u-photo"
+                    className="u-photo"
                     {...(this.props['image-height']
                       ? { height: this.props['image-height'] }
                       : {})}
@@ -548,7 +548,7 @@ MathJax.Hub.Config({
               )
             )}
           </header>
-          <section class="e-content{this.props.indent ? ' indent' : ''}{this.props.sidenotes ? ' sidenotes' : ''}">
+            <section className={'e-content' + (this.props.indent ? ' indent' : '') + (this.props.sidenotes ? ' sidenotes' : '')}>
             <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
             {this.props.footnotes &&
               (this.props['footnotes-title'] ? (
@@ -564,9 +564,9 @@ MathJax.Hub.Config({
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <hr class="footnotes-sep" />
+                  <hr className="footnotes-sep" />
                   <section
-                    class="footnotes"
+                    className="footnotes"
                     dangerouslySetInnerHTML={{ __html: this.props.footnotes }}
                   />
                 </React.Fragment>
