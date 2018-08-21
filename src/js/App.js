@@ -4,7 +4,7 @@ import markdown from './markdown';
 import matter from 'gray-matter';
 import Template from './Template';
 import LoadingScreen from './Load';
-import './App.css';
+import '../css/App.css';
 
 var settings = {
   noindex: true
