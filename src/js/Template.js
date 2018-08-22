@@ -355,8 +355,8 @@ MathJax.Hub.Config({
                     <span className="glyphicon glyphicon-search" />
                   </span>
                   <input
-                    accesskey="."
-                    autocomplete="off"
+                    accessKey="."
+                    autoComplete="off"
                     className="form-control"
                     name="q"
                     title={markdown.toText(this.props['search-title'])}
@@ -432,7 +432,7 @@ MathJax.Hub.Config({
                       {this.props.date && (
                         <time
                           className="dt-published"
-                          datetime={util.dateFormat(this.props.date)}
+                          dateTime={util.dateFormat(this.props.date)}
                         >
                           {util.dateFormat(this.props.date)}
                         </time>
@@ -474,7 +474,7 @@ MathJax.Hub.Config({
                       {this.props.date && (
                         <time
                           className="dt-published"
-                          datetime={util.dateFormat(this.props.date)}
+                          dateTime={util.dateFormat(this.props.date)}
                         >
                           {util.dateFormat(this.props.date)}
                         </time>
@@ -486,7 +486,7 @@ MathJax.Hub.Config({
                     <p>
                       <time
                         className="dt-published"
-                        datetime={util.dateFormat(this.props.date)}
+                        dateTime={util.dateFormat(this.props.date)}
                       >
                         {util.dateFormat(this.props.date)}
                       </time>
@@ -548,7 +548,13 @@ MathJax.Hub.Config({
               )
             )}
           </header>
-            <section className={'e-content' + (this.props.indent ? ' indent' : '') + (this.props.sidenotes ? ' sidenotes' : '')}>
+          <section
+            className={
+              'e-content' +
+              (this.props.indent ? ' indent' : '') +
+              (this.props.sidenotes ? ' sidenotes' : '')
+            }
+          >
             <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
             {this.props.footnotes &&
               (this.props['footnotes-title'] ? (
