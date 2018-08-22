@@ -66,4 +66,11 @@ util.withDOM = function(html, fn) {
   return body.innerHTML;
 };
 
+// util.dojQuery = function(html, fn) {
+//   var body = $('<div>');
+//   body.html(html);
+//   fn(body);
+//   return body.html();
+// }
+
 export default util;
