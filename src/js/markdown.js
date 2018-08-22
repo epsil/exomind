@@ -17,7 +17,7 @@ import _ from 'lodash';
 // var Reference = require('./reference')
 // var abbrev = require('./abbrev')
 // var util = require('./util')
-
+import util from './util';
 
 function markdown(str, opts) {
   str = str || '';
@@ -46,14 +46,7 @@ markdown.inline = function(str) {
 
 markdown.toText = function(str) {
   var html = markdown(str);
-  return markdown.HTMLtoText(html);
-};
-
-markdown.HTMLtoText = function(html) {
-  var div = document.createElement('div');
-  div.innerHTML = html;
-  var text = div.innerText || div.textContent;
-  return text.trim();
+  return util.HTMLtoText(html);
 };
 
 markdown.env = function(env) {

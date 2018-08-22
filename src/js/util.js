@@ -51,4 +51,19 @@ util.urlResolve = function(base, href) {
     .toString();
 };
 
+util.HTMLtoText = function(html) {
+  var text;
+  util.withDOM(html, function(body) {
+    text = body.innerText || body.textContent;
+  });
+  return text.trim();
+};
+
+util.withDOM = function(html, fn) {
+  var body = document.createElement('div');
+  body.innerHTML = html;
+  fn(body);
+  return body.innerHTML;
+};
+
 export default util;
