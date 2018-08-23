@@ -1,10 +1,10 @@
-var stringSimilarity = require('string-similarity');
-var page = require('./page');
-var sort = require('./sort');
-var references = require('../json/references.json');
-var URI = require('urijs');
-var $ = require('jquery');
-var _ = require('lodash');
+import stringSimilarity from 'string-similarity';
+import page from './page';
+import sort from './sort';
+import references from './json/references.json';
+import URI from 'urijs';
+import $ from 'jquery';
+import _ from 'lodash';
 
 function Reference(label, href, title, hidden) {
   this.label = label;
@@ -355,4 +355,4 @@ Reference.renderLinkList = function(refs, ordered) {
   return ordered ? '<ol>' + lis + '</ol>' : '<ul>' + lis + '</ul>';
 };
 
-module.exports = Reference;
+export default Reference;

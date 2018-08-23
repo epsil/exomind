@@ -14,7 +14,7 @@ import container from 'markdown-it-container';
 import hljs from 'highlight.js';
 import _ from 'lodash';
 // var preprocessor = require('./preprocessor')
-// var Reference = require('./reference')
+import Reference from './reference';
 // var abbrev = require('./abbrev')
 // var util = require('./util')
 import util from './util';
@@ -51,9 +51,9 @@ markdown.toText = function(str) {
 
 markdown.env = function(env) {
   env = env || {};
-  // env.references = env.references || {};
+  env.references = env.references || {};
   // env.abbreviations = env.abbreviations || {};
-  // env.references = _.assign({}, Reference.getReferences(), env.references)
+  env.references = _.assign({}, Reference.getReferences(), env.references)
   // env.abbreviations = _.assign({}, abbrev.getAbbreviations(), env.abbreviations)
   return env;
 };
@@ -214,7 +214,5 @@ markdown.containerPlugin = function(md) {
 // };
 
 markdown.md = markdown.parser();
-
-// module.exports = markdown
 
 export default markdown;

@@ -1,5 +1,5 @@
-var $ = require('jquery');
-var URI = require('urijs');
+import $ from 'jquery';
+import URI from 'urijs';
 
 var page = {};
 
@@ -26,4 +26,4 @@ page.path = function() {
   return '/' + href.replace(base, '');
 };
 
-module.exports = page;
+export default page;

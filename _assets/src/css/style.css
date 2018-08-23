@@ -383,7 +383,7 @@ nav a {
 
 nav, .navbar-default {
     border: none;
-    background-color: inherit;
+    background-color: #fff;
 }
 
 .nav > li > a:hover,
