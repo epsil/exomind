@@ -18,6 +18,7 @@ import Reference from './reference';
 // var abbrev = require('./abbrev')
 // var util = require('./util')
 import util from './util';
+import compile from './compile';
 
 function markdown(str, opts) {
   str = str || '';
@@ -53,7 +54,7 @@ markdown.env = function(env) {
   env = env || {};
   env.references = env.references || {};
   // env.abbreviations = env.abbreviations || {};
-  env.references = _.assign({}, Reference.getReferences(), env.references)
+  env.references = _.assign({}, Reference.getReferences(), env.references);
   // env.abbreviations = _.assign({}, abbrev.getAbbreviations(), env.abbreviations)
   return env;
 };
