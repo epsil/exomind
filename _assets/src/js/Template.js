@@ -130,7 +130,8 @@ class Template extends Component {
               />
             )
           )}
-          {this.props.icon ? (
+          {/*
+this.props.icon ? (
             <React.Fragment>
               <link
                 href={util.urlRelative(this.props.path, this.props.icon)}
@@ -174,7 +175,8 @@ class Template extends Component {
                 )}
               </React.Fragment>
             )
-          )}
+          )
+*/}
           <link
             href={util.urlRelative(this.props.path, '/_assets/css/wiki.css')}
             rel="stylesheet"
@@ -216,9 +218,8 @@ class Template extends Component {
                 type="text/javascript"
               />
             ))}
-          {this.props.mathjax && (
-            <React.Fragment>
-              <script type="text/x-mathjax-config">{`
+          {this.props.mathjax && [
+            <script type="text/x-mathjax-config">{`
 MathJax.Hub.Config({
   'HTML-CSS': {
     preferredFont: 'STIX'
@@ -229,14 +230,13 @@ MathJax.Hub.Config({
     }
   }
 })
-`}</script>
-              <script
-                async
-                src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-                type="text/javascript"
-              />
-            </React.Fragment>
-          )}
+`}</script>,
+            <script
+              async
+              src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+              type="text/javascript"
+            />
+          ]}
           <script
             src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')}
           />
@@ -366,13 +366,14 @@ MathJax.Hub.Config({
               </div>
             </form>
           </div>
-          {this.props.toc && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: this.props.toc
-              }}
-            />
-          )}
+          {this.props.toc &&
+            typeof this.props.toc === 'string' && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.props.toc
+                }}
+              />
+            )}
         </nav>
         <article className="h-entry" id="main">
           <header>
