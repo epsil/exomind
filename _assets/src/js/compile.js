@@ -2,8 +2,10 @@ import matter from 'gray-matter';
 import md5 from 'md5';
 import typogr from 'typogr';
 import URI from 'urijs';
+import $ from 'jquery';
 import _ from 'lodash';
 import markdown from './markdown';
+import toc from './toc';
 // import social from './social';
 import util from './util';
 // import document from '../templates/document';
@@ -117,7 +119,7 @@ function footnotes(view) {
   return view;
 }
 
-function toc(view) {
+function addToC(view) {
   if (view.toc !== false) {
     view.content = util.dojQuery(view.content, function(body) {
       var placeholder = body.find('#toc-placeholder');
@@ -192,7 +194,7 @@ function compile(data, path) {
   view = addI18n(view);
   view = dynamic(view, path);
   view = title(view);
-  // view = footnotes(view);
+  view = footnotes(view);
 
   // if (view.content !== '') {
   //   if (view.plain) {
@@ -201,7 +203,7 @@ function compile(data, path) {
   //   // view.content = body(view);
   // }
 
-  // view = toc(view);
+  view = addToC(view);
   view = typography(view);
   // view = links(view, path);
 

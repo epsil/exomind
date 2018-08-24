@@ -139,7 +139,6 @@ markdown.options = function(opts) {
 
 markdown.parser = function(opts) {
   opts = opts || {};
-  // opts = $.extend({}, markdown.defaults, opts)
   opts = _.assign({}, markdown.defaults, opts);
   return markdown.plugins(new MarkdownIt(opts), opts);
 };

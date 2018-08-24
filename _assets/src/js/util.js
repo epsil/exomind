@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import moment from 'moment';
 import URI from 'urijs';
 var util = {};
@@ -66,12 +67,12 @@ util.withDOM = function(html, fn) {
   return body.innerHTML;
 };
 
-// util.dojQuery = function(html, fn) {
-//   var body = $('<div>');
-//   body.html(html);
-//   fn(body);
-//   return body.html();
-// }
+util.dojQuery = function(html, fn) {
+  var body = $('<div>');
+  body.html(html);
+  fn(body);
+  return body.html();
+};
 
 // https://stackoverflow.com/questions/4901133/json-and-escaping-characters#answer-4901205
 util.JSONStringify = function(value, replacer, space, ascii) {
