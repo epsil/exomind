@@ -186,12 +186,12 @@ function compile(data, path) {
     md5: md5(data)
   });
 
-  // view.date = view.date || view.created;
+  view.date = view.date || view.created;
 
-  // view = addArrays(view);
-  // view = addI18n(view);
-  // view = dynamic(view, path);
-  // view = title(view);
+  view = addArrays(view);
+  view = addI18n(view);
+  view = dynamic(view, path);
+  view = title(view);
   // view = footnotes(view);
 
   // if (view.content !== '') {
@@ -202,7 +202,7 @@ function compile(data, path) {
   // }
 
   // view = toc(view);
-  // view = typography(view);
+  view = typography(view);
   // view = links(view, path);
 
   // if (view.plain) {
@@ -212,11 +212,6 @@ function compile(data, path) {
   // }
 
   // view.content = document(view);
-  // return view.content;
-  // view = {
-  //   content: "hva faen",
-  //   title: "hm"
-  // };
   return view;
 }
 
