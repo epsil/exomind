@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 class LoadingScreen extends Component {
   render() {
     return (
-      <div className="container">
+      <div className="text-center">
         <Helmet>
           <title>&hellip;</title>
         </Helmet>

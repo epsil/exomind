@@ -165,7 +165,7 @@ function links(view, path) {
 }
 
 function compile(data, path) {
-  path = path || '/'
+  path = path || '/';
   var file = URI(path).filename();
   if (file === '') {
     file = 'index.md';
@@ -186,33 +186,38 @@ function compile(data, path) {
     md5: md5(data)
   });
 
-  view.date = view.date || view.created;
+  // view.date = view.date || view.created;
 
-  view = addArrays(view);
-  view = addI18n(view);
-  view = dynamic(view, path);
-  view = title(view);
-  view = footnotes(view);
+  // view = addArrays(view);
+  // view = addI18n(view);
+  // view = dynamic(view, path);
+  // view = title(view);
+  // view = footnotes(view);
 
-  if (view.content !== '') {
-    if (view.plain) {
-      view.content = '<section>' + view.content + '</section>';
-    }
-    // view.content = body(view);
-  }
+  // if (view.content !== '') {
+  //   if (view.plain) {
+  //     view.content = '<section>' + view.content + '</section>';
+  //   }
+  //   // view.content = body(view);
+  // }
 
-  view = toc(view);
-  view = typography(view);
-  view = links(view, path);
+  // view = toc(view);
+  // view = typography(view);
+  // view = links(view, path);
 
-  if (view.plain) {
-    view.content = util.processSimple(view.content);
-  } else {
-    view.content = util.process(view.content);
-  }
+  // if (view.plain) {
+  //   view.content = util.processSimple(view.content);
+  // } else {
+  //   view.content = util.process(view.content);
+  // }
 
   // view.content = document(view);
-  return view.content;
+  // return view.content;
+  // view = {
+  //   content: "hva faen",
+  //   title: "hm"
+  // };
+  return view;
 }
 
 export default compile;

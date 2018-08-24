@@ -18,7 +18,6 @@ import Reference from './reference';
 // var abbrev = require('./abbrev')
 // var util = require('./util')
 import util from './util';
-import compile from './compile';
 
 function markdown(str, opts) {
   str = str || '';

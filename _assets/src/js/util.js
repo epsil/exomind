@@ -73,4 +73,19 @@ util.withDOM = function(html, fn) {
 //   return body.html();
 // }
 
+// https://stackoverflow.com/questions/4901133/json-and-escaping-characters#answer-4901205
+util.JSONStringify = function(value, replacer, space, ascii) {
+  var json = JSON.stringify(value, replacer, space);
+  if (ascii) {
+    json = json.replace(/[\u007f-\uffff]/gi, function(c) {
+      return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
+    });
+  }
+  return json;
+};
+
+util.prettyJSON = function(json) {
+  return util.JSONStringify(json, null, 2, true);
+};
+
 export default util;
