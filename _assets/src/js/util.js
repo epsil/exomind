@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import moment from 'moment';
+import Reference from './reference';
 import URI from 'urijs';
 var util = {};
 
@@ -88,5 +89,35 @@ util.JSONStringify = function(value, replacer, space, ascii) {
 util.prettyJSON = function(json) {
   return util.JSONStringify(json, null, 2, true);
 };
+
+// similar to Hakyll's relativizeUrls
+util.relativizeUrls = function (path) {
+  return this.each(function () {
+    $(this).find('a[href]').each(function () {
+      var a = $(this)
+      var href = a.attr('href')
+      if (!a.hasClass('u-url') && !a.hasClass('external')) {
+        // redirect external links to local copy
+        var ref = Reference.getReference(href)
+        if (ref) {
+          href = ref.href
+          a.attr('href', href)
+          a.attr('title', a.attr('title') || ref.title || '')
+        }
+      }
+      // make URL relative
+      href = util.urlRelative(path, href)
+      a.attr('href', href)
+    })
+    $(this).find('img[src]').each(function () {
+      var img = $(this)
+      var src = img.attr('src')
+      src = util.urlRelative(path, src)
+      img.attr('src', src)
+    })
+  })
+}
+
+$.fn.relativizeUrls = util.relativizeUrls;
 
 export default util;

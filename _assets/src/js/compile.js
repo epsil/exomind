@@ -205,7 +205,7 @@ function compile(data, path) {
 
   view = addToC(view);
   view = typography(view);
-  // view = links(view, path);
+  view = links(view, path);
 
   // if (view.plain) {
   //   view.content = util.processSimple(view.content);
