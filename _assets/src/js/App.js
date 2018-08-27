@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-import markdown from './markdown';
 import compile from './compile';
 import matter from 'gray-matter';
 import Template from './Template';
 import LoadingScreen from './Load';
-import util from './util';
+import page from './page';
 import '../css/App.css';
 
 var settings = {
@@ -22,7 +21,7 @@ class App extends Component {
     fetch('index.md')
       .then(response => response.text())
       .then(text => {
-        this.setState(compile(text));
+        this.setState(compile(text, page.path()));
         this.setState({
           markdown: text
         });

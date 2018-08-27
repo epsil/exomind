@@ -3,15 +3,22 @@ import URI from 'urijs';
 
 var page = {};
 
-page.jsPath = '/_assets/js/wiki.js';
-page.cssPath = '/_assets/css/wiki.css';
+page.jsPath = '/_assets/build/static/js/main.js';
+page.jsBundlePath = '/static/js/bundle.js';
+page.cssPath = '/_assets/build/static/css/main.css';
 
 page.root = function() {
+  var jsPath = page.jsPath;
   var href = window.location.href;
-  var script = $('script[src*="wiki"]');
+  var script = $('script[src*="main"]');
+  if (!script.length) {
+    script = $('script[src*="bundle"]');
+    jsPath = page.jsBundlePath;
+  }
   var src = script.attr('src');
   href = href.replace(/[^/]*.html?$/i, '');
-  src = src.replace(page.jsPath.replace(/^\//, ''), '');
+  var relativeJsPath = jsPath.replace(/^\//, '');
+  src = src.replace(relativeJsPath, '');
   src = URI(src)
     .absoluteTo(href)
     .toString();
