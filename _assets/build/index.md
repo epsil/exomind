@@ -3,6 +3,7 @@ title: Markdown *test*
 author: Forfatter
 date: 2017-01-02
 test-this: a test
+mathjax: true
 ---
 
 This is a *Markdown* file ...

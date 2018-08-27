@@ -18,26 +18,11 @@ class App extends Component {
     this.state = settings;
   }
 
-  // componentDidMount() {
-  //   fetch('index.md')
-  //     .then(response => response.text())
-  //     .then(text => this.setState(matter(text.trim())))
-  //     // .then(() => this.setState(this.state.data))
-  //     .then(() => {
-  //       alert(compile(this.state));
-  //       return this.setState({
-  //         markdown: this.state.content.trim(),
-  //         content: markdown(this.state.content)
-  //       });
-  //     });
-  // }
-
   componentDidMount() {
     fetch('index.md')
       .then(response => response.text())
       .then(text => {
         this.setState(compile(text));
-        // alert(util.prettyJSON(this.state));
         this.setState({
           markdown: text
         });
@@ -45,10 +30,10 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.markdown) {
-      return <Template {...this.state} />;
-    } else {
+    if (!this.state.markdown) {
       return <LoadingScreen />;
+    } else {
+      return <Template {...this.state} />;
     }
   }
 }
