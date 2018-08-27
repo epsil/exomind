@@ -37,7 +37,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node --experimental-modules src/js/mjs/build.mjs",
+    "build": "npm run clean; react-scripts build; npm run rename",
+    "index": "node --experimental-modules src/js/mjs/build.mjs",
     "rename": "npm run rename-css && npm run rename-js",
     "rename-css": "cp build/static/css/main.*.css build/static/css/main.css",
     "rename-js": "cp build/static/js/main.*.js build/static/js/main.js",
