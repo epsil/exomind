@@ -58,7 +58,7 @@
     "save": "npm run commit && npm run push",
     "amend": "git --no-pager status && git --no-pager diff && git commit -a --amend --no-edit",
     "amend-html": "npm run build && npm run amend",
-    "build": "node js/lib/build.js",
+    "build": "node src/js/build.js",
     "build-amend": "npm run rebuild && npm run amend",
     "reword": "git --no-pager status && git --no-pager diff && git commit -a --amend",
     "reset": "git reset --hard",
