@@ -17,15 +17,13 @@ class App extends Component {
     this.state = settings;
   }
 
-  componentDidMount() {
-    fetch('index.md')
-      .then(response => response.text())
-      .then(text => {
-        this.setState(compile(text, page.path()));
-        this.setState({
-          markdown: text
-        });
-      });
+  async componentDidMount() {
+    let response = await fetch('index.md');
+    let text = await response.text();
+    this.setState(compile(text, page.path()));
+    this.setState({
+      markdown: text
+    });
   }
 
   render() {
