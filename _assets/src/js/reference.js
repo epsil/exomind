@@ -1,7 +1,7 @@
 import stringSimilarity from 'string-similarity';
 // import page from './page';
 import sort from './sort';
-import references from './json/references.json';
+import references from '../json/references.json';
 import URI from 'urijs';
 // import $ from 'jquery';
 import _ from 'lodash';

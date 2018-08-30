@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import compile from './compile';
-import matter from 'gray-matter';
 import Template from './Template';
 import LoadingScreen from './Load';
 import page from './page';

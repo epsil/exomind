@@ -1,6 +1,4 @@
-import $ from 'jquery';
 import moment from 'moment';
-import Reference from './reference';
 import URI from 'urijs';
 var util = {};
 
@@ -68,13 +66,6 @@ util.withDOM = function(html, fn) {
   return body.innerHTML;
 };
 
-util.dojQuery = function(html, fn) {
-  var body = $('<div>');
-  body.html(html);
-  fn(body);
-  return body.html();
-};
-
 // https://stackoverflow.com/questions/4901133/json-and-escaping-characters#answer-4901205
 util.JSONStringify = function(value, replacer, space, ascii) {
   var json = JSON.stringify(value, replacer, space);
@@ -88,49 +79,6 @@ util.JSONStringify = function(value, replacer, space, ascii) {
 
 util.prettyJSON = function(json) {
   return util.JSONStringify(json, null, 2, true);
-};
-
-// similar to Hakyll's relativizeUrls
-util.relativizeUrls = function(path) {
-  return this.each(function() {
-    $(this)
-      .find('a[href]')
-      .each(function() {
-        var a = $(this);
-        var href = a.attr('href');
-        if (!a.hasClass('u-url') && !a.hasClass('external')) {
-          // redirect external links to local copy
-          var ref = Reference.getReference(href);
-          if (ref) {
-            href = ref.href;
-            a.attr('href', href);
-            a.attr('title', a.attr('title') || ref.title || '');
-          }
-        }
-        // make URL relative
-        href = util.urlRelative(path, href);
-        a.attr('href', href);
-
-        // add index.html to end of link
-        if (
-          util.isLocalFile() &&
-          !util.isExternalUrl(href) &&
-          util.urlWithoutAnchor(href).match(/\/$/)
-        ) {
-          href = util.urlPlusIndexHtml(href);
-          a.attr('href', href);
-        }
-      });
-
-    $(this)
-      .find('img[src]')
-      .each(function() {
-        var img = $(this);
-        var src = img.attr('src');
-        src = util.urlRelative(path, src);
-        img.attr('src', src);
-      });
-  });
 };
 
 util.isLocalFile = function() {
@@ -154,7 +102,5 @@ util.urlWithoutAnchor = function(url) {
 util.urlPlusIndexHtml = function(url) {
   return util.urlWithoutAnchor(url) + 'index.html' + util.urlAnchor(url);
 };
-
-$.fn.relativizeUrls = util.relativizeUrls;
 
 export default util;

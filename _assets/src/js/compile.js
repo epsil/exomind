@@ -12,7 +12,7 @@ import jqUtil from './jq-util';
 // import document from '../templates/document';
 // import body from '../templates/body';
 // import index from '../templates/index';
-import settings from './json/settings.json';
+import settings from '../json/settings.json';
 
 function parse(data) {
   // Allow the initial '---' to be omitted.

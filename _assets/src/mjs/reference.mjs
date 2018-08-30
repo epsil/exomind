@@ -1,10 +1,11 @@
 import stringSimilarity from 'string-similarity';
-import page from './page';
+// import page from './page';
 import sort from './sort';
 import references from '../json/references.json';
 import URI from 'urijs';
-import $ from 'jquery';
+// import $ from 'jquery';
 import _ from 'lodash';
+// import jqUtil from './jq-util';
 
 function Reference(label, href, title, hidden) {
   this.label = label;
@@ -43,7 +44,7 @@ Reference.extractReferenceDefinitionsFromMarkdown = function(md, dict) {
   dict = dict || {};
   md = md.trim();
   var lines = md.split(/\r?\n/);
-  lines.map(function(line) {
+  lines.forEach(function(line) {
     var match = line.match(/^\[([^\]]+)]: (.*?)( "(.*)")?$/i);
     var isFootnote = match && match[1].match(/^\^/);
     if (match && !isFootnote) {
@@ -209,68 +210,68 @@ Reference.search = function(str) {
   return arr;
 };
 
-Reference.searchHandler = function(e) {
-  var form = $(this);
-  var input = form.find('input');
-  var str = input.val();
-  str = str.replace(/\s+/gi, ' ').trim();
-  var matches = Reference.search(str);
-  Reference.updateSearchMatches(matches);
-  return false;
-};
+// Reference.searchHandler = function(e) {
+//   var form = $(this);
+//   var input = form.find('input');
+//   var str = input.val();
+//   str = str.replace(/\s+/gi, ' ').trim();
+//   var matches = Reference.search(str);
+//   Reference.updateSearchMatches(matches);
+//   return false;
+// };
 
-Reference.renderSearchMatches = function(matches) {
-  if (matches.length === 0) {
-    return '';
-  } else {
-    var counter = 1;
-    return (
-      '<ol>' +
-      matches
-        .map(function(match) {
-          // if only we had some template syntax like JSX
-          // to make this simpler
-          var li = $('<li>');
-          var a = $('<a>');
-          a.attr('accesskey', counter++);
-          a.attr('href', match.href);
-          a.text(match.title || _.capitalize(match.label));
-          li.append(a);
-          return li.prop('outerHTML');
-        })
-        .join('') +
-      '</ol>'
-    );
-  }
-};
+// Reference.renderSearchMatches = function(matches) {
+//   if (matches.length === 0) {
+//     return '';
+//   } else {
+//     var counter = 1;
+//     return (
+//       '<ol>' +
+//       matches
+//         .map(function(match) {
+//           // if only we had some template syntax like JSX
+//           // to make this simpler
+//           var li = $('<li>');
+//           var a = $('<a>');
+//           a.attr('accesskey', counter++);
+//           a.attr('href', match.href);
+//           a.text(match.title || _.capitalize(match.label));
+//           li.append(a);
+//           return li.prop('outerHTML');
+//         })
+//         .join('') +
+//       '</ol>'
+//     );
+//   }
+// };
 
-Reference.updateSearchMatches = function(matches) {
-  var html = Reference.renderSearchMatches(matches);
-  var div = Reference.findSearchMatchesContainer();
-  div.html(html);
-  div.relativizeUrls(page.path());
-  div.find('a').focus(function() {
-    setTimeout(function() {
-      Reference.hideSearchMatches();
-    }, 500);
-  });
-  div.fixLinks();
-};
+// Reference.updateSearchMatches = function(matches) {
+//   var html = Reference.renderSearchMatches(matches);
+//   var div = Reference.findSearchMatchesContainer();
+//   div.html(html);
+//   div.relativizeUrls(page.path());
+//   div.find('a').focus(function() {
+//     setTimeout(function() {
+//       Reference.hideSearchMatches();
+//     }, 500);
+//   });
+//   div.fixLinks();
+// };
 
-Reference.hideSearchMatches = function() {
-  Reference.updateSearchMatches([]);
-  $('nav form input').val('');
-};
+// Reference.hideSearchMatches = function() {
+//   Reference.updateSearchMatches([]);
+//   $('nav form input').val('');
+// };
 
-Reference.findSearchMatchesContainer = function() {
-  var div = $('nav .search').first();
-  if (div.length === 0) {
-    div = $('<div class="search container-fluid"></div>');
-    var container = $('nav .container-fluid').first();
-    container.after(div);
-  }
-  return div;
-};
+// Reference.findSearchMatchesContainer = function() {
+//   var div = $('nav .search').first();
+//   if (div.length === 0) {
+//     div = $('<div class="search container-fluid"></div>');
+//     var container = $('nav .container-fluid').first();
+//     container.after(div);
+//   }
+//   return div;
+// };
 
 // Reference.breadcrumbs = function (path) {
 //   var newPathSegments = []
@@ -304,55 +305,55 @@ Reference.findSearchMatchesContainer = function() {
 //
 // alternate approach: getReferencesByHref(... regexp ...)
 
-Reference.breadcrumbRefs = function(path) {
-  var refs = Reference.getReferencesByPredicate(function(ref) {
-    return path !== ref.href && path.startsWith(ref.href);
-  });
-  sort(
-    refs,
-    sort.ascending(function(ref) {
-      return ref.href;
-    })
-  );
-  return refs;
-};
+// Reference.breadcrumbRefs = function(path) {
+//   var refs = Reference.getReferencesByPredicate(function(ref) {
+//     return path !== ref.href && path.startsWith(ref.href);
+//   });
+//   sort(
+//     refs,
+//     sort.ascending(function(ref) {
+//       return ref.href;
+//     })
+//   );
+//   return refs;
+// };
 
-Reference.subPageRefs = function(path) {
-  var refs = Reference.getReferencesByPredicate(function(ref) {
-    return path !== ref.href && ref.href.startsWith(path);
-  });
-  sort(
-    refs,
-    sort.ascending(function(ref) {
-      return ref.href;
-    })
-  );
-  return refs;
-};
+// Reference.subPageRefs = function(path) {
+//   var refs = Reference.getReferencesByPredicate(function(ref) {
+//     return path !== ref.href && ref.href.startsWith(path);
+//   });
+//   sort(
+//     refs,
+//     sort.ascending(function(ref) {
+//       return ref.href;
+//     })
+//   );
+//   return refs;
+// };
 
-// move this into the page template as a Handlebars helper?
-Reference.renderBreadcrumbs = function(path) {
-  var breadcrumbRefs = Reference.breadcrumbRefs(path);
-  return Reference.renderLinkList(breadcrumbRefs);
-};
+// // move this into the page template as a Handlebars helper?
+// Reference.renderBreadcrumbs = function(path) {
+//   var breadcrumbRefs = Reference.breadcrumbRefs(path);
+//   return Reference.renderLinkList(breadcrumbRefs);
+// };
 
-Reference.renderSubPages = function(path) {
-  var subPageRefs = Reference.subPageRefs(path);
-  return Reference.renderLinkList(subPageRefs);
-};
+// Reference.renderSubPages = function(path) {
+//   var subPageRefs = Reference.subPageRefs(path);
+//   return Reference.renderLinkList(subPageRefs);
+// };
 
-Reference.renderLinkList = function(refs, ordered) {
-  var lis = refs
-    .map(function(ref) {
-      var li = $('<li>');
-      var a = $('<a>');
-      a.attr('href', ref.href);
-      a.text(ref.title);
-      li.append(a);
-      return li.prop('outerHTML');
-    })
-    .join('');
-  return ordered ? '<ol>' + lis + '</ol>' : '<ul>' + lis + '</ul>';
-};
+// Reference.renderLinkList = function(refs, ordered) {
+//   var lis = refs
+//     .map(function(ref) {
+//       var li = $('<li>');
+//       var a = $('<a>');
+//       a.attr('href', ref.href);
+//       a.text(ref.title);
+//       li.append(a);
+//       return li.prop('outerHTML');
+//     })
+//     .join('');
+//   return ordered ? '<ol>' + lis + '</ol>' : '<ul>' + lis + '</ul>';
+// };
 
 export default Reference;

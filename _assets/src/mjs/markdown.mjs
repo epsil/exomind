@@ -18,6 +18,7 @@ import Reference from './reference';
 // var abbrev = require('./abbrev')
 // var util = require('./util')
 import util from './util';
+// import jqUtil from './jq-util';
 
 function markdown(str, opts) {
   str = str || '';
@@ -69,7 +70,7 @@ markdown.highlightBlock = function(str, lang) {
 
 markdown.highlightInline = function(str) {
   return str;
-  // return util.dojQuery(str, function (body) {
+  // return jqUtil.dojQuery(str, function (body) {
   //   body.find('code[class]').each(function () {
   //     var code = $(this)
   //     var pre = code.parent()
