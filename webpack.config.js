@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './_assets/src/index.js',
+  entry: ['@babel/polyfill', './_assets/src/index.js'],
   output: {
     path: path.resolve(__dirname, '_assets/build/static/js'),
     filename: 'main.js'
