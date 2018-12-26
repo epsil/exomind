@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import markdown from './markdown';
 import util from './util';
-import 'bootstrap/dist/css/bootstrap.css';
 
 class Template extends Component {
   render() {
@@ -177,7 +176,10 @@ this.props.icon ? (
             )
           )
 */}
-          {/* <link href={util.urlRelative(this.props.path, '/_assets/css/wiki.css')} rel="stylesheet" /> */}
+          <link
+            href={util.urlRelative(this.props.path, '/_assets/css/wiki.css')}
+            rel="stylesheet"
+          />
           {/* <link href={this.props.url} rel="canonical" /> */}
           <link
             href={this.props.file}
@@ -238,7 +240,7 @@ MathJax.Hub.Config({
             src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')}
           />
         </Helmet>
-        <nav className="navbar navbar-default fixed-top">
+        <nav className="navbar navbar-default navbar-fixed-top">
           <div className="container-fluid topbar">
             <ul className="nav nav-pills navbar-left">
               <li role="presentation">

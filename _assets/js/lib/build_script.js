@@ -113,10 +113,10 @@ ${view.noindex ? `<meta content="noindex" name="robots">` : ``}
     view.path,
     '/favicon.ico'
   )}" rel="icon" type="image/x-icon">
-<!-- <link href="${util.urlRelative(
+<link href="${util.urlRelative(
     view.path,
     '/_assets/css/wiki.css'
-  )}" rel="stylesheet"> -->
+  )}" rel="stylesheet">
 <script src="${util.urlRelative(view.path, '/_assets/js/wiki.js')}"></script>
 </head>
 <body>

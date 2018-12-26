@@ -4,7 +4,6 @@ import compile from './compile';
 import Template from './Template';
 import LoadingScreen from './Load';
 import page from './page';
-import '../../css/App.css';
 
 var settings = {
   noindex: true
