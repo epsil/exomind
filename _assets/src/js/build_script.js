@@ -1,9 +1,6 @@
 /* global document:true, window:true */
 import fs from 'fs';
 import path from 'path';
-// import jsdom from 'jsdom';
-// document = jsdom.jsdom()
-// window = document.defaultView
 import matter from 'gray-matter';
 import tidy5 from 'tidy-html5';
 var tidy = tidy5.tidy;
@@ -98,6 +95,35 @@ function format(html) {
   return html;
 }
 
+function template(view) {
+  return `<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+${
+    view.referrer
+      ? `<meta content="${view.referrer}" name="referrer">`
+      : `<meta content="no-referrer" name="referrer">`
+  }
+${view.noindex ? `<meta content="noindex" name="robots">` : ``}
+<meta content="text/css" http-equiv="Content-Style-Type">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<link href="${util.urlRelative(
+    view.path,
+    '/favicon.ico'
+  )}" rel="icon" type="image/x-icon">
+<link href="${util.urlRelative(
+    view.path,
+    '/_assets/css/wiki.css'
+  )}" rel="stylesheet">
+<script src="${util.urlRelative(view.path, '/_assets/js/wiki.js')}"></script>
+</head>
+<body>
+</body>
+</html>`;
+}
+
 function convert(input, output) {
   return new Promise(function(resolve, reject) {
     fs.readFile(input, function(err, data) {
@@ -109,7 +135,11 @@ function convert(input, output) {
         } else {
           data = '';
         }
-        var html = compile(data, url(input));
+        var view = _.assign({}, settings, {
+          content: '',
+          path: location(input)
+        });
+        var html = template(view);
         if (settings.tidy) {
           html = format(html);
         }
