@@ -48,7 +48,7 @@
     "clean-js": "rm -f build/static/js/*.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "prettier": "prettier --single-quote --write \"src/**/*.{js,jsx,json}\"",
+    "prettier": "prettier --single-quote --write \"**/*.{js,jsx,json}\"",
     "commit": "git --no-pager status && git --no-pager diff && git commit -a -m \"Edited offline\"",
     "commit!": "git commit -a -m \"Edited offline\" && git --no-pager status",
     "commit!!": "npm run save",
