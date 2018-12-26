@@ -29,14 +29,13 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.2",
     "react-helmet": "^5.2.0",
-    "react-scripts": "1.1.4",
     "string-similarity": "^1.2.0",
     "tidy-html5": "^0.1.1",
     "typogr": "^0.6.8",
     "urijs": "^1.19.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run open && npm run server",
     "webpack": "webpack --mode development",
     "browser": "npm run webpack",
     "build": "node _assets/js/lib/build.js",
@@ -47,8 +46,9 @@
     "clean": "npm run clean-css && npm run clean-js",
     "clean-css": "rm -f build/static/css/*.css",
     "clean-js": "rm -f build/static/js/*.js",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "http": "npm run server",
+    "server": "webpack-dev-server --port 8000",
+    "open": "open http://localhost:8000/ || xdg-open http://localhost:8000/",
     "prettier": "npm run prettier-js && npm run prettier-css",
     "prettier-js": "prettier --single-quote --write \"**/*.{js,jsx,json}\"",
     "prettier-css": "prettier --tab-width 4 --write \"**/*.css\"",
@@ -95,6 +95,7 @@
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14"
   }
 }
