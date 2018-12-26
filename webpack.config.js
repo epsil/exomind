@@ -2,10 +2,10 @@ var path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: ['@babel/polyfill', './_assets/src/index.js'],
+  entry: ['@babel/polyfill', './_assets/js/lib/index.js'],
   output: {
-    path: path.resolve(__dirname, '_assets/build/static/js'),
-    filename: 'main.js'
+    path: path.resolve(__dirname, '_assets/js'),
+    filename: 'wiki.js'
   },
   module: {
     rules: [
@@ -28,7 +28,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[hash:8].[ext]',
-              outputPath: '../media'
+              outputPath: '../static/media'
             }
           }
         ]

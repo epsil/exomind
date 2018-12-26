@@ -1,0 +1,26 @@
+{
+  "A PAGE": {
+    "href": "/page/",
+    "title": "A page"
+  },
+  "ANOTHER PAGE": {
+    "href": "/anotherpage/",
+    "title": "Another page"
+  },
+  "ANOTHERPAGE": {
+    "href": "/anotherpage/",
+    "title": "Another page"
+  },
+  "INDEX": {
+    "href": "/",
+    "title": "Markdown test"
+  },
+  "MARKDOWN *TEST*": {
+    "href": "/",
+    "title": "Markdown test"
+  },
+  "PAGE": {
+    "href": "/page/",
+    "title": "A page"
+  }
+}

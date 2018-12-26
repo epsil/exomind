@@ -38,8 +38,9 @@
   "scripts": {
     "start": "react-scripts start",
     "webpack": "webpack --mode development",
-    "build": "npm run clean; react-scripts build; npm run rename",
-    "index": "node _assets/src/js/build.js",
+    "browser": "npm run webpack",
+    "build": "node _assets/js/lib/build.js",
+    "rebuild": "npm run build && npm run webpack",
     "rename": "npm run rename-css && npm run rename-js",
     "rename-css": "cp build/static/css/main.*.css build/static/css/main.css",
     "rename-js": "cp build/static/js/main.*.js build/static/js/main.js",

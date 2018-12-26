@@ -1,7 +1,7 @@
 ---
-title: Another page
+title: A page
 ---
 
-This is another page.
+This is a page.
 
-Go to [a page].
+Go to [another page].
