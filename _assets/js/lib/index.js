@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '../../css/index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
-registerServiceWorker();
+function bootstrap() {
+  document.addEventListener('DOMContentLoaded', function(event) {
+    const body = document.body;
+    const div = document.createElement('div');
+    body.appendChild(div);
+    ReactDOM.render(<App />, div);
+  });
+}
 
-document.addEventListener('DOMContentLoaded', function(event) {
-  const body = document.body;
-  const div = document.createElement('div');
-  body.appendChild(div);
-  ReactDOM.render(<App />, div);
-});
+bootstrap();
