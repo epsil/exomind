@@ -40,6 +40,7 @@
     "browser": "npm run webpack",
     "webpack": "webpack --mode development",
     "index": "node _assets/js/lib/build.js",
+    "html": "npm run index",
     "rebuild": "npm run index && npm run build",
     "reinstall": "git clean -f -d -d x && npm install",
     "rename": "npm run rename-css && npm run rename-js",
