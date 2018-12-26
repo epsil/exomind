@@ -366,14 +366,13 @@ MathJax.Hub.Config({
               </div>
             </form>
           </div>
-          {this.props.toc &&
-            typeof this.props.toc === 'string' && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: this.props.toc
-                }}
-              />
-            )}
+          {this.props.toc && typeof this.props.toc === 'string' && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: this.props.toc
+              }}
+            />
+          )}
         </nav>
         <article className="h-entry" id="main">
           <header>
@@ -423,13 +422,12 @@ MathJax.Hub.Config({
                           }}
                         />
                       )}
-                      {this.props.author &&
-                        this.props.date && (
-                          <React.Fragment>
-                            {' '}
-                            <span>&bull;</span>{' '}
-                          </React.Fragment>
-                        )}
+                      {this.props.author && this.props.date && (
+                        <React.Fragment>
+                          {' '}
+                          <span>&bull;</span>{' '}
+                        </React.Fragment>
+                      )}
                       {this.props.date && (
                         <time
                           className="dt-published"
@@ -465,13 +463,12 @@ MathJax.Hub.Config({
                           }}
                         />
                       )}
-                      {this.props.author &&
-                        this.props.date && (
-                          <React.Fragment>
-                            {' '}
-                            <span>&bull;</span>{' '}
-                          </React.Fragment>
-                        )}
+                      {this.props.author && this.props.date && (
+                        <React.Fragment>
+                          {' '}
+                          <span>&bull;</span>{' '}
+                        </React.Fragment>
+                      )}
                       {this.props.date && (
                         <time
                           className="dt-published"
