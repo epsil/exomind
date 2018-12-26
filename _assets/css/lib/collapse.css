@@ -1,11 +1,16 @@
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     padding-right: 1em;
     position: relative;
 }
 
 .h-entry .collapse-button {
     border: none;
-    color: rgba(0, 0, 0, 0.0);
+    color: rgba(0, 0, 0, 0);
     cursor: pointer;
     font-style: normal;
     height: 100%;
@@ -19,15 +24,20 @@ h1, h2, h3, h4, h5, h6 {
     top: 0;
     transition: all 0.5s;
     width: 100%;
-    user-select: none;           /* Non-prefixed version */
+    user-select: none; /* Non-prefixed version */
     -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-h1:hover .collapse-button, h2:hover .collapse-button, h3:hover .collapse-button, h4:hover .collapse-button, h5:hover .collapse-button, h6:hover .collapse-button,
+h1:hover .collapse-button,
+h2:hover .collapse-button,
+h3:hover .collapse-button,
+h4:hover .collapse-button,
+h5:hover .collapse-button,
+h6:hover .collapse-button,
 .collapse-button[aria-expanded="false"] {
     color: #cccccc;
     text-decoration: none;
@@ -73,7 +83,8 @@ ul .collapse-button[aria-expanded="true"]:before {
     margin-right: 0;
 }
 
-ul.collapse, ul.collapse ul {
+ul.collapse,
+ul.collapse ul {
     list-style-type: none !important;
 }
 
@@ -98,7 +109,8 @@ ul.collapse .collapse-button {
     width: 1em;
 }
 
-.collapse-ellipsis, .collapse-ellipsis:hover {
+.collapse-ellipsis,
+.collapse-ellipsis:hover {
     border: none;
     color: #999999 !important;
     font-weight: bold;

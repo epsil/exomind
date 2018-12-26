@@ -1,12 +1,17 @@
 body {
     color: rgb(23, 43, 77) !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue", Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Myriad Web",
+        "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue", Helvetica, Arial,
+        "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans",
+        "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva,
+        sans-serif !important;
     font-size: 95% !important;
     font-variant: normal;
     line-height: 1.5;
 }
 
-a, a:hover {
+a,
+a:hover {
     border: none;
     color: #0052cc;
 }
@@ -21,7 +26,11 @@ blockquote {
     padding-left: 0.75em;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     background-color: rgb(244, 245, 247);
     border-radius: 3px;
     font-size: 0.9em !important;
@@ -44,7 +53,12 @@ hr:before {
     content: normal;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: inherit !important;
     font-weight: normal;
 }
@@ -74,7 +88,8 @@ h6 {
     font-size: 1em;
 }
 
-header h1, header h2 {
+header h1,
+header h2 {
     border: none;
 }
 
@@ -96,10 +111,11 @@ header h1, header h2 {
 
 .header-anchor:before {
     content: "\e144"; /* glyphicon-link */
-    font-family: 'Glyphicons Halflings';
+    font-family: "Glyphicons Halflings";
 }
 
-body nav, body .navbar-default {
+body nav,
+body .navbar-default {
     background-color: rgb(244, 245, 247);
     /* color: #ffffff !important; */
 }

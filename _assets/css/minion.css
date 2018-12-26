@@ -1,16 +1,29 @@
 body {
-    font-family: "Minion Web", "Minion Pro", "Minion Std", Minion, "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text", Charter, "PT Serif", Georgia, "Iowan Old Style", Iowan, "Iowan Web", "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia, Utopia, Marion, Cochin, "Palatino Linotype", Palatino, serif !important;
+    font-family: "Minion Web", "Minion Pro", "Minion Std", Minion,
+        "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text",
+        Charter, "PT Serif", Georgia, "Iowan Old Style", Iowan, "Iowan Web",
+        "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia,
+        Utopia, Marion, Cochin, "Palatino Linotype", Palatino, serif !important;
     font-size: 145% !important;
     font-variant: common-ligatures oldstyle-nums;
     line-height: 1.4;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: inherit !important;
     font-weight: normal;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-size: 1em !important;
 }
 
@@ -35,24 +48,33 @@ header h1 {
     border: none;
 }
 
-code, kbd, samp, tt {
+code,
+kbd,
+samp,
+tt {
     background: inherit;
     padding: 0;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     /* font-family: "Latin Modern Mono", "LM Mono", "Latin Modern Mono 12", "LM Mono 12", "Compter Modern Mono", "Concrete Roman", "Consolas Web", Consolas, Menlo, Monaco, "Liberation Mono", Courier, monospace !important; */
     /* font-size: 0.85em !important; */
 }
 
-blockquote, pre {
+blockquote,
+pre {
     background: inherit;
     border: none;
     margin-left: 1.3em;
     padding: 0;
 }
 
-code .btn, pre .btn {
+code .btn,
+pre .btn {
     background: #fff !important;
 }
 

@@ -1,14 +1,19 @@
 body {
     color: rgb(36, 41, 46) !important;
-    font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue", Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
+    font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue",
+        Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT",
+        "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+        Geneva, sans-serif !important;
     font-size: 105% !important;
     font-variant: normal;
     line-height: 1.5;
 }
 
-a, a:hover {
+a,
+a:hover {
     border: none;
-    color: #2980B9;
+    color: #2980b9;
 }
 
 a:hover {
@@ -19,11 +24,18 @@ blockquote {
     border: none;
 }
 
-code, kbd, samp, tt {
+code,
+kbd,
+samp,
+tt {
     color: #e74c3c;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     background: inherit;
     border: 1px solid #ccc;
     font-size: 0.75em !important;
@@ -33,8 +45,20 @@ pre {
     padding: 1em;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: "Roboto Slab", "Tisa Web Pro", "Palatino Linotype", Palatino, Constantia, Cambria, Charter, Utopia, "PT Serif", "Iowan Old Style", Georgia, Playbill, "Bernard MT Condensed", "Bernard MT", Bernard, "Bodoni MT Black", "Minion Web", "Minion Pro", "Minion Std", Minion, "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text", "Iowan Old Style", Iowan, "Iowan Web", "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia, Utopia, Marion, Cochin, serif !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Roboto Slab", "Tisa Web Pro", "Palatino Linotype", Palatino,
+        Constantia, Cambria, Charter, Utopia, "PT Serif", "Iowan Old Style",
+        Georgia, Playbill, "Bernard MT Condensed", "Bernard MT", Bernard,
+        "Bodoni MT Black", "Minion Web", "Minion Pro", "Minion Std", Minion,
+        "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text",
+        "Iowan Old Style", Iowan, "Iowan Web", "Hoefler Text",
+        "Libre Baskerville", Baskerville, Cambria, Constantia, Utopia, Marion,
+        Cochin, serif !important;
 }
 
 h1 {
@@ -69,7 +93,8 @@ h6 {
     font-weight: normal;
 }
 
-header h1, header h2 {
+header h1,
+header h2 {
     border: none;
 }
 
@@ -104,14 +129,16 @@ hr:before {
 
 .header-anchor:before {
     content: "\e144"; /* glyphicon-link */
-    font-family: 'Glyphicons Halflings';
+    font-family: "Glyphicons Halflings";
 }
 
-.e-content code .btn, .e-content pre .btn {
+.e-content code .btn,
+.e-content pre .btn {
     background: #fff;
 }
 
-body nav, body .navbar-default {
+body nav,
+body .navbar-default {
     background-color: rgb(52, 49, 49);
     color: rgb(179, 179, 179) !important;
 }
@@ -120,11 +147,15 @@ nav {
     box-shadow: none;
 }
 
-.fa, .glyphicon, nav a, nav a:hover {
+.fa,
+.glyphicon,
+nav a,
+nav a:hover {
     color: inherit;
 }
 
-nav .fa, nav .glyphicon {
+nav .fa,
+nav .glyphicon {
     color: inherit !important;
 }
 

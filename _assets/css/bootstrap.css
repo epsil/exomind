@@ -1,10 +1,12 @@
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, "Arial Unicode", "Segoe UI", Avenir, "Avenir Next", sans-serif !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Arial Unicode", "Segoe UI",
+        Avenir, "Avenir Next", sans-serif !important;
     font-size: 100% !important;
     font-variant: normal;
 }
 
-a, a:hover {
+a,
+a:hover {
     border: none;
     color: rgb(51, 122, 183);
 }
@@ -13,12 +15,19 @@ a:hover {
     text-decoration: underline;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     border-radius: 3px;
     font-size: 0.9em !important;
 }
 
-code, kbd, samp, tt {
+code,
+kbd,
+samp,
+tt {
     background-color: rgb(249, 242, 244);
     color: rgb(199, 37, 78);
 }
@@ -28,7 +37,12 @@ pre {
     padding: 1em;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: inherit !important;
 }
 

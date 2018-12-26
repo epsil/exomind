@@ -1,13 +1,19 @@
 body {
     color: #000;
-    font-family: Arial, Helvetica, "Arial MT Unicode", "Segoe UI", "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, -apple-system, BlinkMacSystemFont, Seravek, "League Spartan", "Noto Sans", "PT Sans", "Droid Sans", "Open Sans", Lato, Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
+    font-family: Arial, Helvetica, "Arial MT Unicode", "Segoe UI", "Myriad Web",
+        "Myriad Pro", "Myriad Std", Myriad, -apple-system, BlinkMacSystemFont,
+        Seravek, "League Spartan", "Noto Sans", "PT Sans", "Droid Sans",
+        "Open Sans", Lato, Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans",
+        "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva,
+        sans-serif !important;
     font-size: 100% !important;
     font-variant-numeric: normal;
     line-height: 1.4;
     margin-top: 3em;
 }
 
-a, a:hover {
+a,
+a:hover {
     border: none;
     color: #00c;
     text-decoration: underline;
@@ -17,7 +23,8 @@ a:hover {
     background-color: #ffa;
 }
 
-abbr.acronym, .caps {
+abbr.acronym,
+.caps {
     font-variant: normal;
     letter-spacing: inherit;
     text-transform: none;
@@ -28,12 +35,19 @@ blockquote {
     padding-left: 1.3em;
 }
 
-code, kbd, samp, tt {
+code,
+kbd,
+samp,
+tt {
     background: inherit;
     padding: 0;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     font-size: 0.95em !important;
 }
 
@@ -50,7 +64,12 @@ hr:before {
     content: normal;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: rgb(0, 90, 156);
     font-weight: normal;
 }
@@ -72,7 +91,8 @@ header {
     color: rgb(32, 80, 129);
 }
 
-body nav, body .navbar-default {
+body nav,
+body .navbar-default {
     background-color: #005a9c;
     color: #ffffff !important;
 }
@@ -81,11 +101,15 @@ nav {
     box-shadow: none;
 }
 
-.fa, .glyphicon, nav a, nav a:hover {
+.fa,
+.glyphicon,
+nav a,
+nav a:hover {
     color: inherit;
 }
 
-nav .fa, nav .glyphicon {
+nav .fa,
+nav .glyphicon {
     color: inherit !important;
 }
 

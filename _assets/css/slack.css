@@ -1,12 +1,17 @@
 body {
     color: rgb(36, 41, 46) !important;
-    font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue", Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
+    font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue",
+        Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT",
+        "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+        Geneva, sans-serif !important;
     font-size: 95% !important;
     font-variant: normal;
     line-height: 1.5;
 }
 
-a, a:hover {
+a,
+a:hover {
     border: none;
     color: #0576b9;
 }
@@ -20,11 +25,18 @@ blockquote {
     border-color: #e8e8e8;
 }
 
-code, kbd, samp, tt {
+code,
+kbd,
+samp,
+tt {
     color: #d72b3f;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     background: #f7f7f9;
     border: 0.13em solid #e1e1e8;
     border-radius: 3px;
@@ -35,7 +47,12 @@ pre {
     padding: 1em;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     /* font-family: "Roboto Slab", "Tisa Web Pro", "Palatino Linotype", Palatino, Constantia, Cambria, Charter, Utopia, "PT Serif", "Iowan Old Style", Georgia, Playbill, "Bernard MT Condensed", "Bernard MT", Bernard, "Bodoni MT Black", "Minion Web", "Minion Pro", "Minion Std", Minion, "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text", "Iowan Old Style", Iowan, "Iowan Web", "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia, Utopia, Marion, Cochin, serif !important; */
 }
 
@@ -71,7 +88,8 @@ h6 {
     font-weight: normal;
 }
 
-header h1, header h2 {
+header h1,
+header h2 {
     border: none;
 }
 
@@ -106,10 +124,11 @@ hr:before {
 
 .header-anchor:before {
     content: "\e144"; /* glyphicon-link */
-    font-family: 'Glyphicons Halflings';
+    font-family: "Glyphicons Halflings";
 }
 
-body nav, body .navbar-default {
+body nav,
+body .navbar-default {
     background-color: #4d394b;
     color: #fff !important;
 }
@@ -122,11 +141,15 @@ nav {
     box-shadow: none;
 }
 
-.fa, .glyphicon, nav a, nav a:hover {
+.fa,
+.glyphicon,
+nav a,
+nav a:hover {
     color: inherit;
 }
 
-nav .fa, nav .glyphicon {
+nav .fa,
+nav .glyphicon {
     color: inherit !important;
 }
 
@@ -156,7 +179,8 @@ nav .form-control::-moz-placeholder,
     box-shadow: none !important;
 }
 
-a.person, a[title^="@"] {
+a.person,
+a[title^="@"] {
     /* background-color: #fff6d1; */
     background-color: #eaf5fc;
     border-radius: 3px;

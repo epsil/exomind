@@ -1,17 +1,31 @@
 body {
     color: #444 !important;
-    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue", Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Myriad Web",
+        "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue", Helvetica, Arial,
+        "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans",
+        "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva,
+        sans-serif !important;
     font-size: 13px !important;
     font-variant: normal;
     line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #0072C6;
-    font-family: "Segoe UI Light", "Segoe UI", -apple-system, BlinkMacSystemFont, "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue", Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #0072c6;
+    font-family: "Segoe UI Light", "Segoe UI", -apple-system, BlinkMacSystemFont,
+        "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, "Helvetica Neue",
+        Helvetica, Arial, "Arial Unicode", Avenir, "Avenir Next", "Gill Sans MT",
+        "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+        Geneva, sans-serif !important;
 }
 
-a, a:hover {
+a,
+a:hover {
     border: none;
     color: #0072c6;
 }
@@ -20,15 +34,22 @@ a:hover {
     text-decoration: underline;
 }
 
-code, kbd, samp, tt {
+code,
+kbd,
+samp,
+tt {
     color: #006400;
     padding: 0;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     background: inherit;
     border-radius: 3px;
-    font-size: 1.0em !important;
+    font-size: 1em !important;
 }
 
 pre {
@@ -68,7 +89,8 @@ h6 {
     /* font-weight: normal; */
 }
 
-header h1, header h2 {
+header h1,
+header h2 {
     border: none;
     color: inherit;
 }
@@ -110,18 +132,23 @@ hr:before {
     left: -1.2em;
 }
 
-body nav, body .navbar-default {
+body nav,
+body .navbar-default {
     /* background-color: #0747a6; */
     background-color: #000;
     color: #ffffff !important;
     box-shadow: none;
 }
 
-.fa, .glyphicon, nav a, nav a:hover {
+.fa,
+.glyphicon,
+nav a,
+nav a:hover {
     color: inherit;
 }
 
-nav .fa, nav .glyphicon {
+nav .fa,
+nav .glyphicon {
     color: inherit !important;
 }
 

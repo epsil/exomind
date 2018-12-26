@@ -6,7 +6,8 @@ body {
     counter-reset: sidenote-counter;
 }
 
-.e-content .code .btn, .e-content .pre .btn {
+.e-content .code .btn,
+.e-content .pre .btn {
     background: #fffff8;
 }
 

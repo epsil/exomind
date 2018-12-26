@@ -1,17 +1,23 @@
 body {
-    font-family: "Segoe UI", "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, -apple-system, BlinkMacSystemFont, Seravek, "League Spartan", "Noto Sans", "PT Sans", "Droid Sans", "Open Sans", Arial, Lato, Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
+    font-family: "Segoe UI", "Myriad Web", "Myriad Pro", "Myriad Std", Myriad,
+        -apple-system, BlinkMacSystemFont, Seravek, "League Spartan",
+        "Noto Sans", "PT Sans", "Droid Sans", "Open Sans", Arial, Lato, Avenir,
+        "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande",
+        "Lucida Sans Unicode", "Lucida Sans", Geneva, sans-serif !important;
     font-size: 88% !important;
     font-variant-numeric: normal;
     line-height: 1.5;
     margin-top: 3em;
 }
 
-a, a:hover {
+a,
+a:hover {
     border: none;
     color: rgb(53, 114, 176);
 }
 
-abbr.acronym, .caps {
+abbr.acronym,
+.caps {
     font-variant: normal;
     letter-spacing: inherit;
     text-transform: none;
@@ -23,12 +29,19 @@ blockquote {
     margin-left: 20px;
 }
 
-code, kbd, samp, tt {
+code,
+kbd,
+samp,
+tt {
     background: inherit;
     padding: 0;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     font-size: 0.95em !important;
 }
 
@@ -39,7 +52,8 @@ pre {
     padding: 1em;
 }
 
-code .btn, pre .btn {
+code .btn,
+pre .btn {
     background: #fff !important;
 }
 
@@ -80,7 +94,8 @@ header {
     color: rgb(32, 80, 129);
 }
 
-body nav, body .navbar-default {
+body nav,
+body .navbar-default {
     background-color: #0747a6;
     color: #ffffff !important;
 }
@@ -89,11 +104,15 @@ nav {
     box-shadow: none;
 }
 
-.fa, .glyphicon, nav a, nav a:hover {
+.fa,
+.glyphicon,
+nav a,
+nav a:hover {
     color: inherit;
 }
 
-nav .fa, nav .glyphicon {
+nav .fa,
+nav .glyphicon {
     color: inherit !important;
 }
 

@@ -42,19 +42,24 @@ body .indent p {
     text-indent: 0 !important;
 }
 
-.indent p, .indent p.p-summary {
+.indent p,
+.indent p.p-summary {
     text-indent: 0 !important;
     margin: 1.3em 0 0 0;
 }
 
-.indent p + ol, .indent p + ul,
-.indent p + aside + ol, .indent p + aside + ul,
-.indent p + aside + aside + ol, .indent p + aside + aside + ul {
+.indent p + ol,
+.indent p + ul,
+.indent p + aside + ol,
+.indent p + aside + ul,
+.indent p + aside + aside + ol,
+.indent p + aside + aside + ul {
     margin-bottom: 1em;
     margin-top: 1em;
 }
 
-.indent blockquote, .indent pre {
+.indent blockquote,
+.indent pre {
     background: inherit;
     border: none;
     /* margin-left: 2.6em; */
@@ -70,12 +75,19 @@ body .indent p {
     margin-left: 3.4em;
 }
 
-.indent code, .indent .kbd, .indent samp, .indent tt {
+.indent code,
+.indent .kbd,
+.indent samp,
+.indent tt {
     background: inherit;
     padding: 0;
 }
 
-.indent code, .indent .kbd, .indent samp, .indent tt, .indent pre {
+.indent code,
+.indent .kbd,
+.indent samp,
+.indent tt,
+.indent pre {
     /* font-size: 0.75em !important; */
 }
 
@@ -91,7 +103,8 @@ body .indent p {
     top: 0px;
 }
 
-.indent .code .btn, .indent .pre .btn {
+.indent .code .btn,
+.indent .pre .btn {
     background: #fff;
 }
 

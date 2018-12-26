@@ -1,5 +1,9 @@
 body {
-    font-family: Optima, "Linux Biolinum", -apple-system, BlinkMacSystemFont, "Segoe UI", Lato, "Open Sans", Avenir, "Avenir Next", "Myriad Set Pro", "Myriad Pro", Myriad, Ubuntu, "Bitstream Vera Sans", "DejaVu Sans", Helvetica, Arial, Tahoma, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    font-family: Optima, "Linux Biolinum", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Lato, "Open Sans", Avenir, "Avenir Next", "Myriad Set Pro",
+        "Myriad Pro", Myriad, Ubuntu, "Bitstream Vera Sans", "DejaVu Sans",
+        Helvetica, Arial, Tahoma, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
     font-size: 110% !important;
     line-height: 1.35;
 }

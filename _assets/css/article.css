@@ -3,11 +3,21 @@ body {
     /* margin-left: auto; */
     /* margin-right: auto; */
     /* padding-left: 12.5%; */
-    font-family: "Minion Web", "Minion Pro", "Minion Std", Minion, "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text", Charter, "PT Serif", Georgia, "Iowan Old Style", Iowan, "Iowan Web", "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia, Utopia, Marion, Cochin, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-family: "Minion Web", "Minion Pro", "Minion Std", Minion,
+        "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text",
+        Charter, "PT Serif", Georgia, "Iowan Old Style", Iowan, "Iowan Web",
+        "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia,
+        Utopia, Marion, Cochin, Palatino, "Palatino Linotype", "Palatino LT STD",
+        "Book Antiqua", Georgia, serif;
     /* max-width: 1400px; */
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: inherit !important;
 }
 
@@ -57,12 +67,17 @@ pre {
     margin-left: 1.5em;
 }
 
-code, kbd, samp, tt, pre {
+code,
+kbd,
+samp,
+tt,
+pre {
     background: inherit;
     padding: 0;
 }
 
-.e-content .code .btn, .e-content .pre .btn {
+.e-content .code .btn,
+.e-content .pre .btn {
     background: #fff;
 }
 
