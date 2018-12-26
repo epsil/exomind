@@ -162,8 +162,10 @@ toc.listOfContents = function() {
   return str;
 };
 
-$.fn.addTableOfContents = toc.addTableOfContents;
-$.fn.tableOfContents = toc.tableOfContents;
-$.fn.listOfContents = toc.listOfContents;
+if ($ && $.fn) {
+  $.fn.addTableOfContents = toc.addTableOfContents;
+  $.fn.tableOfContents = toc.tableOfContents;
+  $.fn.listOfContents = toc.listOfContents;
+}
 
 export default toc;

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@babel/register": "^7.0.0",
     "bootstrap": "^4.1.3",
     "fs": "0.0.1-security",
     "gray-matter": "^4.0.1",
@@ -39,7 +40,7 @@
     "start": "react-scripts start",
     "webpack": "webpack --mode development",
     "build": "npm run clean; react-scripts build; npm run rename",
-    "index": "node --experimental-modules src/js/mjs/build.mjs",
+    "index": "node _assets/src/js/build.js",
     "rename": "npm run rename-css && npm run rename-js",
     "rename-css": "cp build/static/css/main.*.css build/static/css/main.css",
     "rename-js": "cp build/static/js/main.*.js build/static/js/main.js",
