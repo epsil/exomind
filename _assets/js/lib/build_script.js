@@ -198,7 +198,7 @@ function makeReferences(files) {
   refs = addPathReferences(refs);
   refs = Reference.arrayToDictionary(refs);
   refs = Reference.sortDictionary(refs);
-  return util.JSONStringify(refs, null, 2, true);
+  return util.JSONStringify(refs, null, 2, true) + '\n';
 }
 
 function addPathReferences(refs) {
