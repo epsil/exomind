@@ -2,8 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import tidy5 from 'tidy-html5';
-var tidy = tidy5.tidy;
+import tidy from 'tidy-html5';
 import glob from 'glob';
 import _ from 'lodash';
 import compile from './compile';
@@ -11,6 +10,8 @@ import markdown from './markdown';
 import Reference from './reference';
 import util from './util';
 import settings from '../json/settings.json';
+
+tidy = tidy.tidy_html;
 
 // simple filename -> URL mapping
 function location(file) {
@@ -198,7 +199,8 @@ function makeReferences(files) {
   refs = addPathReferences(refs);
   refs = Reference.arrayToDictionary(refs);
   refs = Reference.sortDictionary(refs);
-  return util.JSONStringify(refs, null, 2, true) + '\n';
+  var json = util.JSONStringify(refs, null, 2, true);
+  return json.trim() + '\n';
 }
 
 function addPathReferences(refs) {
@@ -222,9 +224,9 @@ function referencesEntries(entry) {
   var title = entry.title;
   var summary =
     entry.title || entry.summary || entry.subtitle || entry.abstract;
-  // summary = ''
+  // summary = '';
   if (summary) {
-    // var render = true
+    // var render = true;
     var render = false;
     summary = getSummary(path, title, summary, render);
   }
@@ -262,10 +264,25 @@ function getCachedSummary(label, href) {
 function referencesBookmarkEntries(entry) {
   var refs = [];
   if (entry.references) {
+    if (!Array.isArray(entry.references)) {
+      var refsArray = [];
+      for (var title in entry.references) {
+        var url = entry.references[title];
+        var ref = {
+          title: title,
+          url: url
+        };
+        refsArray.push(ref);
+      }
+      entry.references = refsArray;
+    }
     entry.references.forEach(function(r) {
       var label = r.title;
       var href = util.urlResolve(entry.path, r.url);
-      var title = entry.title || r.title;
+      // var title = entry.title || r.title
+      var title = util.isExternalUrl(r.url)
+        ? r.title || entry.title
+        : entry.title || r.title;
       var ref = new Reference(label, href, title, entry.hidden);
       refs.push(ref);
     });

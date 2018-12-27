@@ -11,7 +11,6 @@ toc.addTableOfContents = function() {
     if (toc !== '') {
       placeholder.replaceWith(toc);
     }
-    return body;
   });
 };
 
@@ -141,7 +140,7 @@ toc.listOfContents = function() {
     var header = $(this);
     var id = headerId(header);
     var html = header.html();
-    var level = parseInt(header.prop('tagName').match(/\d+/)[0], 10);
+    var level = parseInt(header.prop('tagName').match(/\d+/)[0]);
     endList(level);
     startList(level);
     openListElement();

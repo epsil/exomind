@@ -68,6 +68,7 @@
   ":IMEI": "International Mobile Equipment Identity",
   ":W3C": "World Wide Web Consortium",
   ":OK": "okay",
+  ":O.K.": "okay",
   ":NB": "Nota bene",
   ":PS": "Post scriptum",
   ":JPEG": "Joint Photographic Experts Group",
@@ -251,6 +252,8 @@
   ":osv.": "og så videre",
   ":O.a.": "Og andre",
   ":o.a.": "og andre",
+  ":M.a.o.": "Med andre ord",
+  ":m.a.o.": "med andre ord",
   ":M.m.": "Med mer",
   ":m.m.": "med mer",
   ":Mfl.": "Med flere",
@@ -261,6 +264,7 @@
   ":XeLaTeX": "XeLaTeX",
   ":ConTeXt": "ConTeXt",
   ":LuaTeX": "LuaTeX",
+  ":LaTeX2e": "LaTeX 2e",
   ":LaTeX": "LaTeX",
   ":AUCTeX": "AUCTeX",
   ":MusiXTeX": "MusiXTeX",
@@ -269,5 +273,8 @@
   ":MacTeX": "MacTeX",
   ":KaTeX": "KaTeX",
   ":lhs2TeX": "lhs2TeX",
-  ":TeX": "TeX"
+  ":TeX": "TeX",
+  ":TXT": "Text",
+  ":MD": "Markdown",
+  ":NSFW": "Not Safe For Work"
 }

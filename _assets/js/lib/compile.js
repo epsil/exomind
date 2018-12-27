@@ -2,13 +2,10 @@ import matter from 'gray-matter';
 import md5 from 'md5';
 import typogr from 'typogr';
 import URI from 'urijs';
-// import $ from 'jquery';
 import _ from 'lodash';
 import markdown from './markdown';
-import './toc';
-// import social from './social';
-// import util from './util';
-import utilJq from './util-jq';
+import social from './social';
+import util from './util';
 // import document from '../templates/document';
 // import body from '../templates/body';
 // import index from '../templates/index';
@@ -57,21 +54,21 @@ function addI18n(view) {
 }
 
 function dynamic(view, path) {
-  // view = _.assign(
-  //   {
-  //     bitbucket: social.bitbucket.url(path),
-  //     'bitbucket-history': social.bitbucket.history.url(path),
-  //     facebook: social.facebook.url(path),
-  //     github: social.github.url(path),
-  //     'github-edit': social.github.edit.url(path),
-  //     'github-history': social.github.history.url(path),
-  //     'github-raw': social.github.raw.url(path),
-  //     linkedin: social.linkedin.url(path),
-  //     twitter: social.twitter.url(path),
-  //     mail: social.mail.url(path)
-  //   },
-  //   view
-  // );
+  view = _.assign(
+    {
+      bitbucket: social.bitbucket.url(path),
+      'bitbucket-history': social.bitbucket.history.url(path),
+      facebook: social.facebook.url(path),
+      github: social.github.url(path),
+      'github-edit': social.github.edit.url(path),
+      'github-history': social.github.history.url(path),
+      'github-raw': social.github.raw.url(path),
+      linkedin: social.linkedin.url(path),
+      twitter: social.twitter.url(path),
+      mail: social.mail.url(path)
+    },
+    view
+  );
   if (view.toc !== false) {
     view.toc = '<div id="toc-placeholder"></div>';
   }
@@ -88,7 +85,7 @@ function dynamic(view, path) {
 
 function title(view) {
   if (view.title === undefined || view.title === '') {
-    view.content = utilJq.dojQuery(view.content, function(body) {
+    view.content = util.dojQuery(view.content, function(body) {
       var heading = body.find('h1').first();
       if (heading.length > 0) {
         view.title = heading
@@ -107,7 +104,7 @@ function footnotes(view) {
     view.sidenotes = true;
   }
   if (view.footnotes === undefined || view.footnotes === '') {
-    view.content = utilJq.dojQuery(view.content, function(body) {
+    view.content = util.dojQuery(view.content, function(body) {
       var section = body.find('section.footnotes').first();
       if (section.length > 0) {
         var hr = body.find('hr.footnotes-sep');
@@ -120,9 +117,9 @@ function footnotes(view) {
   return view;
 }
 
-function addToC(view) {
+function toc(view) {
   if (view.toc !== false) {
-    view.content = utilJq.dojQuery(view.content, function(body) {
+    view.content = util.dojQuery(view.content, function(body) {
       var placeholder = body.find('#toc-placeholder');
       var content = body.find('.e-content');
       view.toc = content.tableOfContents();
@@ -161,14 +158,15 @@ function typogrify(text) {
 }
 
 function links(view, path) {
-  view.content = utilJq.dojQuery(view.content, function(body) {
-    body.relativizeUrls(path);
-  });
+  if (view.plain !== true) {
+    view.content = util.dojQuery(view.content, function(body) {
+      body.relativizeUrls(path);
+    });
+  }
   return view;
 }
 
 function compile(data, path) {
-  path = path || '/';
   var file = URI(path).filename();
   if (file === '') {
     file = 'index.md';
@@ -204,7 +202,7 @@ function compile(data, path) {
   //   // view.content = body(view);
   // }
 
-  view = addToC(view);
+  view = toc(view);
   view = typography(view);
   view = links(view, path);
 
@@ -215,7 +213,7 @@ function compile(data, path) {
   // }
 
   // view.content = document(view);
-  return view;
+  return view.content;
 }
 
 export default compile;
