@@ -8,11 +8,11 @@ test-this: a test
 This is a *Markdown* file ...
 (Hopefully rendered to **HTML**)
 
-* * * * *
+---
 
 [A page], [another page]
 
-* * * * *
+---
 
 > "Sure, that's what I mean," Doc Daneeka said. "A little grease is what makes this world go round. One hand washes the other. Know what I mean? You scratch my back, I'll scratch yours."
 >
