@@ -87,7 +87,7 @@ function dynamic(view, path) {
 
 function title(view) {
   if (view.title === undefined || view.title === '') {
-    view.content = util.dojQuery(view.content, function(body) {
+    view.content = utilJq.dojQuery(view.content, function(body) {
       var heading = body.find('h1').first();
       if (heading.length > 0) {
         view.title = heading
@@ -106,7 +106,7 @@ function footnotes(view) {
     view.sidenotes = true;
   }
   if (view.footnotes === undefined || view.footnotes === '') {
-    view.content = util.dojQuery(view.content, function(body) {
+    view.content = utilJq.dojQuery(view.content, function(body) {
       var section = body.find('section.footnotes').first();
       if (section.length > 0) {
         var hr = body.find('hr.footnotes-sep');
@@ -121,7 +121,7 @@ function footnotes(view) {
 
 function addToC(view) {
   if (view.toc !== false) {
-    view.content = util.dojQuery(view.content, function(body) {
+    view.content = utilJq.dojQuery(view.content, function(body) {
       var placeholder = body.find('#toc-placeholder');
       var content = body.find('.e-content');
       view.toc = content.tableOfContents();
@@ -161,7 +161,7 @@ function typogrify(text) {
 
 function links(view, path) {
   if (view.plain !== true) {
-    view.content = util.dojQuery(view.content, function(body) {
+    view.content = utilJq.dojQuery(view.content, function(body) {
       body.relativizeUrls(path);
       body.fixLinks();
     });

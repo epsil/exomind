@@ -17,6 +17,7 @@ import preprocessor from './preprocessor';
 import Reference from './reference';
 import abbrev from './abbrev';
 import util from './util';
+import utilJq from './util-jq';
 
 function markdown(str, opts) {
   str = preprocessor(str);
@@ -65,7 +66,7 @@ markdown.env = function(env) {
 // };
 
 // markdown.highlightInline = function(str) {
-//   return util.dojQuery(str, function(body) {
+//   return utilJq.dojQuery(str, function(body) {
 //     body.find('code[class]').each(function() {
 //       var code = $(this);
 //       var pre = code.parent();
@@ -210,7 +211,7 @@ markdown.inline = function(str) {
 
 markdown.toText = function(str) {
   var html = markdown.inline(str);
-  return util.htmlToText(html);
+  return utilJq.htmlToText(html);
 };
 
 markdown.md = markdown.parser();

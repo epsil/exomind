@@ -1,6 +1,5 @@
 /* global moment:true */
 /* exported moment */
-import $ from 'jquery';
 import S from 'string';
 import URI from 'urijs';
 import moment from 'moment';
@@ -115,33 +114,6 @@ util.getId = function(el) {
   }
 };
 
-util.dojQuery = function(html, fn) {
-  var body = $('<div>');
-  body.html(html);
-  fn(body);
-  return body.html();
-};
-
-util.unhideSection = function(section) {
-  if (section.prop('tagName') === 'SECTION') {
-    var button = section.find('.collapse-button').first();
-    var div = section.find('div').first();
-    if (div.hasClass('collapse') && !div.hasClass('in')) {
-      button.attr('aria-expanded', 'true');
-      div.addClass('in');
-      div.css({ height: '' });
-      div.attr('aria-expanded', 'true');
-    }
-  }
-};
-
-util.unhideElement = function(el) {
-  util.unhideSection(el);
-  el.parents().each(function(index, value) {
-    util.unhideSection($(this));
-  });
-};
-
 util.getCachedUrl = function(url) {
   var ref = Reference.getReference(url);
   if (!ref) {
@@ -159,81 +131,6 @@ util.getCachedUrl = function(url) {
     }
   }
   return ref;
-};
-
-// FIXME: this function is incredibly slow
-// FIXME: the below implementation cannot be run in parallel
-var htmlToTextDiv = null;
-util.htmlToText = function(html) {
-  htmlToTextDiv = htmlToTextDiv || $('<div>');
-  htmlToTextDiv.html(html);
-  var txt = htmlToTextDiv.text().trim();
-  htmlToTextDiv.html('');
-  return txt;
-};
-
-// util.htmlToText = function (html) {
-//   return $('<div>').html(html).text().trim()
-// }
-
-util.process = function(html) {
-  // html = util.markupPunctuation(html)
-  return util.dojQuery(html, util.processBody);
-};
-
-util.processDOM = function() {
-  return util.processBody($('body'));
-};
-
-util.processBody = function(body) {
-  var content = body.find('.e-content');
-  if (content.length <= 0) {
-    return;
-  }
-  body.fixWidont();
-  body.addAcronyms();
-  body.addSmallCaps();
-  body.addClipboardButtons();
-  body.addPullQuotes();
-  body.fixCenteredText();
-  body.fixFigures();
-  body.fixMarks();
-  body.addPunctuation();
-  body.addHotkeys();
-  body.addTeXLogos();
-  body.addFormulas();
-  content.addAnchors();
-  body.fixBlockquotes();
-  body.addBootstrapDivs();
-  content.addCollapsibleElements();
-  content.collapseDoneItems();
-  body.fixFootnotes();
-  body.addSidenotes();
-  body.fixTables();
-  body.fixLinks();
-  content.addSections();
-};
-
-util.processSimple = function(html) {
-  return util.dojQuery(html, function(body) {
-    var content = body.find('.e-content');
-    if (content.length <= 0) {
-      return;
-    }
-    body.fixWidont();
-    body.fixCenteredText();
-    body.fixFigures();
-    body.fixMarks();
-    body.addPunctuation();
-    body.addHotkeys();
-    body.addTeXLogos();
-    body.fixBlockquotes();
-    body.addBootstrapDivs();
-    body.fixFootnotes();
-    body.addSidenotes();
-    body.fixTables();
-    body.fixLinks();
-  });
 };
 
 util.dateFormat = function(context, block) {

@@ -8,6 +8,108 @@ import Reference from './reference';
 import util from './util';
 var utilJq = {};
 
+utilJq.dojQuery = function(html, fn) {
+  var body = $('<div>');
+  body.html(html);
+  fn(body);
+  return body.html();
+};
+
+utilJq.unhideElement = function(el) {
+  utilJq.unhideSection(el);
+  el.parents().each(function(index, value) {
+    utilJq.unhideSection($(this));
+  });
+};
+
+utilJq.unhideSection = function(section) {
+  if (section.prop('tagName') === 'SECTION') {
+    var button = section.find('.collapse-button').first();
+    var div = section.find('div').first();
+    if (div.hasClass('collapse') && !div.hasClass('in')) {
+      button.attr('aria-expanded', 'true');
+      div.addClass('in');
+      div.css({ height: '' });
+      div.attr('aria-expanded', 'true');
+    }
+  }
+};
+
+// FIXME: this function is incredibly slow
+// FIXME: the below implementation cannot be run in parallel
+var htmlToTextDiv = null;
+utilJq.htmlToText = function(html) {
+  htmlToTextDiv = htmlToTextDiv || $('<div>');
+  htmlToTextDiv.html(html);
+  var txt = htmlToTextDiv.text().trim();
+  htmlToTextDiv.html('');
+  return txt;
+};
+
+// utilJq.htmlToText = function (html) {
+//   return $('<div>').html(html).text().trim()
+// }
+
+utilJq.process = function(html) {
+  // html = util.markupPunctuation(html)
+  return utilJq.dojQuery(html, utilJq.processBody);
+};
+
+utilJq.processDOM = function() {
+  return utilJq.processBody($('body'));
+};
+
+utilJq.processBody = function(body) {
+  var content = body.find('.e-content');
+  if (content.length <= 0) {
+    return;
+  }
+  body.fixWidont();
+  body.addAcronyms();
+  body.addSmallCaps();
+  body.addClipboardButtons();
+  body.addPullQuotes();
+  body.fixCenteredText();
+  body.fixFigures();
+  body.fixMarks();
+  body.addPunctuation();
+  body.addHotkeys();
+  body.addTeXLogos();
+  body.addFormulas();
+  content.addAnchors();
+  body.fixBlockquotes();
+  body.addBootstrapDivs();
+  content.addCollapsibleElements();
+  content.collapseDoneItems();
+  body.fixFootnotes();
+  body.addSidenotes();
+  body.fixTables();
+  body.fixLinks();
+  content.addSections();
+};
+
+utilJq.processSimple = function(html) {
+  return utilJq.dojQuery(html, function(body) {
+    var content = body.find('.e-content');
+    if (content.length <= 0) {
+      return;
+    }
+    body.fixWidont();
+    body.fixCenteredText();
+    body.fixFigures();
+    body.fixMarks();
+    body.addPunctuation();
+    body.addHotkeys();
+    body.addTeXLogos();
+    body.fixBlockquotes();
+    body.addBootstrapDivs();
+    body.fixFootnotes();
+    body.addSidenotes();
+    body.fixTables();
+    body.fixLinks();
+  });
+};
+
 utilJq.traverse = function(fn) {
   return this.each(function() {
     var root = this;
