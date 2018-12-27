@@ -11,8 +11,6 @@ import Reference from './reference';
 import util from './util';
 import settings from '../json/settings.json';
 
-tidy = tidy.tidy_html;
-
 // simple filename -> URL mapping
 function location(file) {
   file = file.substr(0, file.length - path.basename(file).length);
@@ -37,11 +35,11 @@ function htmlfile(textfile) {
 }
 
 function format(html) {
-  if (!tidy) {
+  if (!tidy || !tidy.tidy_html5) {
     return html;
   }
 
-  html = tidy(html, {
+  html = tidy.tidy_html5(html, {
     'drop-empty-elements': false,
     indent: false,
     'indent-attributes': false,
