@@ -455,7 +455,7 @@ nav a {
 nav,
 .navbar-default {
     border: none;
-    background-color: inherit;
+    background-color: #ffffff;
 }
 
 .nav > li > a:hover,
