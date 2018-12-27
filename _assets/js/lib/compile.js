@@ -6,6 +6,8 @@ import _ from 'lodash';
 import markdown from './markdown';
 import social from './social';
 import util from './util';
+import toc from './toc';
+import utilJq from './util-jq';
 // import document from '../templates/document';
 // import body from '../templates/body';
 // import index from '../templates/index';
@@ -117,7 +119,7 @@ function footnotes(view) {
   return view;
 }
 
-function toc(view) {
+function addToC(view) {
   if (view.toc !== false) {
     view.content = util.dojQuery(view.content, function(body) {
       var placeholder = body.find('#toc-placeholder');
@@ -161,6 +163,7 @@ function links(view, path) {
   if (view.plain !== true) {
     view.content = util.dojQuery(view.content, function(body) {
       body.relativizeUrls(path);
+      body.fixLinks();
     });
   }
   return view;
@@ -202,7 +205,7 @@ function compile(data, path) {
   //   // view.content = body(view);
   // }
 
-  view = toc(view);
+  view = addToC(view);
   view = typography(view);
   view = links(view, path);
 
@@ -213,7 +216,8 @@ function compile(data, path) {
   // }
 
   // view.content = document(view);
-  return view.content;
+  // return view.content;
+  return view;
 }
 
 export default compile;

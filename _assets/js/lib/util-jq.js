@@ -3,7 +3,7 @@
 /* exported clipboard */
 import $ from 'jquery';
 import Clipboard from 'clipboard';
-clipboard = null;
+var clipboard = null;
 import Reference from './reference';
 import util from './util';
 var utilJq = {};
