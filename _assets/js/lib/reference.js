@@ -5,7 +5,7 @@ import references from '../json/references.json';
 import URI from 'urijs';
 // import $ from 'jquery';
 import _ from 'lodash';
-// import jqUtil from './jq-util';
+// import utilJq from './util-jq';
 
 function Reference(label, href, title, hidden) {
   this.label = label;

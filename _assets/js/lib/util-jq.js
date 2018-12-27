@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import Reference from './reference';
 import util from './util';
-var jqUtil = {};
+var utilJq = {};
 
-jqUtil.dojQuery = function(html, fn) {
+utilJq.dojQuery = function(html, fn) {
   var body = $('<div>');
   body.html(html);
   fn(body);
@@ -11,7 +11,7 @@ jqUtil.dojQuery = function(html, fn) {
 };
 
 // similar to Hakyll's relativizeUrls
-jqUtil.relativizeUrls = function(path) {
+utilJq.relativizeUrls = function(path) {
   return this.each(function() {
     $(this)
       .find('a[href]')
@@ -54,7 +54,7 @@ jqUtil.relativizeUrls = function(path) {
 };
 
 if ($ && $.fn) {
-  $.fn.relativizeUrls = jqUtil.relativizeUrls;
+  $.fn.relativizeUrls = utilJq.relativizeUrls;
 }
 
-export default jqUtil;
+export default utilJq;

@@ -18,7 +18,7 @@ import Reference from './reference';
 // var abbrev = require('./abbrev')
 // var util = require('./util')
 import util from './util';
-// import jqUtil from './jq-util';
+// import utilJq from './util-jq';
 
 function markdown(str, opts) {
   str = str || '';
