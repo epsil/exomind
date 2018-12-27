@@ -1,0 +1,25 @@
+.clipboard-logo {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    width: 1.33333333em;
+    line-height: 1;
+}
+
+.clipboard-logo:before {
+    content: "\00a0";
+}
+
+.clipboard-logo {
+    background-image: url("clipboard.svg");
+}
+
+.clipboard-logo.grey {
+    background-image: url("clipboard-grey.svg");
+}
+
+.clipboard-logo.white {
+    background-image: url("clipboard-white.svg");
+}

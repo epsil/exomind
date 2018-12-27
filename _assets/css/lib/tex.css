@@ -15,6 +15,15 @@
     vertical-align: 0.3em;
 }
 
+.latex-space {
+    font-size: 50%;
+}
+
+.latex-epsilon {
+    line-height: 0;
+    vertical-align: -0.5ex;
+}
+
 .tex-e {
     line-height: 0;
     margin-left: -0.1667em;

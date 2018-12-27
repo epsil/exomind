@@ -1,3 +1,7 @@
+@import url("../fonts/libertine.css");
+@import url("../fonts/biolinum.css");
+@import url("../fonts/ubuntu.css");
+
 body {
     font-family: "Linux Libertine", "Linux Libertine O", "Minion Web",
         "Minion Pro", "Minion Std", Minion, "Crimson Text", "ETBembo",
@@ -33,10 +37,10 @@ kbd,
 samp,
 tt,
 pre {
-    font-family: "Ubuntu Mono", "Noto Mono", "Liberation Mono",
-        "DejaVu Sans Mono", "Andale Mono", "Consolas Web", Consolas, Menlo,
-        Monaco, Courier, monospace !important;
-    font-size: 0.75em !important;
+    font-family: "Ubuntu Mono", "Consolas Web", Consolas, Inconsolata,
+        "Source Code Pro", "Noto Mono", "Liberation Mono", "DejaVu Sans Mono",
+        "Andale Mono", Menlo, "Fira Mono", Monaco, Courier, monospace !important;
+    font-size: 0.8em !important;
 }
 
 @media (max-width: 767px) {

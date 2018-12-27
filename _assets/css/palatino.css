@@ -27,3 +27,28 @@ tt,
 pre {
     font-size: 0.75em !important;
 }
+
+.e-content ul a.collapse-button,
+.e-content ul a.collapse-button:before,
+.e-content ul a.collapse-button[aria-expanded="true"]:before {
+    color: #444 !important;
+    /* font-size: 0.8em !important; */
+    top: 0.05em;
+}
+
+.e-content ul a.collapse-button:before {
+    content: "\2022";
+    font-family: inherit;
+}
+
+.e-content ul a.collapse-button[aria-expanded="true"]:before {
+    content: "\2022";
+    font-family: inherit;
+}
+
+@media (max-width: 767px) {
+    body {
+        font-size: 105% !important;
+        /* line-height: 1.3; */
+    }
+}

@@ -31,6 +31,10 @@
     content: "\f109"; /* fa-laptop */
 }
 
+.e-content a[href*="?C=N"]:before,
+.e-content a[href*="?C=M"]:before,
+.e-content a[href*="?C=S"]:before,
+.e-content a[href*="?C=D"]:before,
 .e-content a[href^="file://"]:before {
     content: "\f114"; /* fa-folder-o */
 }
@@ -38,12 +42,6 @@
 /* .io */
 .e-content a[href*=".io/"]:before {
     content: "\f1b2"; /* fa-cube */
-}
-
-/* .onion */
-.e-content a[href*=".i2p"]:before,
-.e-content a[href*=".onion"]:before {
-    content: "\f21b"; /* fa-user-secret */
 }
 
 /* Blog */
@@ -71,6 +69,13 @@
     content: "\f02d"; /* fa-book */
 }
 
+/* GitHub*/
+.e-content a[href*="git."]:before,
+.e-content a[href*="github.com"]:before,
+.e-content a[href*="github.io"]:before {
+    content: "\f09b"; /* fa-github */
+}
+
 /* Documentation */
 .e-content a[href*="api."]:before,
 .e-content a[href*="api/"]:before,
@@ -80,6 +85,10 @@
 .e-content a[href*="docs/"]:before,
 .e-content a[href*="documentation."]:before,
 .e-content a[href*="documentation/"]:before,
+.e-content a[href*="tutorial."]:before,
+.e-content a[href*="tutorial/"]:before,
+.e-content a[href*="tutorials."]:before,
+.e-content a[href*="tutorials/"]:before,
 .e-content a[href*="manual."]:before,
 .e-content a[href*="manual/"]:before,
 .e-content a[href*="help."]:before,
@@ -121,6 +130,7 @@
 /* Wiki */
 .e-content a[href*="/wiki"]:before,
 .e-content a[href*="wiki."]:before,
+.e-content a[href*="wikihow."]:before,
 .e-content a[href*="wikia."]:before {
     content: "\f266"; /* fa-wikipedia-w */
 }
@@ -218,17 +228,6 @@
 /* Foursquare */
 .e-content a[href*="foursquare.com"]:before {
     content: "\f180";
-}
-
-/* GitHub*/
-.e-content a[href*="github.com"]:before,
-.e-content a[href*="github.io"]:before {
-    content: "\f09b"; /* fa-github */
-}
-
-/* Gitlab */
-.e-content a[href*="gitlab.com"]:before {
-    content: "\f296";
 }
 
 /* Google+ */
@@ -436,8 +435,7 @@
 .e-content a[href$=".azw3"]:before,
 .e-content a[href$=".epub"]:before,
 .e-content a[href$=".mobi"]:before,
-.e-content a[href$=".pdf"]:before,
-.e-content a[href$="docs.google."]:before {
+.e-content a[href$=".pdf"]:before {
     content: "\f1c1"; /* fa-pdf-o */
 }
 
@@ -449,9 +447,12 @@
 
 .e-content a[href*="imgur.com"]:before,
 .e-content a[href$=".bmp"]:before,
+.e-content a[href$=".eps"]:before,
 .e-content a[href$=".jpg"]:before,
 .e-content a[href$=".jpeg"]:before,
-.e-content a[href$=".png"]:before {
+.e-content a[href$=".png"]:before,
+.e-content a[href$=".svg"]:before,
+.e-content a[href$=".tiff"]:before {
     content: "\f1c5"; /* fa-file-image-o */
 }
 
@@ -469,14 +470,16 @@
 .e-content a[href$=".doc"]:before,
 .e-content a[href$=".docx"]:before,
 .e-content a[href$=".odt"]:before,
-.e-content a[href$=".rtf"]:before {
+.e-content a[href$=".rtf"]:before,
+.e-content a[href*="docs.google."]:before {
     content: "\f1c2"; /* fa-file-word-o */
 }
 
 .e-content a[href$=".odp"]:before,
 .e-content a[href$=".ppt"]:before,
 .e-content a[href$=".pptx"]:before,
-.e-content a[href$=".PPTX"]:before {
+.e-content a[href$=".PPTX"]:before,
+.e-content a[href*="docs.google.com/presentation"]:before {
     content: "\f1c4"; /* fa-file-powerpoint-o */
 }
 
@@ -1013,6 +1016,8 @@
 }
 
 /* simplybuilt */
+.e-content a[href*="discord."]:before,
+.e-content a[href*="discordapp."]:before,
 .e-content a[href*="simplybuilt."]:before {
     content: "\f215"; /* fa-simplybuilt */
 }
@@ -1209,6 +1214,7 @@
 }
 
 /* onion */
+.e-content a[href*=".i2p"]:before,
 .e-content a[href*=".exit/"]:before,
 .e-content a[href$=".exit"]:before,
 .e-content a[href*=".onion/"]:before,

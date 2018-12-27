@@ -1,0 +1,23 @@
+code,
+kbd,
+samp,
+tt,
+pre,
+.pre pre {
+    background-color: rgba(0, 128, 255, 0.08);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #23527c;
+}
+
+header h1,
+header time,
+header .fa {
+    color: inherit !important;
+}

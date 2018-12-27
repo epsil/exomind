@@ -1,0 +1,55 @@
+.markdown-logo,
+.markdown-logo-fill,
+.markdown-letter {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    /* width: 1.33333333em; */
+    width: 1.45em;
+    line-height: 1;
+    vertical-align: 0.05em;
+}
+
+.markdown-logo:before,
+.markdown-logo-fill:before,
+.markdown-letter:before {
+    content: "\00a0";
+}
+
+.markdown-logo {
+    background-image: url("markdown.svg");
+}
+
+.markdown-logo.grey {
+    background-image: url("markdown-grey.svg");
+}
+
+.markdown-logo.white {
+    background-image: url("markdown-white.svg");
+}
+
+.markdown-logo.fill {
+    background-image: url("markdown-solid.svg");
+}
+
+.markdown-logo.fill.grey {
+    background-image: url("markdown-solid-grey.svg");
+}
+
+.markdown-logo.fill.white {
+    background-image: url("markdown-solid-white.svg");
+}
+
+.markdown-letter {
+    background-image: url("markdown-letter.svg");
+}
+
+.markdown-letter.grey {
+    background-image: url("markdown-letter-grey.svg");
+}
+
+.markdown-letter.white {
+    background-image: url("markdown-letter-white.svg");
+}

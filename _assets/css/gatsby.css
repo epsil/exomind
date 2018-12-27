@@ -1,20 +1,16 @@
+@import url("libertine.css");
+
 a,
 a:hover {
-    border-bottom: 3px solid #ccc;
+    border-bottom: 3px solid #e0d6eb;
     font-weight: bold;
 }
 
 a:hover {
-    background-color: #ccc;
+    background-color: #e0d6eb;
 }
 
 body {
-    font-family: "Linux Libertine", "Linux Libertine O", "Minion Web",
-        "Minion Pro", "Minion Std", Minion, "Crimson Text", "ETBembo",
-        "ETBembo LF", "STIX Two Web", "STIX Two Text", Charter, "PT Serif",
-        Georgia, "Iowan Old Style", Iowan, "Iowan Web", "Hoefler Text",
-        "Libre Baskerville", Baskerville, Cambria, Constantia, Utopia, Marion,
-        Cochin, "Palatino Linotype", Palatino, serif !important;
     font-size: 125% !important;
     line-height: 1.35;
 }
@@ -43,19 +39,32 @@ textarea,
 a,
 strong,
 b {
-    font-size: 0.85em;
+    font-size: 0.8em;
+}
+
+strong a {
+    font-size: 1em;
+}
+
+a code {
+    font-size: 0.9em !important;
+    font-weight: normal;
+    padding-bottom: 0.07em;
 }
 
 code,
 kbd,
 samp,
 tt,
-pre {
+pre,
+.pre pre {
     background-color: rgb(252, 246, 240);
-    font-family: "Ubuntu Mono", "Noto Mono", "Liberation Mono",
-        "DejaVu Sans Mono", "Andale Mono", "Consolas Web", Consolas, Menlo,
-        Monaco, Courier, monospace !important;
     font-size: 0.75em !important;
+}
+
+.e-content .code .btn,
+.e-content .pre .btn {
+    background: #fff;
 }
 
 @media (max-width: 767px) {

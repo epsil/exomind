@@ -1,7 +1,46 @@
-@import url("https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic");
-@import url("article.css");
+/* @import url("https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic"); */
+@import url("../fonts/crimson.css");
+@import url("../fonts/ubuntu.css");
 
 body {
     font-family: "Crimson Text", Crimson, "Minion Pro", Minion, serif !important;
+    font-size: 150% !important;
     line-height: 1.3;
+}
+
+code,
+kbd,
+samp,
+tt,
+pre {
+    font-family: "Ubuntu Mono", "Consolas Web", Consolas, Inconsolata,
+        "Noto Mono", "Liberation Mono", "DejaVu Sans Mono", "Andale Mono", Menlo,
+        Monaco, Courier, monospace !important;
+    font-size: 0.75em !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+button,
+input,
+kbd,
+textarea,
+.modal {
+    font-family: "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", "Noto Sans", "PT Sans", "Droid Sans",
+        "Open Sans", Arial, Helvetica, Lato, Avenir, "Avenir Next", Futura,
+        "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode",
+        "Lucida Sans", Geneva, sans-serif !important;
+}
+
+@media (max-width: 767px) {
+    body {
+        font-size: 135% !important;
+        line-height: 1.25;
+    }
 }

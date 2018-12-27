@@ -40,7 +40,8 @@ pre {
 }
 
 blockquote,
-pre {
+pre,
+.pre pre {
     background: inherit;
     border: none;
     margin-left: 1.3em;

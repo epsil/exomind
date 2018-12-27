@@ -1,0 +1,12 @@
+@import url("medium.css");
+@import url("../fonts/iowan.css");
+
+body {
+    font-family: "Iowan Old Style", Iowan, "PT Serif", "ITC Charter", Charter,
+        "Bitstream Charter", "Minion Web", "Minion Pro", "Minion Std", Minion,
+        "Charis SIL", "STIX Two Web", "STIX Two Text", Georgia,
+        "Iowan Old Style", "Crimson Text", "Hoefler Text", Cambria, Constantia,
+        Utopia, Marion, Cochin, "Palatino Linotype", Palatino, Baskerville,
+        serif !important;
+    font-variant: common-ligatures oldstyle-nums !important;
+}

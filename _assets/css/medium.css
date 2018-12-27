@@ -1,3 +1,7 @@
+/* @import url("../fonts/charter.css"); */
+@import url("../fonts/itccharter.css");
+@import url("../fonts/ibmplexsans.css");
+
 abbr.acronym,
 .caps {
     font-variant: normal;
@@ -11,13 +15,17 @@ blockquote {
     font-style: italic;
 }
 
+blockquote blockquote {
+    margin-left: 0;
+}
+
 blockquote em {
     font-style: normal;
 }
 
 body {
     color: #222 !important;
-    font-family: Charter, "ITC Charter", "Bitstream Charter", "Minion Web",
+    font-family: "ITC Charter", Charter, "Bitstream Charter", "Minion Web",
         "Minion Pro", "Minion Std", Minion, "Charis SIL", "PT Serif",
         "STIX Two Web", "STIX Two Text", Georgia, "Iowan Old Style", Iowan,
         "Iowan Web", "Crimson Text", "Hoefler Text", Cambria, Constantia, Utopia,
@@ -34,8 +42,8 @@ h4,
 h5,
 h6 {
     color: inherit;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Avenir,
-        "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande",
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande",
         "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif !important;
     font-style: normal;
     font-weight: bold;
@@ -97,18 +105,55 @@ article ul {
 
 @media (max-width: 767px) {
     body {
-        font-size: 120% !important;
-        line-height: 1.3;
+        font-size: 111% !important;
+        line-height: 1.6;
+        /* line-height: 1.3; */
     }
 }
 
-nav {
-    max-height: 3px;
-    overflow: hidden;
-    transition: max-height 5s;
+/* nav { */
+/*     max-height: 3px; */
+/*     overflow: hidden; */
+/*     transition: max-height 5s; */
+/* } */
+
+/* nav:hover { */
+/*     max-height: 500px; */
+/*     transition: max-height 2s; */
+/* } */
+
+.e-content ul.collapse a.collapse-button:before {
+    color: #666 !important;
 }
 
-nav:hover {
-    max-height: 500px;
-    transition: max-height 2s;
+.e-content ul a.collapse-button,
+.e-content ul a.collapse-button:before,
+.e-content ul a.collapse-button[aria-expanded="true"]:before {
+    color: #333 !important;
+}
+
+.e-content ul a.collapse-button:before {
+    content: "\f055"; /* fa-plus-circle */
+    font-size: 0.45em;
+    font-family: FontAwesome !important;
+    vertical-align: middle;
+}
+
+.e-content ul a.collapse-button[aria-expanded="true"]:before {
+    content: "\f111"; /* fa-circle */
+    font-size: 0.27em;
+    font-family: FontAwesome !important;
+}
+
+.e-content ul a.collapse-button {
+    padding-right: 0.66em !important;
+    transition: padding-right 0s;
+}
+
+.e-content ul a.collapse-button[aria-expanded="true"] {
+    padding-right: 0.75em !important;
+}
+
+.e-content ul a.collapse-button[aria-expanded="true"] {
+    transition: padding-right 0s;
 }

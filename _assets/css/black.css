@@ -1,0 +1,37 @@
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+article,
+header h1,
+header h1 a {
+    color: #fff;
+}
+
+body nav,
+body .navbar-default {
+    color: #ffffff !important;
+}
+
+.nav a,
+.nav li a,
+.nav li a .fa,
+.nav li a:focus,
+.nav li > a:focus .fa,
+.nav input,
+nav a,
+nav li a,
+nav .form-control,
+nav .form-control::-moz-placeholder,
+#toc li:before,
+#toc li a {
+    color: #ffffff !important;
+}

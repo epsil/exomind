@@ -1,0 +1,9 @@
+@import url("medium.css");
+@import url("../fonts/ibmplexsans.css");
+
+body {
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Avenir, "Avenir Next", "Gill Sans MT", "Gill Sans", "Lucida Grande",
+        "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif !important;
+    font-size: 125% !important;
+}

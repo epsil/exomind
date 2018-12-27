@@ -38,6 +38,7 @@ body .indent p {
     margin-top: 1em;
 }
 
+.indent p.formula + p,
 .indent p.text-center + p {
     text-indent: 0 !important;
 }
@@ -72,7 +73,7 @@ body .indent p {
 }
 
 .indent pre {
-    margin-left: 3.4em;
+    margin-left: 2.6em;
 }
 
 .indent code,
@@ -89,6 +90,7 @@ body .indent p {
 .indent tt,
 .indent pre {
     /* font-size: 0.75em !important; */
+    text-shadow: none;
 }
 
 .indent .pre {
@@ -115,4 +117,10 @@ body .indent p {
     padding-bottom: 0;
     padding-top: 0.5em !important;
     margin-top: 1em !important;
+}
+
+@media (max-width: 768px) {
+    .indent pre {
+        margin-left: 1.3em;
+    }
 }

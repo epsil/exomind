@@ -1,0 +1,10 @@
+@import url("book.css");
+
+a {
+    border: none;
+}
+
+a,
+a:hover {
+    color: #900;
+}

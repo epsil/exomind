@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "Charter";
+    src: url("Charter-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Charter";
+    src: url("Charter-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Charter";
+    src: url("Charter-Italic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Charter";
+    src: url("Charter-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+}

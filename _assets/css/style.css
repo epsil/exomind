@@ -1,4 +1,6 @@
-@import url("../fonts/stix.css");
+/* @import url("minion.css"); */
+@import url("stix.css");
+/* @import url("libertine.css"); */
 
 abbr,
 abbr[title],
@@ -130,17 +132,17 @@ body {
     /* font-size: 105% !important; */
     /* color: #333 !important; */
     /* font-family: "STIX Two Web", "STIX Two Text", Times, "Times Roman", "Times New Roman", "Lora Web", Lora, "Crimson Text", Crimson, "PT Serif", "Iowan Old Style", Iowan, "Iowan Web", Georgia, Constantia, Cambria, Charter, "Hoefler Text", Utopia, Marion, Cochin, "Palatino Linotype", Palatino, Baskerville, serif !important; */
-    font-family: "STIX Two Web", "STIX Two Text", "Minion Web", "Minion Pro",
-        "Minion Std", Minion, "Crimson Text", "ETBembo", "ETBembo LF", Charter,
-        "PT Serif", Georgia, "Iowan Old Style", Iowan, "Iowan Web",
-        "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia,
-        Utopia, Marion, Cochin, "Palatino Linotype", Palatino, serif !important;
+    /* font-family: "Minion Web", "Minion Pro", "Minion Std", Minion, */
+    /*     "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text", */
+    /*     Charter, "PT Serif", Georgia, "Iowan Old Style", Iowan, "Iowan Web", */
+    /*     "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia, */
+    /*     Utopia, Marion, Cochin, "Palatino Linotype", Palatino, serif !important; */
     /* font-size: 120% !important; */
     /* font-size: 115% !important; */
     /* font-size: 132% !important; */
-    font-size: 145% !important;
+    /* font-size: 145% !important; */
     font-variant: common-ligatures oldstyle-nums;
-    line-height: 1.4;
+    /* line-height: 1.4; */
     /* line-height: 1.5; */
     /* line-height: 1.55; */
     margin-bottom: 2em;
@@ -165,26 +167,32 @@ code,
 kbd,
 samp,
 tt {
-    white-space: pre-wrap;
+    white-space: pre-wrap !important;
 }
 
 code,
 kbd,
 samp,
 tt,
-pre {
+pre,
+.pre pre {
     /* background-color: #f9f9f9; */
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 0;
     border: none;
     color: inherit;
-    font-family: "Consolas Web", Consolas, Menlo, Monaco, "Liberation Mono",
-        "Latin Modern Mono", Courier, monospace !important;
+    /* font-family: "Consolas Web", Consolas, Menlo, Monaco, "Liberation Mono", */
+    /*     "Latin Modern Mono", Courier, monospace !important; */
     /* font-size: 0.83em !important; */
     /* font-size: 0.8em !important; */
-    font-size: 0.7em !important;
+    /* font-size: 0.7em !important; */
     font-variant: normal;
+    text-shadow: 0 1px white;
     -moz-osx-font-smoothing: auto;
+}
+
+a code {
+    padding-bottom: 0;
 }
 
 dd {
@@ -208,11 +216,11 @@ input,
 kbd,
 textarea,
 .modal {
-    font-family: "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, -apple-system,
-        BlinkMacSystemFont, "Segoe UI", "Noto Sans", "PT Sans", "Droid Sans",
-        "Open Sans", Arial, Lato, Avenir, "Avenir Next", Futura, "Gill Sans MT",
-        "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
-        Geneva, sans-serif !important;
+    /* font-family: "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, -apple-system, */
+    /*     BlinkMacSystemFont, "Segoe UI", "Noto Sans", "PT Sans", "Droid Sans", */
+    /*     "Open Sans", Arial, Helvetica, Lato, Avenir, "Avenir Next", Futura, */
+    /*     "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode", */
+    /*     "Lucida Sans", Geneva, sans-serif !important; */
 }
 
 h1,
@@ -265,6 +273,7 @@ header {
 }
 
 header a {
+    background: inherit !important;
     text-decoration: none !important;
 }
 
@@ -435,12 +444,18 @@ nav {
 
 nav a {
     border: none !important;
+    outline: none !important;
+}
+
+.navbar-left a,
+.navbar-right a {
+    font-weight: bold;
 }
 
 nav,
 .navbar-default {
     border: none;
-    background-color: #fff;
+    background-color: inherit;
 }
 
 .nav > li > a:hover,
@@ -677,6 +692,7 @@ header p {
 .spoiler * {
     background-color: #f2f2f2;
     color: #f2f2f2 !important;
+    text-shadow: none;
     /* transition: 2.5s; */
 }
 
@@ -753,11 +769,6 @@ Bootstrap provides four classes (configurable with Less):
 }
 
 @media (max-width: 767px) {
-    body {
-        font-size: 130% !important;
-        line-height: 1.3;
-    }
-
     nav > div {
         padding: 0 !important;
     }
@@ -879,52 +890,68 @@ input {
     border-left-width: 5px;
     border-radius: 3px;
 }
+
 .bs-callout h4 {
     margin-top: 0;
     margin-bottom: 5px;
 }
+
 .bs-callout p:last-child {
     margin-bottom: 0;
 }
+
 .bs-callout code {
     border-radius: 3px;
 }
+
 .bs-callout + .bs-callout {
     margin-top: -5px;
 }
+
 .bs-callout-default {
     border-left-color: #777;
 }
+
 .bs-callout-default h4 {
     color: #777;
 }
+
 .bs-callout-primary {
     border-left-color: #428bca;
 }
+
 .bs-callout-primary h4 {
     color: #428bca;
 }
+
 .bs-callout-success {
     border-left-color: #5cb85c;
 }
+
 .bs-callout-success h4 {
     color: #5cb85c;
 }
+
 .bs-callout-danger {
     border-left-color: #d9534f;
 }
+
 .bs-callout-danger h4 {
     color: #d9534f;
 }
+
 .bs-callout-warning {
     border-left-color: #f0ad4e;
 }
+
 .bs-callout-warning h4 {
     color: #f0ad4e;
 }
+
 .bs-callout-info {
     border-left-color: #5bc0de;
 }
+
 .bs-callout-info h4 {
     color: #5bc0de;
 }
@@ -967,7 +994,7 @@ input {
 }
 
 .btn.clippy i {
-    background-image: url("../img/clippy.svg") !important;
+    background-image: url("../img/clippy/clippy.svg") !important;
     background-size: contain;
     background-position: 50%;
     background-repeat: no-repeat;
@@ -1027,7 +1054,7 @@ a .code .btn.clippy {
 
 @media (max-width: 767px) {
     .pre .btn.clippy {
-        opacity: 1;
+        /* opacity: 1; */
     }
 }
 
@@ -1091,31 +1118,31 @@ ol > li:before {
     display: none;
 }
 
-.tag-list {
-    padding-left: 0;
-    margin-left: -5px;
-    list-style: none;
-}
+/* .tag-list { */
+/*     padding-left: 0; */
+/*     margin-left: -5px; */
+/*     list-style: none; */
+/* } */
 
-.tag-list li {
-    display: inline-block;
-    padding-right: 5px;
-    padding-left: 5px;
-}
+/* .tag-list li { */
+/*     display: inline-block; */
+/*     padding-right: 5px; */
+/*     padding-left: 5px; */
+/* } */
 
-.tag-list [aria-hidden] {
-    display: none;
-}
+/* .tag-list [aria-hidden] { */
+/*     display: none; */
+/* } */
 
-.tag,
-.tag-list li {
-    border-color: #ccc #ccc #bbb;
-    border-radius: 3px;
-    border-style: solid;
-    border-width: 1px;
-    /* padding: 2px 4px; */
-    padding: 0px 4px;
-}
+/* .tag, */
+/* .tag-list li { */
+/*     border-color: #ccc #ccc #bbb; */
+/*     border-radius: 3px; */
+/*     border-style: solid; */
+/*     border-width: 1px; */
+/*     /\* padding: 2px 4px; *\/ */
+/*     padding: 0px 4px; */
+/* } */
 
 .colon,
 .semicolon,
@@ -1164,23 +1191,55 @@ figcaption {
 }
 
 .sidenote {
+    /* border-top: 1px solid #ccc; */
     clear: both;
     float: right;
     font-size: 80%;
     margin: 0.3em -9em 0.5em 1em;
+    padding-top: 0.6em;
+    text-align: left;
     width: 8em;
+}
+
+.sidenote p {
+    position: relative;
+}
+
+.sidenote .sidenote-ruler {
+    border-top: 1px solid #ccc;
+    display: block;
+    margin: 0;
+    margin-bottom: 0.5em;
+    margin-left: -0.3em;
+    /* margin-left: -0.5em; */
+    max-width: 5em;
+    padding: 0;
+}
+
+.sidenote .sidenote-ruler:before {
+    content: normal;
+}
+
+.sidenote .ref-mark {
+    margin-right: 0.2em;
+    /* position: absolute; */
+    /* width: 20px; */
+    /* text-align: right; */
+    /* left: -20px; */
+    /* padding-right: 0.15em; */
+    /* padding-top: 1em; */
 }
 
 .sidenote blockquote {
     border: none;
 }
 
-.sidenote p:first-of-type {
-    margin-top: 0em;
+.sidenote blockquote em {
+    font-style: normal;
 }
 
-.sidenote .ref-mark {
-    margin-right: 0.2em;
+.sidenote p:first-of-type {
+    margin-top: 0em;
 }
 
 .sidenote .left-bracket,
@@ -1206,7 +1265,28 @@ figcaption {
 
 @media (max-width: 1000px) {
     .sidenote {
+        border-left: 1px solid #ccc;
+        border-top: none;
         margin: 0.3em 0 0.5em 1em;
+        padding-left: 0.75em;
+        padding-top: 0;
+    }
+
+    .sidenote .sidenote-ruler {
+        display: none;
+    }
+
+    .sidenote p:last-child {
+        margin-bottom: 0;
+    }
+
+    .sidenote blockquote {
+        font-style: italic;
+        padding: 0;
+    }
+
+    .sidenote blockquote em {
+        font-style: normal;
     }
 }
 
@@ -1237,7 +1317,68 @@ figcaption {
 /*     content: ", "; */
 /* } */
 
-iframe {
+iframe,
+video {
     display: block;
     margin: 1.3em auto;
+}
+
+/* .capitals hr { */
+/*     display: none; */
+/* } */
+
+/* .capitals hr + hr { */
+/*     display: block; */
+/* } */
+
+.capitals p:first-of-type:first-letter,
+.capitals hr + p:first-letter {
+    display: block;
+    float: left;
+    font-size: 3em;
+    line-height: 1em;
+    margin-left: -0.1em;
+    margin-right: 2px;
+    margin-top: 0.1em;
+}
+
+#footnotediv div {
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.8em;
+    margin-right: 60px;
+    max-width: 600px;
+    /* padding: 3px; */
+    padding: 12px;
+}
+
+#footnotediv .footnote-backref {
+    display: none;
+}
+
+#footnotediv p:last-child {
+    margin-bottom: 0;
+}
+
+code .token,
+pre .token {
+    background-color: transparent !important;
+}
+
+nav .search {
+    font-size: 1.5em;
+}
+
+nav .search li {
+    margin-top: 0.5em;
+}
+
+nav .search li:last-child {
+    padding-bottom: 0.5em;
+}
+
+.markdown-mark {
+    font-size: 0.87em;
 }

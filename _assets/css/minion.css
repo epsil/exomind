@@ -9,73 +9,33 @@ body {
     line-height: 1.4;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: inherit !important;
-    font-weight: normal;
-}
-
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: 1em !important;
-}
-
-h1 {
-    border-bottom: 1px solid #000;
-    font-size: 1.2em;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-h2 {
-    font-variant: small-caps;
-    letter-spacing: 0.1em;
-    text-transform: lowercase;
-}
-
-h3 {
-    font-style: italic;
-}
-
-header h1 {
-    border: none;
-}
-
-code,
-kbd,
-samp,
-tt {
-    background: inherit;
-    padding: 0;
-}
-
 code,
 kbd,
 samp,
 tt,
 pre {
-    /* font-family: "Latin Modern Mono", "LM Mono", "Latin Modern Mono 12", "LM Mono 12", "Compter Modern Mono", "Concrete Roman", "Consolas Web", Consolas, Menlo, Monaco, "Liberation Mono", Courier, monospace !important; */
-    /* font-size: 0.85em !important; */
+    font-family: "Consolas Web", Consolas, Menlo, Monaco, "Liberation Mono",
+        "Fira Mono", "Latin Modern Mono", Courier, monospace !important;
+    font-size: 0.7em !important;
 }
 
-blockquote,
-pre {
-    background: inherit;
-    border: none;
-    margin-left: 1.3em;
-    padding: 0;
-}
-
-code .btn,
-pre .btn {
-    background: #fff !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+button,
+input,
+kbd,
+textarea,
+.modal {
+    font-family: "Myriad Web", "Myriad Pro", "Myriad Std", Myriad, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", "Noto Sans", "PT Sans", "Droid Sans",
+        "Open Sans", Arial, Helvetica, Lato, Avenir, "Avenir Next", Futura,
+        "Gill Sans MT", "Gill Sans", "Lucida Grande", "Lucida Sans Unicode",
+        "Lucida Sans", Geneva, sans-serif !important;
 }
 
 @media (max-width: 767px) {
@@ -83,13 +43,4 @@ pre .btn {
         font-size: 130% !important;
         line-height: 1.3;
     }
-}
-
-.h-entry .header-anchor {
-    left: -0.7em;
-}
-
-.header-anchor:before {
-    content: "\00B6"; /* pilcrow sign */
-    font-family: inherit;
 }

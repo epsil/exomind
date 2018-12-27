@@ -93,20 +93,74 @@ header h2 {
     border: none;
 }
 
+/* .e-content ul a.collapse-button, */
+/* .e-content ul a.collapse-button:before, */
+/* .e-content ul.collapse a.collapse-button:before, */
+/* .e-content ul a.collapse-button[aria-expanded="true"]:before { */
+/*     color: inherit !important; */
+/* } */
+
+/* .e-content ul a.collapse-button:before { */
+/*     /\* content: "\2022"; *\/ */
+/*     /\* content: "\29bf"; *\/ */
+/*     /\* content: "\f140"; /\\* fa-bullseye *\\/ *\/ */
+/*     content: "\f055"; /\* fa-plus-circle *\/ */
+/*     font-size: 0.45em; */
+/*     font-family: FontAwesome !important; */
+/*     vertical-align: middle; */
+/* } */
+
+/* .e-content ul a.collapse-button[aria-expanded="true"]:before { */
+/*     /\* content: "\2022"; *\/ */
+/*     content: "\f111"; /\* fa-circle *\/ */
+/*     /\* font-family: inherit; *\/ */
+/*     font-family: FontAwesome !important; */
+/* } */
+
+/* .e-content ul a.collapse-button { */
+/*     padding-right: 0.6em !important; */
+/*     transition: padding-right 0s; */
+/* } */
+
+/* .e-content ul a.collapse-button[aria-expanded="true"] { */
+/*     /\* padding-right: 0.7em !important; *\/ */
+/*     transition: padding-right 0s; */
+/* } */
+
+.e-content ul.collapse a.collapse-button:before {
+    color: #333 !important;
+}
+
 .e-content ul a.collapse-button,
 .e-content ul a.collapse-button:before,
 .e-content ul a.collapse-button[aria-expanded="true"]:before {
-    color: inherit !important;
+    color: #333 !important;
 }
 
 .e-content ul a.collapse-button:before {
-    content: "\2022";
-    font-family: inherit;
+    content: "\f055"; /* fa-plus-circle */
+    font-size: 0.45em;
+    font-family: FontAwesome !important;
+    vertical-align: middle;
 }
 
 .e-content ul a.collapse-button[aria-expanded="true"]:before {
-    content: "\2022";
-    font-family: inherit;
+    content: "\f111"; /* fa-circle */
+    font-size: 0.27em;
+    font-family: FontAwesome !important;
+}
+
+.e-content ul a.collapse-button {
+    padding-right: 0.66em !important;
+    transition: padding-right 0s;
+}
+
+.e-content ul a.collapse-button[aria-expanded="true"] {
+    padding-right: 0.75em !important;
+}
+
+.e-content ul a.collapse-button[aria-expanded="true"] {
+    transition: padding-right 0s;
 }
 
 .header-anchor:before {
