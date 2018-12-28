@@ -45,7 +45,7 @@
     "index": "node _assets/js/lib/build.js",
     "html": "npm run index",
     "rebuild": "npm run index && npm run build",
-    "rebuild!": "npm run rebuild && npm run rebuild",
+    "rebuild!": "npm run prettier && npm run rebuild && npm run rebuild",
     "reinstall": "git clean -f -d -d x && npm install",
     "rename": "npm run rename-css && npm run rename-js",
     "rename-css": "cp build/static/css/main.*.css build/static/css/main.css",

@@ -2,7 +2,7 @@
   "url": "http://localhost:8000/",
   "index": "index.md",
   "compile": false,
-  "github-repo": "epsil/mdwiki",
+  "github-repo": "epsil/exomind",
   "tidy": true,
   "lang": "no",
   "noindex": true,

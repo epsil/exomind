@@ -266,19 +266,12 @@ MathJax.Hub.Config({
                   target="_blank"
                   title={markdown.toText(this.props['clipboard-title'])}
                 >
-                  <i className="fa fa-clipboard" />
+                  <span class="clipboard-logo" />
                 </a>
               </li>
               {this.props['github-repo'] ? (
                 <React.Fragment>
-                  <li role="presentation">
-                    <a
-                      href={this.props.github}
-                      title={markdown.toText(this.props['github-repo-title'])}
-                    >
-                      <i className="fa fa-github" />
-                    </a>
-                  </li>
+                  {/* <li role="presentation"> <a href={this.props.github} title={markdown.toText(this.props['github-repo-title'])} > <i className="fa fa-github" /> </a> </li> */}
                   <li role="presentation">
                     <a
                       href={this.props['github-edit']}
@@ -290,10 +283,11 @@ MathJax.Hub.Config({
                   {/* <li role="presentation"><a href={this.props['github-history']} title={markdown.toText(this.props['github-history-title'])}><i className="fa fa-history"></i></a></li> */}
                   <li role="presentation">
                     <a
-                      href={this.props['github-raw']}
+                      href={this.props.file}
                       title={markdown.toText(this.props['markdown-title'])}
+                      type="text/plain"
                     >
-                      <i className="fa fa-download" />
+                      <span class="markdown-mark" />
                     </a>
                   </li>
                 </React.Fragment>
@@ -314,8 +308,9 @@ MathJax.Hub.Config({
                     <a
                       href={this.props.file}
                       title={markdown.toText(this.props['markdown-title'])}
+                      type="text/plain"
                     >
-                      <i className="fa fa-download" />
+                      <span class="markdown-mark" />
                     </a>
                   </li>
                 </React.Fragment>
@@ -324,8 +319,9 @@ MathJax.Hub.Config({
                   <a
                     href={this.props.file}
                     title={markdown.toText(this.props['markdown-title'])}
+                    type="text/plain"
                   >
-                    <i className="fa fa-download" />
+                    <span class="markdown-mark" />
                   </a>
                 </li>
               )}
