@@ -24,12 +24,9 @@
  *   (or does this belong in a plugin of its own?)
  */
 
-var $;
-if (!$) {
-  import $ from 'jquery';
-}
+import $ from 'jquery';
 import S from 'string';
-jQuery = $; // needed for Bootstrap
+var jQuery = $; // needed for Bootstrap
 import 'bootstrap';
 
 var collapse = {};

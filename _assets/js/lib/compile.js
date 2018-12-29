@@ -209,11 +209,11 @@ function compile(data, path) {
   view = typography(view);
   view = links(view, path);
 
-  // if (view.plain) {
-  //   view.content = util.processSimple(view.content);
-  // } else {
-  //   view.content = util.process(view.content);
-  // }
+  if (view.plain) {
+    view.content = utilJq.processSimple(view.content);
+  } else {
+    view.content = utilJq.process(view.content);
+  }
 
   // view.content = document(view);
   // return view.content;

@@ -6,6 +6,11 @@ import Clipboard from 'clipboard';
 var clipboard = null;
 import Reference from './reference';
 import util from './util';
+import './anchor';
+import './collapse';
+import './figure';
+import './footnotes';
+import './section';
 var utilJq = {};
 
 utilJq.dojQuery = function(html, fn) {
@@ -61,8 +66,11 @@ utilJq.processDOM = function() {
 
 utilJq.processBody = function(body) {
   var content = body.find('.e-content');
+  alert('hello');
   if (content.length <= 0) {
-    return;
+    content = body;
+    // alert('didn\'t find content');
+    // return;
   }
   body.fixWidont();
   body.addAcronyms();
