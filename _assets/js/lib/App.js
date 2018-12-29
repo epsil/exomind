@@ -14,8 +14,8 @@ var settings = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = settings;
     this.update = true;
+    this.state = settings;
   }
 
   async componentDidMount() {
@@ -29,7 +29,7 @@ class App extends Component {
     this.addClickHandlers();
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps, nextState) {
     return this.update;
   }
 
