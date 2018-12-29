@@ -12,7 +12,19 @@ This is a *Markdown* file ...
 
 [A page], [another page]
 
----
+A header
+--------
+
+A list:
+
+-   A bullet point
+    -   Another point
+    -   A third point
+-   A fourth
+-   A fifth
+
+*Catch-22*
+----------
 
 > "Sure, that's what I mean," Doc Daneeka said. "A little grease is what makes this world go round. One hand washes the other. Know what I mean? You scratch my back, I'll scratch yours."
 >
