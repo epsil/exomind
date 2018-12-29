@@ -236,7 +236,7 @@ MathJax.Hub.Config({
               type="text/javascript"
             />
           ]}
-        {/* <script src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')} /> */}
+          {/* <script src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')} /> */}
         </Helmet>
         <nav className="navbar navbar-default navbar-fixed-top">
           <div className="container-fluid topbar">
