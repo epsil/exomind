@@ -3,6 +3,10 @@ var jsdom = require('jsdom');
 document = jsdom.jsdom();
 window = document.defaultView;
 
+// Set up jQuery
+var $ = require('jquery');
+jQuery = $;
+
 // Transpile all code following this line with babel
 // and use 'env' (aka ES6) preset
 require('@babel/register')({
