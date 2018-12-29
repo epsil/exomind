@@ -4,6 +4,7 @@ import compile from './compile';
 import Template from './Template';
 import LoadingScreen from './Load';
 import page from './page';
+import Reference from './reference';
 import $ from 'jquery';
 import './collapse';
 
@@ -55,7 +56,7 @@ class App extends Component {
         button.click();
       });
     });
-    // $('nav form').on('submit', Reference.searchHandler);
+    $('nav form').on('submit', Reference.searchHandler);
   }
 
   render() {
