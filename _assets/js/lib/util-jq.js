@@ -66,11 +66,8 @@ utilJq.processDOM = function() {
 
 utilJq.processBody = function(body) {
   var content = body.find('.e-content');
-  alert('hello');
   if (content.length <= 0) {
     content = body;
-    // alert('didn\'t find content');
-    // return;
   }
   body.fixWidont();
   body.addAcronyms();
