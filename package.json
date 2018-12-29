@@ -48,7 +48,7 @@
     "html": "npm run index",
     "rebuild": "npm run index && npm run build",
     "rebuild!": "npm run prettier && npm run rebuild && npm run rebuild",
-    "reinstall": "git clean -f -d -d x && npm install",
+    "reinstall": "rm -rf node_modules && npm install",
     "rename": "npm run rename-css && npm run rename-js",
     "rename-css": "cp build/static/css/main.*.css build/static/css/main.css",
     "rename-js": "cp build/static/js/main.*.js build/static/js/main.js",
