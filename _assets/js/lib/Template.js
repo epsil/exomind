@@ -266,7 +266,7 @@ MathJax.Hub.Config({
                   target="_blank"
                   title={markdown.toText(this.props['clipboard-title'])}
                 >
-                  <span class="clipboard-logo" />
+                  <span className="clipboard-logo" />
                 </a>
               </li>
               {this.props['github-repo'] ? (
@@ -287,7 +287,7 @@ MathJax.Hub.Config({
                       title={markdown.toText(this.props['markdown-title'])}
                       type="text/plain"
                     >
-                      <span class="markdown-mark" />
+                      <span className="markdown-mark" />
                     </a>
                   </li>
                 </React.Fragment>
@@ -310,7 +310,7 @@ MathJax.Hub.Config({
                       title={markdown.toText(this.props['markdown-title'])}
                       type="text/plain"
                     >
-                      <span class="markdown-mark" />
+                      <span className="markdown-mark" />
                     </a>
                   </li>
                 </React.Fragment>
@@ -321,7 +321,7 @@ MathJax.Hub.Config({
                     title={markdown.toText(this.props['markdown-title'])}
                     type="text/plain"
                   >
-                    <span class="markdown-mark" />
+                    <span className="markdown-mark" />
                   </a>
                 </li>
               )}
