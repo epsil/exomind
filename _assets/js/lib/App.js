@@ -15,6 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = settings;
+    this.update = true;
   }
 
   async componentDidMount() {
@@ -24,7 +25,12 @@ class App extends Component {
     this.setState({
       markdown: text
     });
+    this.update = false;
     this.addClickHandlers();
+  }
+
+  shouldComponentUpdate() {
+    return this.update;
   }
 
   addClickHandlers() {
