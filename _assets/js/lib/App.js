@@ -48,6 +48,7 @@ class App extends Component {
     //     paging: false,
     //     searching: false
     // });
+    $('.navbar-left').fixLinks();
     // close table of contents
     $('#toc a[title]').each(function() {
       var link = $(this);

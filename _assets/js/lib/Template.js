@@ -242,7 +242,10 @@ MathJax.Hub.Config({
           <div className="container-fluid topbar">
             <ul className="nav nav-pills navbar-left">
               <li role="presentation">
-                <a href={util.urlRelative(this.props.path, '/')} title={markdown.toText(this.props['home-title'])}>
+                <a
+                  href={util.urlRelative(this.props.path, '/')}
+                  title={markdown.toText(this.props['home-title'])}
+                >
                   <i className="fa fa-home" />
                 </a>
               </li>
