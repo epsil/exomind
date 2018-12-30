@@ -8,13 +8,14 @@ import LoadingScreen from './Load';
 import page from './page';
 import Reference from './reference';
 import $ from 'jquery';
+import settings from '../json/settings.json';
 import './collapse';
 
 // openpgp.initWorker({ path: 'openpgp.worker.js' }); // set the relative web worker path
 
-var settings = {
-  noindex: true
-};
+// var settings = {
+//   noindex: true
+// };
 
 class App extends Component {
   constructor(props) {
@@ -53,23 +54,35 @@ class App extends Component {
   }
 
   async decrypt(pass) {
-    try {
-      let plaintext = await openpgp.decrypt({
-        message: await openpgp.message.readArmored(this.state.ciphertext), // parse armored message
-        passwords: [pass], // decrypt with password
-        format: 'utf8'
-      });
-      this.setState({
-        invalidPassword: false,
-        markdown: plaintext.data,
-        prompt: false
-      });
-    } catch (err) {
-      this.setState({
-        invalidPassword: true
-      });
-    }
+    this.setState({
+      markdown: `---
+title: Hm
+---
+
+will you render this?`
+    });
+    this.setState({ prompt: false });
   }
+
+  // async decrypt(pass) {
+  //   try {
+  //     let plaintext = await openpgp.decrypt({
+  //       message: await openpgp.message.readArmored(this.state.ciphertext), // parse armored message
+  //       passwords: [pass], // decrypt with password
+  //       format: 'utf8'
+  //     });
+  //     alert(plaintext.data);
+  //     this.setState({
+  //       invalidPassword: false,
+  //       markdown: plaintext.data,
+  //       prompt: false
+  //     });
+  //   } catch (err) {
+  //     this.setState({
+  //       invalidPassword: true
+  //     });
+  //   }
+  // }
 
   async fetchMarkdown() {
     let response = null;
