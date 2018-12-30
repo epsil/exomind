@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
 
 class Prompt extends Component {
+  constructor() {
+    super();
+    this.state = { value: '' };
+
+    // https://reactjs.org/docs/forms.html
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert('A value was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
   render() {
     // className="modal fade"
     return (
@@ -13,7 +31,7 @@ class Prompt extends Component {
               </h4>
             </div>
             <div className="modal-body">
-              <form role="form">
+              <form onSubmit={this.handleSubmit} role="form">
                 <div className="form-group">
                   <div className="input-group">
                     <div className="input-group-addon">
@@ -26,6 +44,8 @@ class Prompt extends Component {
                       placeholder="Password"
                       style={{ paddingRight: '4em' }}
                       title="Enter encryption key"
+                      value={this.state.value}
+                      onChange={this.handleChange}
                       required
                     />
                   </div>
