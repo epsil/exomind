@@ -11,6 +11,10 @@
     "href": "/anotherpage/",
     "title": "Another page"
   },
+  "ENCRYPTED PAGE": {
+    "href": "/pass/",
+    "title": "Encrypted page"
+  },
   "INDEX": {
     "href": "/",
     "title": "Markdown test"
@@ -22,5 +26,9 @@
   "PAGE": {
     "href": "/page/",
     "title": "A page"
+  },
+  "PASS": {
+    "href": "/pass/",
+    "title": "Encrypted page"
   }
 }

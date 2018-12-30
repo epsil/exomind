@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import compile from './compile';
 import Template from './Template';
+import Prompt from './Prompt';
 import LoadingScreen from './Load';
 import page from './page';
 import Reference from './reference';
@@ -29,6 +30,8 @@ class App extends Component {
     this.update = false;
     this.addClickHandlers();
   }
+
+  async fetchMarkdown() {}
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.update;
