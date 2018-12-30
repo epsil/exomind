@@ -17,7 +17,7 @@ import './collapse';
 //   noindex: true
 // };
 
-class App extends Component {
+class Wiki extends Component {
   constructor(props) {
     super(props);
     this.update = true;
@@ -144,4 +144,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Wiki;
