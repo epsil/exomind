@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-import openpgp from 'openpgp';
+import * as openpgp from 'openpgp';
 import compile from './compile';
 import Template from './Template';
 import Prompt from './Prompt';
@@ -10,7 +10,7 @@ import Reference from './reference';
 import $ from 'jquery';
 import './collapse';
 
-openpgp.initWorker({ path: 'openpgp.worker.js' }); // set the relative web worker path
+// openpgp.initWorker({ path: 'openpgp.worker.js' }); // set the relative web worker path
 
 var settings = {
   noindex: true
@@ -53,27 +53,18 @@ class App extends Component {
   }
 
   async decrypt(pass) {
-    alert('trying to use ' + pass + ' to decrypt: ' + this.state.ciphertext);
     try {
-      alert(openpgp);
-      alert(openpgp.message);
-      alert(openpgp.message.readArmored);
-      let msg = openpgp.message.readArmored(this.state.ciphertext);
-      alert(msg);
       let plaintext = await openpgp.decrypt({
-        message: openpgp.message.readArmored(this.state.ciphertext), // parse encrypted bytes
-        password: pass, // decrypt with password
+        message: await openpgp.message.readArmored(this.state.ciphertext), // parse armored message
+        passwords: [pass], // decrypt with password
         format: 'utf8'
       });
-      alert(plaintext);
       this.setState({
         invalidPassword: false,
-        markdown: plaintext,
+        markdown: plaintext.data,
         prompt: false
       });
     } catch (err) {
-      alert(err);
-      alert(JSON.stringify(err, null, 2));
       this.setState({
         invalidPassword: true
       });
