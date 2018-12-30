@@ -37,7 +37,7 @@ class App extends Component {
     let isEncryptedMessage = md.match(/^-+BEGIN PGP MESSAGE/);
     if (isEncryptedMessage) {
       this.setState({
-        ciphertext: md,
+        ciphertext: md.trim(),
         prompt: true
       });
     } else {
@@ -50,11 +50,27 @@ class App extends Component {
     }
   }
 
-  decrypt(pass) {
-    alert('password: ' + pass);
-    this.setState({
-      invalidPassword: true
-    });
+  async decrypt(pass) {
+    alert('trying to use ' + pass + ' to decrypt: ' + this.state.ciphertext);
+    try {
+      let plaintext = await openpgp.decrypt({
+        message: openpgp.message.readArmored(this.state.ciphertext), // parse encrypted bytes
+        password: pass, // decrypt with password
+        format: 'utf8'
+      });
+      alert(plaintext);
+      this.setState({
+        invalidPassword: false,
+        markdown: plaintext,
+        prompt: false
+      });
+    } catch (err) {
+      alert(err);
+      alert(JSON.stringify(err, null, 2));
+      this.setState({
+        invalidPassword: true
+      });
+    }
   }
 
   async fetchMarkdown() {
