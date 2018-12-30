@@ -23,6 +23,7 @@ class App extends Component {
     this.update = true;
     this.state = settings;
     // this.componentDidMount = this.componentDidMount.bind(this);
+    this.loadMarkdown = this.loadMarkdown.bind(this);
     this.compileMarkdown = this.compileMarkdown.bind(this);
     this.decrypt = this.decrypt.bind(this);
     this.fetchMarkdown = this.fetchMarkdown.bind(this);
@@ -33,10 +34,10 @@ class App extends Component {
 
   async componentDidMount() {
     let md = await this.fetchMarkdown();
-    this.compileMarkdown(md);
+    this.loadMarkdown(md);
   }
 
-  compileMarkdown(md) {
+  loadMarkdown(md) {
     let isEncryptedMessage = md.match(/^-+BEGIN PGP MESSAGE/);
     if (isEncryptedMessage) {
       this.setState({
@@ -44,45 +45,37 @@ class App extends Component {
         prompt: true
       });
     } else {
-      this.setState(compile(md, page.path()));
-      this.setState({
-        markdown: md
-      });
-      this.update = false;
-      this.addClickHandlers();
+      this.compileMarkdown(md);
     }
   }
 
-  async decrypt(pass) {
+  compileMarkdown(md) {
+    this.setState(compile(md, page.path()));
     this.setState({
-      markdown: `---
-title: Hm
----
-
-will you render this?`
+      markdown: md
     });
-    this.setState({ prompt: false });
+    this.update = false;
+    this.addClickHandlers();
   }
 
-  // async decrypt(pass) {
-  //   try {
-  //     let plaintext = await openpgp.decrypt({
-  //       message: await openpgp.message.readArmored(this.state.ciphertext), // parse armored message
-  //       passwords: [pass], // decrypt with password
-  //       format: 'utf8'
-  //     });
-  //     alert(plaintext.data);
-  //     this.setState({
-  //       invalidPassword: false,
-  //       markdown: plaintext.data,
-  //       prompt: false
-  //     });
-  //   } catch (err) {
-  //     this.setState({
-  //       invalidPassword: true
-  //     });
-  //   }
-  // }
+  async decrypt(pass) {
+    try {
+      let plaintext = await openpgp.decrypt({
+        message: await openpgp.message.readArmored(this.state.ciphertext), // parse armored message
+        passwords: [pass], // decrypt with password
+        format: 'utf8'
+      });
+      this.setState({
+        invalidPassword: false,
+        prompt: false
+      });
+      this.compileMarkdown(plaintext.data);
+    } catch (err) {
+      this.setState({
+        invalidPassword: true
+      });
+    }
+  }
 
   async fetchMarkdown() {
     let response = null;
