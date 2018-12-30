@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import * as openpgp from 'openpgp';
-import compile from './compile';
+import datatables from 'datatables';
+import $ from 'jquery';
 import Template from './Template';
 import Prompt from './Prompt';
 import LoadingScreen from './Load';
+import compile from './compile';
 import page from './page';
 import Reference from './reference';
-import $ from 'jquery';
 import settings from '../json/settings.json';
 import './collapse';
-
-// openpgp.initWorker({ path: 'openpgp.worker.js' }); // set the relative web worker path
-
-// var settings = {
-//   noindex: true
-// };
 
 class Wiki extends Component {
   constructor(props) {
     super(props);
     this.update = true;
     this.state = settings;
-    // this.componentDidMount = this.componentDidMount.bind(this);
     this.loadMarkdown = this.loadMarkdown.bind(this);
     this.compileMarkdown = this.compileMarkdown.bind(this);
     this.decrypt = this.decrypt.bind(this);
     this.fetchMarkdown = this.fetchMarkdown.bind(this);
-    // this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
     this.addClickHandlers = this.addClickHandlers.bind(this);
-    // this.render = this.render.bind(this);
   }
 
   async componentDidMount() {
@@ -105,16 +97,16 @@ class Wiki extends Component {
     $('body').addCollapsibleHandlers();
     $('body').addLinkHandlers();
     $('body').addFootnoteHandlers();
-    // $('table')
-    //   .filter(function() {
-    //     return $(this).find('thead th').length > 0;
-    //   })
-    //   .DataTable({
-    //     bInfo: false,
-    //     order: [],
-    //     paging: false,
-    //     searching: false
-    // });
+    $('table')
+      .filter(function() {
+        return $(this).find('thead th').length > 0;
+      })
+      .DataTable({
+        bInfo: false,
+        order: [],
+        paging: false,
+        searching: false
+    });
     $('.navbar-left').fixLinks();
     // close table of contents
     $('#toc a[title]').each(function() {

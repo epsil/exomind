@@ -5,6 +5,7 @@
   "homepage": ".",
   "dependencies": {
     "bootstrap": "3.4.0",
+    "datatables": "^1.10.18",
     "fs": "0.0.1-security",
     "gray-matter": "^4.0.1",
     "highlight.js": "^9.12.0",
