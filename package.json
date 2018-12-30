@@ -27,7 +27,7 @@
     "markdown-it-task-checkbox": "^1.0.6",
     "md5": "^2.2.1",
     "moment": "^2.22.2",
-    "openpgp": "^4.4.1",
+    "openpgp": "^2.5.11",
     "popper.js": "^1.14.6",
     "prismjs": "^1.15.0",
     "react": "^16.3.2",
