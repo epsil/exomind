@@ -59,6 +59,7 @@ class App extends Component {
   }
 
   async decrypt(pass) {
+    this.setState({ disabledPrompt: true });
     try {
       let plaintext = await openpgp.decrypt({
         message: await openpgp.message.readArmored(this.state.ciphertext), // parse armored message
@@ -66,12 +67,14 @@ class App extends Component {
         format: 'utf8'
       });
       this.setState({
+        disabledPrompt: false,
         invalidPassword: false,
         prompt: false
       });
       this.compileMarkdown(plaintext.data);
     } catch (err) {
       this.setState({
+        disabledPrompt: false,
         invalidPassword: true
       });
     }
@@ -127,7 +130,11 @@ class App extends Component {
   render() {
     if (this.state.prompt) {
       return (
-        <Prompt callback={this.decrypt} invalid={this.state.invalidPassword} />
+        <Prompt
+          callback={this.decrypt}
+          invalid={this.state.invalidPassword}
+          disabled={this.state.disabledPrompt}
+        />
       );
     } else if (!this.state.markdown) {
       return <LoadingScreen />;

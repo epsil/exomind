@@ -10,6 +10,11 @@ class Prompt extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    let input = document.getElementById('password');
+    input.focus();
+  }
+
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
@@ -46,6 +51,7 @@ class Prompt extends Component {
                       title="Enter encryption key"
                       value={this.state.value}
                       onChange={this.handleChange}
+                      disabled={this.props.disabled}
                       required
                     />
                   </div>

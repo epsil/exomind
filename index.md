@@ -10,7 +10,8 @@ This is a *Markdown* file ...
 
 ---
 
-[A page], [another page], [encrypted page] (PW: `test`)
+[A page], [another page],
+[encrypted page] (PW: `test`)
 
 A header
 --------
