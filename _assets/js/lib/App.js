@@ -21,17 +21,42 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    let response = await fetch('index.md');
-    let text = await response.text();
-    this.setState(compile(text, page.path()));
-    this.setState({
-      markdown: text
-    });
-    this.update = false;
-    this.addClickHandlers();
+    let md = await this.fetchMarkdown();
+    this.compileMarkdown(md);
   }
 
-  async fetchMarkdown() {}
+  compileMarkdown(md) {
+    let isEncryptedMessage = md.match(/^-+BEGIN PGP MESSAGE/);
+    if (isEncryptedMessage) {
+      this.setState({
+        prompt: true
+      });
+    } else {
+      this.setState(compile(md, page.path()));
+      this.setState({
+        markdown: md
+      });
+      this.update = false;
+      this.addClickHandlers();
+    }
+  }
+
+  async fetchMarkdown() {
+    let response = null;
+    try {
+      response = await fetch('index.md');
+    } catch (err) {
+      try {
+        response = await fetch('index.md.asc');
+      } catch (err) {}
+    }
+    if (!response) {
+      return '';
+    } else {
+      let md = await response.text();
+      return md;
+    }
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.update;
@@ -64,7 +89,9 @@ class App extends Component {
   }
 
   render() {
-    if (!this.state.markdown) {
+    if (this.state.prompt) {
+      return <Prompt />;
+    } else if (!this.state.markdown) {
       return <LoadingScreen />;
     } else {
       return <Template {...this.state} />;

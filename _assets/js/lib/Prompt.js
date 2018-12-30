@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 
 class Prompt extends Component {
   render() {
+    // className="modal fade"
     return (
-      <div
-        className="modal fade"
-        id="passwordPrompt"
-        tabindex="-1"
-        role="dialog"
-      >
+      <div id="passwordPrompt" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content text-center">
             <div className="modal-header">
@@ -28,7 +24,7 @@ class Prompt extends Component {
                       className="form-control text-center"
                       id="password"
                       placeholder="Password"
-                      style="padding-right: 4em;"
+                      style={{ paddingRight: '4em' }}
                       title="Enter encryption key"
                       required
                     />
