@@ -10,7 +10,8 @@ import compile from './compile';
 import page from './page';
 import Reference from './reference';
 import settings from '../json/settings.json';
-import './collapse';
+import collapse from './collapse';
+import util from './util';
 
 class Wiki extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class Wiki extends Component {
     });
     this.update = false;
     this.addClickHandlers();
+    this.moveToHashOnLoad();
   }
 
   async decrypt(pass) {
@@ -106,7 +108,7 @@ class Wiki extends Component {
         order: [],
         paging: false,
         searching: false
-    });
+      });
     $('.navbar-left').fixLinks();
     // close table of contents
     $('#toc a[title]').each(function() {
@@ -117,6 +119,45 @@ class Wiki extends Component {
       });
     });
     $('nav form').on('submit', Reference.searchHandler);
+  }
+
+  moveToHashOnLoad(hash) {
+    var self = this;
+    self.moveToHash(hash);
+    $(function() {
+      self.moveToHash(hash);
+      var hasImages = $('article img').length > 0;
+      var hasTables = $('article table').length > 0;
+      var hasDynamicElements = hasImages || hasTables;
+      if (hasDynamicElements) {
+        setTimeout(function() {
+          self.moveToHash(hash);
+        }, 500);
+      }
+    });
+  }
+
+  moveToHash(hash) {
+    hash = hash || page.hashArgs(0);
+    if (hash && hash !== '#') {
+      var decodedHash = decodeURIComponent(hash);
+      var latin1Hash = '#' + util.slugify(decodedHash);
+      var hashContainsSpacesOrLargeLetters = hash !== latin1Hash;
+      if (hashContainsSpacesOrLargeLetters) {
+        hash = latin1Hash;
+      }
+      var target = $(hash).first();
+      if (target.length) {
+        collapse.unhideSection(target);
+        this.scrollToElement(target);
+      }
+    }
+  }
+
+  scrollToElement(el, offset, time) {
+    offset = offset || -50;
+    time = time || 0;
+    $(window).scrollTop(el.offset().top + offset);
   }
 
   render() {
