@@ -111,7 +111,7 @@ class Wiki extends Component {
       });
     $('.navbar-left').fixLinks();
     // close table of contents
-    $('#toc a[title]').each(function() {
+    $('#toc a[href]').each(function() {
       var link = $(this);
       link.click(function(event) {
         var button = $('#toc-button');

@@ -122,12 +122,13 @@ function footnotes(view) {
 function addToC(view) {
   if (view.toc !== false) {
     view.content = utilJq.dojQuery(view.content, function(body) {
-      var placeholder = body.find('#toc-placeholder');
-      var content = body.find('.e-content');
-      view.toc = content.tableOfContents();
-      if (view.toc !== '') {
-        placeholder.replaceWith(view.toc);
-      }
+      // var placeholder = body.find('#toc-placeholder');
+      // var content = body.find('.e-content');
+      // view.toc = content.tableOfContents();
+      // if (view.toc !== '') {
+      //   placeholder.replaceWith(view.toc);
+      // }
+      view.toc = body.tableOfContents();
     });
   }
   return view;
