@@ -10,6 +10,8 @@ import Reference from './reference';
 import $ from 'jquery';
 import './collapse';
 
+openpgp.initWorker({ path: 'openpgp.worker.js' }); // set the relative web worker path
+
 var settings = {
   noindex: true
 };
@@ -53,6 +55,11 @@ class App extends Component {
   async decrypt(pass) {
     alert('trying to use ' + pass + ' to decrypt: ' + this.state.ciphertext);
     try {
+      alert(openpgp);
+      alert(openpgp.message);
+      alert(openpgp.message.readArmored);
+      let msg = openpgp.message.readArmored(this.state.ciphertext);
+      alert(msg);
       let plaintext = await openpgp.decrypt({
         message: openpgp.message.readArmored(this.state.ciphertext), // parse encrypted bytes
         password: pass, // decrypt with password
