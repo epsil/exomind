@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class Prompt extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { value: '' };
 
     // https://reactjs.org/docs/forms.html
@@ -15,8 +15,8 @@ class Prompt extends Component {
   }
 
   handleSubmit(event) {
-    alert('A value was submitted: ' + this.state.value);
     event.preventDefault();
+    this.props.callback(this.state.value);
   }
 
   render() {
@@ -59,6 +59,13 @@ class Prompt extends Component {
                 </button>
               </form>
             </div>
+            {this.props.invalid && (
+              <div className="modal-footer">
+                <p className="small text-danger text-center">
+                  Invalid password
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import openpgp from 'openpgp';
 import compile from './compile';
 import Template from './Template';
 import Prompt from './Prompt';
@@ -18,6 +19,13 @@ class App extends Component {
     super(props);
     this.update = true;
     this.state = settings;
+    // this.componentDidMount = this.componentDidMount.bind(this);
+    this.compileMarkdown = this.compileMarkdown.bind(this);
+    this.decrypt = this.decrypt.bind(this);
+    this.fetchMarkdown = this.fetchMarkdown.bind(this);
+    // this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
+    this.addClickHandlers = this.addClickHandlers.bind(this);
+    // this.render = this.render.bind(this);
   }
 
   async componentDidMount() {
@@ -29,6 +37,7 @@ class App extends Component {
     let isEncryptedMessage = md.match(/^-+BEGIN PGP MESSAGE/);
     if (isEncryptedMessage) {
       this.setState({
+        ciphertext: md,
         prompt: true
       });
     } else {
@@ -39,6 +48,13 @@ class App extends Component {
       this.update = false;
       this.addClickHandlers();
     }
+  }
+
+  decrypt(pass) {
+    alert('password: ' + pass);
+    this.setState({
+      invalidPassword: true
+    });
   }
 
   async fetchMarkdown() {
@@ -90,7 +106,9 @@ class App extends Component {
 
   render() {
     if (this.state.prompt) {
-      return <Prompt />;
+      return (
+        <Prompt callback={this.decrypt} invalid={this.state.invalidPassword} />
+      );
     } else if (!this.state.markdown) {
       return <LoadingScreen />;
     } else {
