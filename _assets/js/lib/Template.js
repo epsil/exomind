@@ -3,223 +3,149 @@ import { Helmet } from 'react-helmet';
 import markdown from './markdown';
 import util from './util';
 
-class Template extends Component {
-  render() {
-    return (
-      <div>
-        <Helmet>
-          <html
-            prefix="og: http://ogp.me/ns#"
-            {...(this.props.lang ? { lang: this.props.lang } : {})}
-          />
-          <title>{markdown.toText(this.props.title)}</title>
-          <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-          {this.props.referrer ? (
-            <meta content={this.props.referrer} name="referrer" />
-          ) : (
-            <meta content="no-referrer" name="referrer" />
-          )}
-          {this.props.noindex && <meta content="noindex" name="robots" />}
-          {this.props.author && (
-            <meta content={markdown.toText(this.props.author)} name="author" />
-          )}
-          {this.props.date && (
-            <meta content={util.dateFormat(this.props.date)} name="date" />
-          )}
-          {this.props.abstract && (
-            <meta
-              content={markdown.toText(this.props.abstract)}
-              name="description"
-            />
-          )}
-          {this.props.keywords && (
-            <meta
-              content={markdown.toText(this.props.keywords)}
-              name="keywords"
-            />
-          )}
-          {this.props.md5 && <meta content={this.props.md5} name="md5" />}
-          <meta content="text/css" http-equiv="Content-Style-Type" />
-          <meta content="width=device-width, initial-scale=1" name="viewport" />
-          {this.props.title && (
-            <meta content={markdown.toText(this.props.title)} name="DC.Title" />
-          )}
-          {this.props.author && (
-            <meta
-              content={markdown.toText(this.props.author)}
-              name="DC.Creator"
-            />
-          )}
-          {this.props.date && (
-            <meta content={util.dateFormat(this.props.date)} name="DC.Date" />
-          )}
-          {this.props.abstract && (
-            <meta
-              content={markdown.toText(this.props.abstract)}
-              name="DC.Description"
-            />
-          )}
-          {this.props.lang && (
-            <meta content={this.props.lang} name="DC.Language" />
-          )}
-          <meta name="DC.Format" content="text/html" />
-          {this.props.title && (
-            <meta content={markdown.toText(this.props.title)} name="og:title" />
-          )}
-          {this.props.abstract && (
-            <meta
-              content={markdown.toText(this.props.abstract)}
-              name="og:description"
-            />
-          )}
-          {this.props.lang && (
-            <meta content={this.props.lang} name="og:locale" />
-          )}
-          <meta property="og:type" content="article" />
-          {this.props.url && <meta content={this.props.url} name="og:url" />}
-          {this.props['site-name'] && (
-            <meta content={this.props['site-name']} name="og:site_name" />
-          )}
-          {this.props.image ? (
-            <meta
-              content={util.urlResolve(this.props.path, this.props.image)}
-              name="og:image"
-            />
-          ) : (
-            this.props['cover-image'] && (
-              <meta
-                content={util.urlResolve(
-                  this.props.path,
-                  this.props['cover-image']
-                )}
-                name="og:image"
-              />
-            )
-          )}
-          {this.props.video && (
-            <meta content={this.props.video} name="og:video" />
-          )}
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:site" content="@github" />
-          {this.props.title && (
-            <meta
-              content={markdown.toText(this.props.title)}
-              name="twitter:title"
-            />
-          )}
-          {this.props.abstract && (
-            <meta
-              content={markdown.toText(this.props.abstract)}
-              name="twitter:description"
-            />
-          )}
-          {this.props.image ? (
-            <meta
-              content={util.urlResolve(this.props.path, this.props.image)}
-              name="twitter:image"
-            />
-          ) : (
-            this.props['cover-image'] && (
-              <meta
-                content={util.urlResolve(
-                  this.props.path,
-                  this.props['cover-image']
-                )}
-                name="twitter:image"
-              />
-            )
-          )}
-          {/*
-this.props.icon ? (
-            <React.Fragment>
+const Template = props => {
+  const {
+    title,
+    subtitle,
+    date,
+    author,
+    'author-url': authorUrl,
+    'author-email': authorEmail,
+    abstract: description,
+    'include-before': includeBefore,
+    'include-after': includeAfter,
+    keywords,
+    lang,
+    icon,
+    image,
+    'image-alt': imageAlt,
+    'image-height': imageHeight,
+    'image-width': imageWidth,
+    'cover-image': coverImage,
+    'cover-image-alt': coverImageAlt,
+    'cover-image-height': coverImageHeight,
+    'cover-image-width': coverImageWidth,
+    css,
+    stylesheet,
+    js,
+    script,
+    video,
+    mathjax,
+    url,
+    path,
+    file,
+    md5,
+    nav,
+    referrer,
+    noindex,
+    indent,
+    sidenotes,
+    footnotes,
+    'footnotes-title': footnotesTitle,
+    toc,
+    'toc-title': tocTitle,
+    content,
+    'show-title': showTitle,
+    'home-title': homeTitle,
+    'search-title': searchTitle,
+    'site-name': siteName,
+    facebook,
+    'facebook-title': facebookTitle,
+    twitter,
+    'twitter-title': twitterTitle,
+    linkedin,
+    'linkedin-title': linkedinTitle,
+    'clipboard-title': clipboardTitle,
+    github,
+    'github-repo': githubRepo,
+    'github-repo-title': githubRepoTitle,
+    'github-edit': githubEdit,
+    'github-edit-title': githubEditTitle,
+    'github-history': githubHistory,
+    'github-history-title': githubHistoryTitle,
+    'markdown-title': markdownTitle,
+    bitbucket,
+    'bitbucket-repo': bitbucketRepo,
+    'bitbucket-repo-title': bitbucketRepoTitle,
+    'bitbucket-history': bitbucketHistory,
+    'bitbucket-history-title': bitbucketHistoryTitle
+  } = props;
+  let key = 1;
+  return (
+    <div>
+      <Helmet>
+        <html prefix="og: http://ogp.me/ns#" lang={lang || 'en'} />
+        <title>{markdown.toText(title)}</title>
+        <meta content="text/html; charset=utf-8" httpEquiv="Content-Type" />
+        {referrer ? <meta content={referrer} name="referrer" /> : <meta content="no-referrer" name="referrer" />}
+        {noindex && <meta content="noindex" name="robots" />}
+        {author && <meta content={markdown.toText(author)} name="author" />}
+        {date && <meta content={util.dateFormat(date)} name="date" />}
+        {description && <meta content={markdown.toText(description)} name="description" />}
+        {keywords && <meta content={markdown.toText(keywords)} name="keywords" />}
+        {md5 && <meta content={md5} name="md5" />}
+        <meta content="text/css" httpEquiv="Content-Style-Type" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        {title && <meta content={markdown.toText(title)} name="DC.Title" />}
+        {author && <meta content={markdown.toText(author)} name="DC.Creator" />}
+        {date && <meta content={util.dateFormat(date)} name="DC.Date" />}
+        {description && <meta content={markdown.toText(description)} name="DC.Description" />}
+        {lang && <meta content={lang} name="DC.Language" />}
+        <meta name="DC.Format" content="text/html" />
+        {title && <meta content={markdown.toText(title)} name="og:title" />}
+        {description && <meta content={markdown.toText(description)} name="og:description" />}
+        {lang && <meta content={lang} name="og:locale" />}
+        <meta property="og:type" content="article" />
+        {url && <meta content={url} name="og:url" />}
+        {siteName && <meta content={siteName} name="og:site_name" />}
+        {image ? (
+          <meta content={util.urlResolve(path, image)} name="og:image" />
+        ) : (
+          coverImage && <meta content={util.urlResolve(path, coverImage)} name="og:image" />
+        )}
+        {video && <meta content={video} name="og:video" />}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@github" />
+        {title && <meta content={markdown.toText(title)} name="twitter:title" />}
+        {description && <meta content={markdown.toText(description)} name="twitter:description" />}
+        {image ? (
+          <meta content={util.urlResolve(path, image)} name="twitter:image" />
+        ) : (
+          coverImage && <meta content={util.urlResolve(path, coverImage)} name="twitter:image" />
+        )}
+        {icon && [
+          <link href={util.urlRelative(path, icon)} key={key++} rel="icon" type="image/x-icon" />,
+          <link href={util.urlRelative(path, icon)} key={key++} rel="apple-touch-icon" />
+        ]}
+        {icon
+          ? [
+              <link href={util.urlRelative(path, icon)} key={key++} rel="icon" type="image/x-icon" />,
+              <link href={util.urlRelative(path, icon)} key={key++} rel="apple-touch-icon" />
+            ]
+          : path && [
               <link
-                href={util.urlRelative(this.props.path, this.props.icon)}
+                href={util.urlRelative(path, coverImage || '/favicon.ico')}
+                key={key++}
                 rel="icon"
                 type="image/x-icon"
-              />
-              <link
-                href={util.urlRelative(this.props.path, this.props.icon)}
-                rel="apple-touch-icon"
-              />
-            </React.Fragment>
-          ) : (
-            this.props.path && (
-              <React.Fragment>
-                <link
-                  href={util.urlRelative(this.props.path, '/favicon.ico')}
-                  rel="icon"
-                  type="image/x-icon"
-                />
-                {this.props.image ? (
-                  <link
-                    href={util.urlRelative(this.props.path, this.props.image)}
-                    rel="apple-touch-icon"
-                  />
-                ) : this.props['cover-image'] ? (
-                  <link
-                    href={util.urlRelative(
-                      this.props.path,
-                      this.props['cover-image']
-                    )}
-                    rel="apple-touch-icon"
-                  />
-                ) : (
-                  <link
-                    href={util.urlRelative(
-                      this.props.path,
-                      '/apple-touch-icon.png'
-                    )}
-                    rel="apple-touch-icon"
-                  />
-                )}
-              </React.Fragment>
-            )
-          )
-*/}
-          <link
-            href={util.urlRelative(this.props.path, '/_assets/css/wiki.css')}
-            rel="stylesheet"
-          />
-          {/* <link href={this.props.url} rel="canonical" /> */}
-          <link
-            href={this.props.file}
-            rel="alternate"
-            title="Markdown"
-            type="text/markdown"
-          />
-          {this.props.css &&
-            this.props.css.map(x => (
-              <link
-                href={util.urlRelative(this.props.path, x)}
-                rel="stylesheet"
-                type="text/css"
-              />
-            ))}
-          {this.props.stylesheet &&
-            this.props.stylesheet.map(x => (
-              <link
-                href={util.urlRelative(this.props.path, x)}
-                rel="stylesheet"
-                type="text/css"
-              />
-            ))}
-          {this.props.js &&
-            this.props.js.map(x => (
-              <script
-                src={util.urlRelative(this.props.path, x)}
-                type="text/javascript"
-              />
-            ))}
-          {this.props.script &&
-            this.props.script.map(x => (
-              <script
-                src={util.urlRelative(this.props.path, x)}
-                type="text/javascript"
-              />
-            ))}
-          {this.props.mathjax && [
-            <script type="text/x-mathjax-config">{`
-MathJax.Hub.Config({
+              />,
+              ...(image
+                ? [<link href={util.urlRelative(path, image)} key={key++} rel="apple-touch-icon" />]
+                : coverImage
+                ? [<link href={util.urlRelative(path, coverImage)} key={key++} rel="apple-touch-icon" />]
+                : [<link href={util.urlRelative(path, '/apple-touch-icon.png')} key={key++} rel="apple-touch-icon" />])
+            ]}
+        <link href={util.urlRelative(path, '/_assets/css/wiki.css')} rel="stylesheet" />
+        {/* <link href={url} rel="canonical" /> */}
+        <link href={file} rel="alternate" title="Markdown" type="text/markdown" />
+        {css && css.map(x => <link href={util.urlRelative(path, x)} key={key++} rel="stylesheet" type="text/css" />)}
+        {stylesheet &&
+          stylesheet.map(x => <link href={util.urlRelative(path, x)} key={key++} rel="stylesheet" type="text/css" />)}
+        {js && js.map(x => <script key={key++} src={util.urlRelative(path, x)} type="text/javascript" />)}
+        {script && script.map(x => <script key={key++} src={util.urlRelative(path, x)} type="text/javascript" />)}
+        {mathjax && [
+          <script type="text/x-mathjax-config">
+            {`MathJax.Hub.Config({
   'HTML-CSS': {
     preferredFont: 'STIX'
   },
@@ -229,360 +155,307 @@ MathJax.Hub.Config({
     }
   }
 })
-`}</script>,
-            <script
-              async
-              src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-              type="text/javascript"
-            />
-          ]}
-          {/* <script src={util.urlRelative(this.props.path, '/_assets/js/wiki.js')} /> */}
-        </Helmet>
-        <nav className="navbar navbar-default navbar-fixed-top">
-          <div className="container-fluid topbar">
-            <ul className="nav nav-pills navbar-left">
-              <li role="presentation">
-                <a
-                  href={util.urlRelative(this.props.path, '/')}
-                  title={markdown.toText(this.props['home-title'])}
-                >
-                  <i className="fa fa-home" />
-                </a>
-              </li>
-            </ul>
-            <ul className="nav nav-pills navbar-right">
-              {this.props.nav &&
-                this.props.nav.map(x => (
-                  <li
-                    dangerouslySetInnerHTML={{ __html: markdown.inline(x) }}
-                  />
-                ))}
-              {/* <li role="presentation"><a href={this.props.facebook} target="_blank" title={markdown.toText(this.props['facebook-title'])}><i className="fa fa-facebook-square"></i></li> */}
-              {/* <li role="presentation"><a href={this.props.twitter} target="_blank" title={markdown.toText(this.props['twitter-title'])}><i className="fa fa-twitter-square"></i></li> */}
-              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i className="fa fa-linkedin-square"></i></li> */}
-              {/* <li role="presentation"><a href={this.props.linkedin} target="_blank" title={markdown.toText(this.props['linkedin-title'])}><i className="fa fa-linkedin-square"></i></li> */}
-              <li role="presentation">
-                <a
-                  href="/tmp/clipboard/"
-                  target="_blank"
-                  title={markdown.toText(this.props['clipboard-title'])}
-                >
-                  <span className="clipboard-logo" />
-                </a>
-              </li>
-              {this.props['github-repo'] ? (
-                <React.Fragment>
-                  {/* <li role="presentation"> <a href={this.props.github} title={markdown.toText(this.props['github-repo-title'])} > <i className="fa fa-github" /> </a> </li> */}
-                  <li role="presentation">
-                    <a
-                      href={this.props['github-edit']}
-                      title={markdown.toText(this.props['github-edit-title'])}
-                    >
-                      <i className="fa fa-edit" />
-                    </a>
-                  </li>
-                  {/* <li role="presentation"><a href={this.props['github-history']} title={markdown.toText(this.props['github-history-title'])}><i className="fa fa-history"></i></a></li> */}
-                  <li role="presentation">
-                    <a
-                      href={this.props.file}
-                      title={markdown.toText(this.props['markdown-title'])}
-                      type="text/plain"
-                    >
-                      <span className="markdown-mark" />
-                    </a>
-                  </li>
-                </React.Fragment>
-              ) : this.props['bitbucket-repo'] ? (
-                <React.Fragment>
-                  <li role="presentation">
-                    <a
-                      href={this.props.bitbucket}
-                      title={markdown.toText(
-                        this.props['bitbucket-repo-title']
-                      )}
-                    >
-                      <i className="fa fa-edit" />
-                    </a>
-                  </li>
-                  {/* <li role="presentation"><a href={this.props['bitbucket-history']} title={markdown.toText(this.props['bitbucket-history-title'])}><i className="fa fa-history"></i></a></li> */}
-                  <li role="presentation">
-                    <a
-                      href={this.props.file}
-                      title={markdown.toText(this.props['markdown-title'])}
-                      type="text/plain"
-                    >
-                      <span className="markdown-mark" />
-                    </a>
-                  </li>
-                </React.Fragment>
-              ) : (
+`}
+          </script>,
+          <script
+            async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+            type="text/javascript"
+          />
+        ]}
+        {/* <script src={util.urlRelative(path, '/_assets/js/wiki.js')} /> */}
+      </Helmet>
+      <nav className="navbar navbar-default navbar-fixed-top">
+        <div className="container-fluid topbar">
+          <ul className="nav nav-pills navbar-left">
+            <li role="presentation">
+              <a href={util.urlRelative(path, '/')} title={markdown.toText(homeTitle)}>
+                <i className="fa fa-home" />
+              </a>
+            </li>
+          </ul>
+          <ul className="nav nav-pills navbar-right">
+            {nav && nav.map(x => <li key={key++} dangerouslySetInnerHTML={{ __html: markdown.inline(x) }} />)}
+            {/* <li role="presentation"><a href={facebook} target="_blank" title={markdown.toText(facebookTitle)}><i className="fa fa-facebook-square"></i></li> */}
+            {/* <li role="presentation"><a href={twitter} target="_blank" title={markdown.toText(twitterTitle)}><i className="fa fa-twitter-square"></i></li> */}
+            {/* <li role="presentation"><a href={linkedin} target="_blank" title={markdown.toText(linkedinTitle)}><i className="fa fa-linkedin-square"></i></li> */}
+            {/* <li role="presentation"><a href={linkedin} target="_blank" title={markdown.toText(linkedinTitle)}><i className="fa fa-linkedin-square"></i></li> */}
+            <li role="presentation">
+              <a
+                href={util.urlRelative(path, '/tmp/clipboard/')}
+                rel="noopener noreferrer"
+                target="_blank"
+                title={markdown.toText(clipboardTitle)}
+              >
+                <span className="clipboard-logo" />
+              </a>
+            </li>
+            {githubRepo ? (
+              <React.Fragment>
+                {/* <li role="presentation"> <a href={github} title={markdown.toText(githubRepoTitle)} > <i className="fa fa-github" /> </a> </li> */}
                 <li role="presentation">
-                  <a
-                    href={this.props.file}
-                    title={markdown.toText(this.props['markdown-title'])}
-                    type="text/plain"
-                  >
+                  <a href={githubEdit} title={markdown.toText(githubEditTitle)}>
+                    <i className="fa fa-edit" />
+                  </a>
+                </li>
+                {/* <li role="presentation"><a href={githubHistory} title={markdown.toText(githubHistoryTitle)}><i className="fa fa-history"></i></a></li> */}
+                <li role="presentation">
+                  <a href={file} title={markdown.toText(markdownTitle)} type="text/plain">
                     <span className="markdown-mark" />
                   </a>
                 </li>
-              )}
-              {this.props.toc && (
+              </React.Fragment>
+            ) : bitbucketRepo ? (
+              <React.Fragment>
                 <li role="presentation">
-                  <a
-                    id="toc-button"
-                    href="#toc"
-                    data-toggle="collapse"
-                    title={markdown.toText(this.props['toc-title'])}
-                  >
-                    <i className="fa fa-list" />
+                  <a href={bitbucket} title={markdown.toText(bitbucketRepoTitle)}>
+                    <i className="fa fa-edit" />
                   </a>
                 </li>
-              )}
-            </ul>
-            <form
-              action="https://www.google.com/search"
-              className="navbar-form"
-              method="get"
-              target="_blank"
-            >
-              <div className="form-group" style={{ display: 'inline' }}>
-                <div className="input-group" style={{ display: 'table' }}>
-                  <span className="input-group-addon" style={{ width: '1%' }}>
-                    <span className="glyphicon glyphicon-search" />
-                  </span>
-                  <input
-                    accessKey="."
-                    autoComplete="off"
-                    className="form-control"
-                    name="q"
-                    title={markdown.toText(this.props['search-title'])}
-                    type="text"
-                  />
-                </div>
+                {/* <li role="presentation"><a href={bitbucketHistory} title={markdown.toText(bitbucketHistoryTitle)}><i className="fa fa-history"></i></a></li> */}
+                <li role="presentation">
+                  <a href={file} title={markdown.toText(markdownTitle)} type="text/plain">
+                    <span className="markdown-mark" />
+                  </a>
+                </li>
+              </React.Fragment>
+            ) : (
+              <li role="presentation">
+                <a href={file} title={markdown.toText(markdownTitle)} type="text/plain">
+                  <span className="markdown-mark" />
+                </a>
+              </li>
+            )}
+            {toc && (
+              <li role="presentation">
+                <a id="toc-button" href="#toc" data-toggle="collapse" title={markdown.toText(tocTitle)}>
+                  <i className="fa fa-list" />
+                </a>
+              </li>
+            )}
+          </ul>
+          <form
+            action="https://www.google.com/search"
+            className="navbar-form"
+            method="get"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <div className="form-group" style={{ display: 'inline' }}>
+              <div className="input-group" style={{ display: 'table' }}>
+                <span className="input-group-addon" style={{ width: '1%' }}>
+                  <span className="glyphicon glyphicon-search" />
+                </span>
+                <input
+                  accessKey="."
+                  autoComplete="off"
+                  className="form-control"
+                  name="q"
+                  title={markdown.toText(searchTitle)}
+                  type="text"
+                />
               </div>
-            </form>
-          </div>
-          {this.props.toc && typeof this.props.toc === 'string' && (
+            </div>
+          </form>
+        </div>
+        {toc && typeof toc === 'string' && (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: toc
+            }}
+          />
+        )}
+      </nav>
+      <article className="h-entry" id="main">
+        <header>
+          {includeBefore && (
             <div
               dangerouslySetInnerHTML={{
-                __html: this.props.toc
+                __html: includeBefore
               }}
             />
           )}
-        </nav>
-        <article className="h-entry" id="main">
-          <header>
-            {this.props['include-before'] && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: this.props['include-before']
-                }}
-              />
-            )}
-            {this.props.title ? (
-              <React.Fragment>
-                <h1 className="p-name">
-                  <a
-                    className="u-uid u-url"
-                    href={this.props.url}
-                    rel="bookmark"
-                    title="Permalink"
-                    dangerouslySetInnerHTML={{
-                      __html: markdown.inline(this.props.title)
-                    }}
-                  />
-                </h1>
-                {this.props.subtitle && (
-                  <h2
-                    dangerouslySetInnerHTML={{
-                      __html: markdown.inline(this.props.subtitle)
-                    }}
-                  />
-                )}
-                {this.props.author ? (
-                  this.props.author.name ? (
-                    <p className="author">
-                      {this.props.author.url ? (
-                        <a
-                          className="p-author h-card"
-                          href={this.props.author.url}
-                          dangerouslySetInnerHTML={{
-                            __html: markdown.inline(this.props.author.name)
-                          }}
-                        />
-                      ) : (
-                        <span
-                          className="p-author"
-                          dangerouslySetInnerHTML={{
-                            __html: markdown.inline(this.props.author.name)
-                          }}
-                        />
-                      )}
-                      {this.props.author && this.props.date && (
-                        <React.Fragment>
-                          {' '}
-                          <span>&bull;</span>{' '}
-                        </React.Fragment>
-                      )}
-                      {this.props.date && (
-                        <time
-                          className="dt-published"
-                          dateTime={util.dateFormat(this.props.date)}
-                        >
-                          {util.dateFormat(this.props.date)}
-                        </time>
-                      )}
-                    </p>
-                  ) : (
-                    <p className="author">
-                      {this.props['author-url'] ? (
-                        <a
-                          className="p-author h-card"
-                          href={this.props['author-url']}
-                          dangerouslySetInnerHTML={{
-                            __html: markdown.inline(this.props.author)
-                          }}
-                        />
-                      ) : this.props['author-email'] ? (
-                        <a
-                          className="p-author h-card"
-                          href="mailto:{this.props['author-email']}"
-                          dangerouslySetInnerHTML={{
-                            __html: markdown.inline(this.props.author)
-                          }}
-                        />
-                      ) : (
-                        <span
-                          className="p-author"
-                          dangerouslySetInnerHTML={{
-                            __html: markdown.inline(this.props.author)
-                          }}
-                        />
-                      )}
-                      {this.props.author && this.props.date && (
-                        <React.Fragment>
-                          {' '}
-                          <span>&bull;</span>{' '}
-                        </React.Fragment>
-                      )}
-                      {this.props.date && (
-                        <time
-                          className="dt-published"
-                          dateTime={util.dateFormat(this.props.date)}
-                        >
-                          {util.dateFormat(this.props.date)}
-                        </time>
-                      )}
-                    </p>
-                  )
-                ) : (
-                  this.props.date && (
-                    <p>
-                      <time
-                        className="dt-published"
-                        dateTime={util.dateFormat(this.props.date)}
-                      >
-                        {util.dateFormat(this.props.date)}
+          {title && showTitle ? (
+            <React.Fragment>
+              <h1 className="p-name">
+                <a
+                  className="u-uid u-url"
+                  href={url}
+                  rel="bookmark"
+                  title="Permalink"
+                  dangerouslySetInnerHTML={{
+                    __html: markdown.inline(title)
+                  }}
+                />
+              </h1>
+              {subtitle && (
+                <h2
+                  dangerouslySetInnerHTML={{
+                    __html: markdown.inline(subtitle)
+                  }}
+                />
+              )}
+              {author ? (
+                author.name ? (
+                  <p className="author">
+                    {author.url ? (
+                      <a
+                        className="p-author h-card"
+                        href={author.url}
+                        dangerouslySetInnerHTML={{
+                          __html: markdown.inline(author.name)
+                        }}
+                      />
+                    ) : (
+                      <span
+                        className="p-author"
+                        dangerouslySetInnerHTML={{
+                          __html: markdown.inline(author.name)
+                        }}
+                      />
+                    )}
+                    {author && date && (
+                      <React.Fragment>
+                        {' '}
+                        <span>&bull;</span>{' '}
+                      </React.Fragment>
+                    )}
+                    {date && (
+                      <time className="dt-published" dateTime={util.dateFormat(date)}>
+                        {util.dateFormat(date)}
                       </time>
-                    </p>
-                  )
-                )}
+                    )}
+                  </p>
+                ) : (
+                  <p className="author">
+                    {authorUrl ? (
+                      <a
+                        className="p-author h-card"
+                        href={authorUrl}
+                        dangerouslySetInnerHTML={{
+                          __html: markdown.inline(author)
+                        }}
+                      />
+                    ) : authorEmail ? (
+                      <a
+                        className="p-author h-card"
+                        href={'mailto:' + authorEmail}
+                        dangerouslySetInnerHTML={{
+                          __html: markdown.inline(author)
+                        }}
+                      />
+                    ) : (
+                      <span
+                        className="p-author"
+                        dangerouslySetInnerHTML={{
+                          __html: markdown.inline(author)
+                        }}
+                      />
+                    )}
+                    {author && date && (
+                      <React.Fragment>
+                        {' '}
+                        <span>&bull;</span>{' '}
+                      </React.Fragment>
+                    )}
+                    {date && (
+                      <time className="dt-published" dateTime={util.dateFormat(date)}>
+                        {util.dateFormat(date)}
+                      </time>
+                    )}
+                  </p>
+                )
+              ) : (
+                date && (
+                  <p>
+                    <time className="dt-published" dateTime={util.dateFormat(date)}>
+                      {util.dateFormat(date)}
+                    </time>
+                  </p>
+                )
+              )}
+            </React.Fragment>
+          ) : (
+            date && (
+              <h1 className="p-name">
+                <a
+                  className="u-uid u-url"
+                  href={url}
+                  title="Permalink"
+                  dangerouslySetInnerHTML={{
+                    __html: util.dateFormat(date)
+                  }}
+                />
+              </h1>
+            )
+          )}
+          {description && (
+            <p
+              className="p-summary"
+              dangerouslySetInnerHTML={{
+                __html: markdown.inline(description)
+              }}
+            />
+          )}
+          {image ? (
+            <figure>
+              <a className="image" href={util.urlRelative(path, image)}>
+                <img
+                  alt={imageAlt}
+                  className="u-photo"
+                  {...(imageHeight ? { height: imageHeight } : {})}
+                  {...(imageWidth ? { width: imageWidth } : {})}
+                  src={util.urlRelative(path, image)}
+                />
+              </a>
+            </figure>
+          ) : (
+            coverImage && (
+              <figure>
+                <a className="image" href={util.urlRelative(path, coverImage)}>
+                  <img
+                    alt={coverImageAlt}
+                    className="u-photo"
+                    {...(coverImageHeight ? { height: coverImageHeight } : {})}
+                    {...(coverImageWidth ? { width: coverImageWidth } : {})}
+                    src={util.urlRelative(path, coverImage)}
+                  />
+                </a>
+              </figure>
+            )
+          )}
+        </header>
+        <section className={'e-content' + (indent ? ' indent' : '') + (sidenotes ? ' sidenotes' : '')}>
+          <div dangerouslySetInnerHTML={{ __html: content }} />
+          {footnotes &&
+            (footnotesTitle ? (
+              <React.Fragment>
+                <h1
+                  dangerouslySetInnerHTML={{
+                    __html: markdown.inline(footnotesTitle)
+                  }}
+                />
+                <div dangerouslySetInnerHTML={{ __html: footnotes }} />
               </React.Fragment>
             ) : (
-              this.props.date && (
-                <h1 className="p-name">
-                  <a
-                    className="u-uid u-url"
-                    href={this.props.url}
-                    title="Permalink"
-                    dangerouslySetInnerHTML={{
-                      __html: util.dateFormat(this.props.date)
-                    }}
-                  />
-                </h1>
-              )
-            )}
-            {this.props.abstract && (
-              <p
-                className="p-summary"
-                dangerouslySetInnerHTML={{
-                  __html: markdown.inline(this.props.abstract)
-                }}
-              />
-            )}
-            {this.props.image ? (
-              <figure>
-                <img
-                  alt="{this.props['image-alt'] && this.props['image-alt']}"
-                  className="u-photo"
-                  {...(this.props['image-height']
-                    ? { height: this.props['image-height'] }
-                    : {})}
-                  {...(this.props['image-width']
-                    ? { width: this.props['image-width'] }
-                    : {})}
-                  src={util.urlRelative(this.props.path, this.props.image)}
-                />
-              </figure>
-            ) : (
-              this.props['cover-image'] && (
-                <figure>
-                  <img
-                    alt="{this.props['image-alt'] && this.props['image-alt']}"
-                    className="u-photo"
-                    {...(this.props['image-height']
-                      ? { height: this.props['image-height'] }
-                      : {})}
-                    {...(this.props['image-width']
-                      ? { width: this.props['image-width'] }
-                      : {})}
-                    src={util.urlRelative(this.props.path, this.props.image)}
-                  />
-                </figure>
-              )
-            )}
-          </header>
-          <section
-            className={
-              'e-content' +
-              (this.props.indent ? ' indent' : '') +
-              (this.props.sidenotes ? ' sidenotes' : '')
-            }
-          >
-            <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
-            {this.props.footnotes &&
-              (this.props['footnotes-title'] ? (
-                <React.Fragment>
-                  <h1
-                    dangerouslySetInnerHTML={{
-                      __html: markdown.inline(this.props['footnotes-title'])
-                    }}
-                  />
-                  <div
-                    dangerouslySetInnerHTML={{ __html: this.props.footnotes }}
-                  />
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <hr className="footnotes-sep" />
-                  <section
-                    className="footnotes"
-                    dangerouslySetInnerHTML={{ __html: this.props.footnotes }}
-                  />
-                </React.Fragment>
-              ))}
-            {this.props['include-after'] && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: this.props['include-after']
-                }}
-              />
-            )}
-          </section>
-        </article>
-      </div>
-    );
-  }
-}
+              <React.Fragment>
+                <section className="footnotes">
+                  <hr className="footnotes-sep endnotes" />
+                  <div dangerouslySetInnerHTML={{ __html: footnotes }} />
+                </section>
+              </React.Fragment>
+            ))}
+          {includeAfter && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: includeAfter
+              }}
+            />
+          )}
+        </section>
+      </article>
+    </div>
+  );
+};
 
 export default Template;

@@ -26,22 +26,24 @@
 
 import $ from 'jquery';
 import S from 'string';
-var jQuery = $; // needed for Bootstrap
+
+// let jQuery = $; // needed for Bootstrap
+
 import 'bootstrap';
 
-var collapse = {};
+const collapse = {};
 
 /**
  * Return unique value
  */
 collapse.unique = function(fn) {
-  var results = [];
+  const results = [];
   return function(arg) {
-    var result = fn(arg);
-    var containsResult = results.indexOf(result.valueOf()) >= 0;
+    let result = fn(arg);
+    let containsResult = results.indexOf(result.valueOf()) >= 0;
     if (containsResult) {
-      var i = 1;
-      var newResult = '';
+      let i = 1;
+      let newResult = '';
       do {
         i++;
         newResult = result + '-' + i;
@@ -58,8 +60,7 @@ collapse.unique = function(fn) {
  * Generate element ID
  */
 collapse.generateId = function(el, prefix) {
-  prefix = prefix || '';
-  return prefix + S(el.text().trim()).slugify();
+  return (prefix || '') + S(el.text().trim()).slugify();
 };
 
 /**
@@ -67,12 +68,12 @@ collapse.generateId = function(el, prefix) {
  */
 collapse.generateUniqueId = collapse.unique(collapse.generateId);
 
-collapse.collapseDoneItems = function(options) {
+collapse.collapseDoneItems = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('s + ul.collapse.in, s + ol.collapse.in').each(function() {
-      var ul = $(this);
-      var button = ul.prevAll('.collapse-button').first();
+      const ul = $(this);
+      const button = ul.prevAll('.collapse-button').first();
       ul.removeClass('in');
       button.attr('aria-expanded', 'false');
     });
@@ -82,9 +83,9 @@ collapse.collapseDoneItems = function(options) {
 /**
  * Add collapsible sections, lists and click handlers
  */
-collapse.addCollapsibility = function(options) {
+collapse.addCollapsibility = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.addCollapsibleElements();
     body.addCollapsibleHandlers();
   });
@@ -93,9 +94,9 @@ collapse.addCollapsibility = function(options) {
 /**
  * Add collapsible sections and lists
  */
-collapse.addCollapsibleElements = function(options) {
+collapse.addCollapsibleElements = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.addCollapsibleSections();
     body.addCollapsibleLists();
   });
@@ -104,23 +105,23 @@ collapse.addCollapsibleElements = function(options) {
 /**
  * Add collapsible click handlers
  */
-collapse.addCollapsibleHandlers = function(options) {
+collapse.addCollapsibleHandlers = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('.collapse-button').click(function() {
-      var button = $(this);
-      var id = button.attr('aria-controls');
-      var path = window.location.href.replace(/#[^#]*$/i, '');
-      var url = path + '#' + id;
-      var expanded = button.attr('aria-expanded') === 'true' ? 'false' : 'true';
+      const button = $(this);
+      const id = button.attr('aria-controls');
+      const path = window.location.href.replace(/#[^#]*$/i, '');
+      const url = path + '#' + id;
+      const expanded = button.attr('aria-expanded') === 'true' ? 'false' : 'true';
       if (typeof Storage !== 'undefined') {
         window.localStorage.setItem(url, expanded);
         window.sessionStorage.setItem(url, expanded);
       }
     });
     body.find('.collapse-ellipsis').click(function() {
-      var ellipsis = $(this);
-      var button = ellipsis
+      const ellipsis = $(this);
+      const button = ellipsis
         .prevAll()
         .filter('.collapse-button')
         .first();
@@ -132,9 +133,9 @@ collapse.addCollapsibleHandlers = function(options) {
   });
 };
 
-collapse.addLinkHandlers = function(options) {
+collapse.addLinkHandlers = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body
       .find('a[href^="#"]')
       .filter(function() {
@@ -142,9 +143,9 @@ collapse.addLinkHandlers = function(options) {
       })
       .each(function() {
         try {
-          var link = $(this);
-          var href = link.attr('href').replace(':', '\\:');
-          var target = $(href).first();
+          const link = $(this);
+          const href = link.attr('href').replace(':', '\\:');
+          const target = $(href).first();
 
           if (target.length <= 0) {
             return;
@@ -153,7 +154,9 @@ collapse.addLinkHandlers = function(options) {
           link.click(function(event) {
             collapse.unhideElement(target);
           });
-        } catch (err) {}
+        } catch (err) {
+          // swallow errors
+        }
       });
   });
 };
@@ -161,9 +164,9 @@ collapse.addLinkHandlers = function(options) {
 /**
  * Add collapsible lists
  */
-collapse.addCollapsibleLists = function(options) {
+collapse.addCollapsibleLists = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('ul > li').addCollapsibleListItem();
   });
 };
@@ -171,14 +174,14 @@ collapse.addCollapsibleLists = function(options) {
 /**
  * Add collapsible list item
  */
-collapse.addCollapsibleListItem = function(options) {
+collapse.addCollapsibleListItem = function() {
   return this.each(function() {
-    var li = $(this);
-    var ul = li.find('> ol, > ul').first();
+    const li = $(this);
+    const ul = li.find('> ol, > ul').first();
     if (ul.length > 0) {
-      var prev = li.clone();
+      const prev = li.clone();
       prev.find('ol, ul').remove();
-      var listId = li.attr('id');
+      let listId = li.attr('id');
       if (!listId) {
         listId = collapse.generateUniqueId(prev);
         li.attr('id', listId + '-item');
@@ -190,29 +193,25 @@ collapse.addCollapsibleListItem = function(options) {
           .match(/\[(\.\.\.|\u2026)\]$/)
       ) {
         li.addClass('collapse');
-        var text = ul[0].previousSibling.nodeValue;
+        let text = ul[0].previousSibling.nodeValue;
         text = text.replace(/\s*\[(\.\.\.|\u2026)\]\s*$/, '');
         ul[0].previousSibling.nodeValue = text;
       }
       collapse.addButton(li, ul, true, listId + '-list');
-      li.append(
-        '<a aria-hidden="true" class="collapse-ellipsis" href="#"></a>'
-      );
+      li.append('<a aria-hidden="true" class="collapse-ellipsis" href="#"></a>');
     } else {
-      var id = li.attr('id');
+      let id = li.attr('id');
       if (!id) {
         id = collapse.generateUniqueId(li);
         li.attr('id', id + '-item');
       }
-      // var span = li.wrapInner('<span>').children().first()
-      var span = $('<span>');
+      // let span = li.wrapInner('<span>').children().first()
+      const span = $('<span>');
       li.append(span);
       collapse.addButton(li, span, true);
-      li.append(
-        ' <a aria-hidden="true" class="collapse-ellipsis" href="#"></a>'
-      );
+      li.append(' <a aria-hidden="true" class="collapse-ellipsis" href="#"></a>');
     }
-    var list = li.parent();
+    const list = li.parent();
     if (!list.hasClass('collapse')) {
       list.addClass('collapse in');
     }
@@ -223,15 +222,15 @@ collapse.addCollapsibleListItem = function(options) {
  * Add collapsible sections
  */
 collapse.addCollapsibleSections = function(options) {
-  var opts = $.extend({}, collapse.defaults, options);
+  const opts = $.extend({}, collapse.defaults, options);
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     // process innermost sections first
     $.each(['h6', 'h5', 'h4', 'h3', 'h2', 'h1'], function(i, el) {
       body.find(el).each(function() {
         // add section
-        var header = $(this);
-        var section = collapse.addSection(header);
+        const header = $(this);
+        const section = collapse.addSection(header);
 
         // skip top-level headers
         if ($.inArray(el, opts.include) < 0) {
@@ -241,9 +240,7 @@ collapse.addCollapsibleSections = function(options) {
         // add button to header
         collapse.addButton(header, section);
         // add ellipsis to header
-        header.append(
-          '<a aria-hidden="true" class="collapse-ellipsis" href="#"></a>'
-        );
+        header.append('<a aria-hidden="true" class="collapse-ellipsis" href="#"></a>');
       });
     });
   });
@@ -255,14 +252,14 @@ collapse.addCollapsibleSections = function(options) {
 collapse.addSection = function(header) {
   // h1 ends at next h1, h2 ends at next h1 or h2,
   // h3 ends at next h1, h2 or h3, and so on
-  var stop = [];
-  var i = parseInt(header.prop('tagName').match(/\d+/)[0]);
+  const stop = [];
+  const i = parseInt(header.prop('tagName').match(/\d+/)[0], 10);
 
-  for (var j = 1; j <= i; j++) {
+  for (let j = 1; j <= i; j++) {
     stop.push('h' + j);
   }
-  var end = stop.join(', ');
-  var section = header.nextUntil(end);
+  const end = stop.join(', ');
+  let section = header.nextUntil(end);
   if (!section.length) {
     section = $('<div>').insertAfter(header);
   } else {
@@ -277,13 +274,13 @@ collapse.addSection = function(header) {
  */
 collapse.addButton = function(header, section, prepend, sectionId) {
   // add button
-  var id = sectionId;
+  let id = sectionId;
   if (id) {
     section.attr('id', id);
   } else {
     id = collapse.sectionId(header, section);
   }
-  var button = collapse.button(id);
+  let button = collapse.button(id);
   if (prepend) {
     header.prepend(button);
   } else {
@@ -294,8 +291,8 @@ collapse.addButton = function(header, section, prepend, sectionId) {
   section.addClass('collapse in');
 
   // allow pre-collapsed sections
-  var path = window.location.href.replace(/#[^#]*$/i, '');
-  var url = path + '#' + id;
+  const path = window.location.href.replace(/#[^#]*$/i, '');
+  const url = path + '#' + id;
 
   if (
     header
@@ -304,24 +301,17 @@ collapse.addButton = function(header, section, prepend, sectionId) {
       .match(/\[(\.\.\.|\u2026)\]$/)
   ) {
     header.addClass('collapse');
-    var html = header.html();
+    let html = header.html();
     html = html.replace(/\s*(&nbsp;)*\[(\.\.\.|\u2026)\]\s*/g, '');
     header.html(html);
     button = header.find('.collapse-button');
   }
-  if (
-    header.hasClass('collapse') ||
-    (typeof Storage !== 'undefined' &&
-      window.localStorage.getItem(url) === 'false')
-  ) {
+  if (header.hasClass('collapse') || (typeof Storage !== 'undefined' && window.localStorage.getItem(url) === 'false')) {
     header.removeClass('collapse').addClass('collapsed');
   }
   if (header.hasClass('collapsed')) {
     header.removeClass('collapsed');
-    if (
-      typeof Storage !== 'undefined' &&
-      window.sessionStorage.getItem(url) !== 'true'
-    ) {
+    if (typeof Storage !== 'undefined' && window.sessionStorage.getItem(url) !== 'true') {
       section.removeClass('in');
       button.attr('aria-expanded', 'false');
     }
@@ -345,7 +335,7 @@ collapse.button = function(id) {
  * Header ID (add if missing)
  */
 collapse.headerId = function(header) {
-  var id = header.attr('id');
+  let id = header.attr('id');
   if (id === undefined || id === '') {
     id = collapse.generateUniqueId(header);
     header.attr('id', id);
@@ -357,9 +347,9 @@ collapse.headerId = function(header) {
  * Section ID (based on header ID)
  */
 collapse.sectionId = function(header, section) {
-  var id = section.attr('id');
+  let id = section.attr('id');
   if (id === undefined || id === '') {
-    var headerId = collapse.headerId(header);
+    const headerId = collapse.headerId(header);
     id = headerId ? headerId + '-section' : '';
     section.attr('id', id);
   }
@@ -368,11 +358,11 @@ collapse.sectionId = function(header, section) {
 
 collapse.unhideSection = function(section) {
   if (section.prop('tagName') === 'SECTION') {
-    var button = section.find('.collapse-button').first();
-    var id = button.attr('href');
-    var div = section.find(id).first();
-    var path = window.location.href.replace(/#[^#]*$/i, '');
-    var url = path + id;
+    const button = section.find('.collapse-button').first();
+    const id = button.attr('href');
+    const div = section.find(id).first();
+    const path = window.location.href.replace(/#[^#]*$/i, '');
+    const url = path + id;
     if (div.hasClass('collapse') && !div.hasClass('in')) {
       button.attr('aria-expanded', 'true');
       div.addClass('in');

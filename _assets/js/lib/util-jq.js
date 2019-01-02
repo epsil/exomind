@@ -2,8 +2,8 @@
 /* exported Clipboard */
 /* exported clipboard */
 import $ from 'jquery';
+import URI from 'urijs';
 import Clipboard from 'clipboard';
-var clipboard = null;
 import Reference from './reference';
 import util from './util';
 import './anchor';
@@ -11,10 +11,13 @@ import './collapse';
 import './figure';
 import './footnotes';
 import './section';
-var utilJq = {};
+
+let clipboard = null;
+
+const utilJq = {};
 
 utilJq.dojQuery = function(html, fn) {
-  var body = $('<div>');
+  const body = $('<div>');
   body.html(html);
   fn(body);
   return body.html();
@@ -29,8 +32,8 @@ utilJq.unhideElement = function(el) {
 
 utilJq.unhideSection = function(section) {
   if (section.prop('tagName') === 'SECTION') {
-    var button = section.find('.collapse-button').first();
-    var div = section.find('div').first();
+    const button = section.find('.collapse-button').first();
+    const div = section.find('div').first();
     if (div.hasClass('collapse') && !div.hasClass('in')) {
       button.attr('aria-expanded', 'true');
       div.addClass('in');
@@ -42,11 +45,11 @@ utilJq.unhideSection = function(section) {
 
 // FIXME: this function is incredibly slow
 // FIXME: the below implementation cannot be run in parallel
-var htmlToTextDiv = null;
+let htmlToTextDiv = null;
 utilJq.htmlToText = function(html) {
   htmlToTextDiv = htmlToTextDiv || $('<div>');
   htmlToTextDiv.html(html);
-  var txt = htmlToTextDiv.text().trim();
+  const txt = htmlToTextDiv.text().trim();
   htmlToTextDiv.html('');
   return txt;
 };
@@ -65,7 +68,7 @@ utilJq.processDOM = function() {
 };
 
 utilJq.processBody = function(body) {
-  var content = body.find('.e-content');
+  let content = body.find('.e-content');
   if (content.length <= 0) {
     content = body;
   }
@@ -95,7 +98,7 @@ utilJq.processBody = function(body) {
 
 utilJq.processSimple = function(html) {
   return utilJq.dojQuery(html, function(body) {
-    var content = body.find('.e-content');
+    const content = body.find('.e-content');
     if (content.length <= 0) {
       return;
     }
@@ -117,8 +120,8 @@ utilJq.processSimple = function(html) {
 
 utilJq.traverse = function(fn) {
   return this.each(function() {
-    var root = this;
-    var node = root.childNodes[0];
+    const root = this;
+    let node = root.childNodes[0];
     while (node) {
       fn(node);
       if (node.firstChild) {
@@ -134,14 +137,14 @@ utilJq.traverse = function(fn) {
 };
 
 utilJq.traverseNodes = function(fn, filter) {
-  filter =
+  const filterFn =
     filter ||
     function(node) {
       return true;
     };
   return this.each(function() {
     $(this).traverse(function(node) {
-      if (filter(node)) {
+      if (filterFn(node)) {
         fn(node);
       }
     });
@@ -149,14 +152,14 @@ utilJq.traverseNodes = function(fn, filter) {
 };
 
 utilJq.traverseTextNodes = function(fn, filter) {
-  filter =
+  const filterFn =
     filter ||
     function(node) {
       return !util.isCodeNode(node);
     };
   return this.each(function() {
     $(this).traverseNodes(fn, function(node) {
-      return util.isTextNode(node) && filter(node);
+      return util.isTextNode(node) && filterFn(node);
     });
   });
 };
@@ -165,22 +168,23 @@ utilJq.traverseTextNodesHTML = function(fn, test) {
   return this.each(function() {
     $(this).traverseTextNodes(function(node) {
       if (node) {
-        var txt = node.nodeValue;
-        var newTxt = fn(txt);
+        const n = node;
+        const txt = n.nodeValue;
+        const newTxt = fn(txt);
         if (newTxt !== txt) {
-          var span = $('<span>').text(txt);
-          var html = span.html();
-          var newHtml = fn(html);
+          const span = $('<span>').text(txt);
+          const html = span.html();
+          const newHtml = fn(html);
           if (newHtml !== html) {
             span.html(newHtml);
-            var jNode = $(node);
-            // var parent = jNode.parent()
-            if (node && jNode) {
-              if (node && jNode && span) {
-                // node.replaceWith(span)
+            const jNode = $(n);
+            // let parent = jNode.parent()
+            if (n && jNode) {
+              if (n && jNode && span) {
+                // n.replaceWith(span)
                 jNode.before(span);
-                // node.remove()
-                node.nodeValue = '';
+                // n.remove()
+                n.nodeValue = '';
               }
             }
           }
@@ -192,22 +196,22 @@ utilJq.traverseTextNodesHTML = function(fn, test) {
 
 utilJq.addClipboardButtons = function() {
   return this.map(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('pre, code').each(function() {
-      var pre = $(this);
-      var parents = pre.parents('pre');
+      const pre = $(this);
+      const parents = pre.parents('pre');
       if (parents.length === 0) {
-        var id = util.getId(pre);
-        var button = $(
+        const id = util.getId(pre);
+        const button = $(
           '<button class="btn clippy" data-clipboard-target="#' +
             id +
             '" title="Copy to clipboard"><i class="fa fa-clipboard"></i></button>'
         );
         if (pre.is('code')) {
-          var span = pre.wrap('<span class="code"></span>').parent();
+          const span = pre.wrap('<span class="code"></span>').parent();
           span.append(button);
         } else {
-          var div = pre.wrap('<div class="pre"></span>').parent();
+          const div = pre.wrap('<div class="pre"></span>').parent();
           div.prepend(button);
         }
       }
@@ -225,15 +229,16 @@ utilJq.addClipboardButtons = function() {
     } catch (err) {
       body.find('.btn').remove();
     }
+    return body;
   });
 };
 
 utilJq.addAcronyms = function() {
   return this.map(function() {
-    $(this)
+    return $(this)
       .find('abbr')
       .filter(function() {
-        var text = $(this)
+        const text = $(this)
           .text()
           .trim();
         return text.toUpperCase() === text;
@@ -247,11 +252,8 @@ utilJq.addFormulas = function() {
     $(this)
       .find('p')
       .filter(function() {
-        var text = $(this).text() || '';
-        return (
-          (text.match(/^\$\$/) && text.match(/\$\$$/)) ||
-          (text.match(/^\\\[/) && text.match(/\\]$/))
-        );
+        const text = $(this).text() || '';
+        return (text.match(/^\$\$/) && text.match(/\$\$$/)) || (text.match(/^\\\[/) && text.match(/\\]$/));
       })
       .each(function() {
         $(this).addClass('formula');
@@ -261,57 +263,27 @@ utilJq.addFormulas = function() {
 
 utilJq.addHotkeys = function() {
   return this.map(function() {
-    var body = $(this);
-    body
-      .find('kbd:contains("Ctrl")')
-      .replaceWith('<kbd title="Control">Ctrl</kbd>');
+    const body = $(this);
+    body.find('kbd:contains("Ctrl")').replaceWith('<kbd title="Control">Ctrl</kbd>');
     body.find('kbd:contains("Alt")').replaceWith('<kbd title="Alt">Alt</kbd>');
+    body.find('kbd:contains("Esc")').replaceWith('<kbd title="Escape">Esc</kbd>');
+    body.find('kbd:contains("Enter")').replaceWith('<kbd title="Enter">\u21b5</kbd>');
+    body.find('kbd:contains("Tab")').replaceWith('<kbd title="Tab">\u21b9</kbd>');
+    body.find('kbd:contains("Windows")').replaceWith('<kbd title="Windows"><i class="fa fa-windows"></i></kbd>');
+    body.find('kbd:contains("Shift"), kbd:contains("\u21e7")').replaceWith('<kbd title="Shift">\u21e7</kbd>');
     body
-      .find('kbd:contains("Esc")')
-      .replaceWith('<kbd title="Escape">Esc</kbd>');
-    body
-      .find('kbd:contains("Enter")')
-      .replaceWith('<kbd title="Enter">\u21b5</kbd>');
-    body
-      .find('kbd:contains("Tab")')
-      .replaceWith('<kbd title="Tab">\u21b9</kbd>');
-    body
-      .find('kbd:contains("Windows")')
-      .replaceWith('<kbd title="Windows"><i class="fa fa-windows"></i></kbd>');
-    body
-      .find('kbd:contains("Shift"), kbd:contains("\u21e7")')
-      .replaceWith('<kbd title="Shift">\u21e7</kbd>');
-    body
-      .find(
-        'kbd:contains("Cmd"), kbd:contains("Command"), kbd:contains("\u2318")'
-      )
+      .find('kbd:contains("Cmd"), kbd:contains("Command"), kbd:contains("\u2318")')
       .replaceWith('<kbd title="Command">\u2318</kbd>');
     body
-      .find(
-        'kbd:contains("Opt"), kbd:contains("Option"), kbd:contains("\u2325")'
-      )
+      .find('kbd:contains("Opt"), kbd:contains("Option"), kbd:contains("\u2325")')
       .replaceWith('<kbd title="Option">\u2325</kbd>');
-    body
-      .find('kbd:contains("Fn"), kbd:contains("Function")')
-      .replaceWith('<kbd title="Function">Fn</kbd>');
-    body
-      .find('kbd:contains("PgUp"), kbd:contains("Page Up")')
-      .replaceWith('<kbd title="Page Up">PgUp</kbd>');
-    body
-      .find('kbd:contains("PgDn"), kbd:contains("Page Down")')
-      .replaceWith('<kbd title="Page Down">PgDn</kbd>');
-    body
-      .find('kbd:contains("Eject")')
-      .replaceWith('<kbd title="Eject">\u23cf</kbd>');
-    body
-      .find('kbd:contains("Power")')
-      .replaceWith('<kbd title="Power"><i class="fa fa-power-off"></i></kbd>');
-    body
-      .find('kbd:contains("Left")')
-      .replaceWith('<kbd title="Left">\u2190</kbd>'); // \u2b05
-    body
-      .find('kbd:contains("Right")')
-      .replaceWith('<kbd title="Right">\u2192</kbd>'); // \u27a1
+    body.find('kbd:contains("Fn"), kbd:contains("Function")').replaceWith('<kbd title="Function">Fn</kbd>');
+    body.find('kbd:contains("PgUp"), kbd:contains("Page Up")').replaceWith('<kbd title="Page Up">PgUp</kbd>');
+    body.find('kbd:contains("PgDn"), kbd:contains("Page Down")').replaceWith('<kbd title="Page Down">PgDn</kbd>');
+    body.find('kbd:contains("Eject")').replaceWith('<kbd title="Eject">\u23cf</kbd>');
+    body.find('kbd:contains("Power")').replaceWith('<kbd title="Power"><i class="fa fa-power-off"></i></kbd>');
+    body.find('kbd:contains("Left")').replaceWith('<kbd title="Left">\u2190</kbd>'); // \u2b05
+    body.find('kbd:contains("Right")').replaceWith('<kbd title="Right">\u2192</kbd>'); // \u27a1
     body
       .find('kbd')
       .filter(function() {
@@ -332,20 +304,21 @@ utilJq.addHotkeys = function() {
         );
       })
       .replaceWith('<kbd title="Down">\u2193</kbd>'); // \u2b07
+    return body;
   });
 };
 
 utilJq.addPullQuotes = function() {
   return this.map(function() {
-    $(this)
+    return $(this)
       .find('p.pull-quote, blockquote p.left, blockquote p.right')
       .each(function() {
-        var p = $(this);
-        var blockquote = p.parent();
+        const p = $(this);
+        let blockquote = p.parent();
         if (blockquote.prop('tagName') !== 'BLOCKQUOTE') {
           blockquote = p.wrap('<blockquote>').parent();
         }
-        var aside = blockquote.wrap('<aside>').parent();
+        const aside = blockquote.wrap('<aside>').parent();
         aside.addClass(p.attr('class'));
         p.removeAttr('class');
       });
@@ -354,10 +327,10 @@ utilJq.addPullQuotes = function() {
 
 utilJq.addSmallCaps = function() {
   return this.map(function() {
-    $(this)
+    return $(this)
       .find('sc')
       .replaceWith(function() {
-        var span = $('<span class="caps"></span>');
+        const span = $('<span class="caps"></span>');
         span.html($(this).html());
         return span;
       });
@@ -366,18 +339,18 @@ utilJq.addSmallCaps = function() {
 
 utilJq.addTeXLogos = function() {
   return this.map(function() {
-    var body = $(this);
+    const body = $(this);
     // cf. http://edward.oconnor.cx/2007/08/tex-poshlet
     // and http://nitens.org/taraborelli/texlogo
-    var a = '<span class="latex-a">a</span>';
-    var la = 'L' + a;
-    var e = '<span class="tex-e">e</span>';
-    var tex = 'T' + e + 'X';
-    var eps = '<span class="latex-epsilon">&#949;</span>';
-    var sp = '<span class="latex-space">&nbsp;</span>';
-    var twoe = '2' + eps;
-    var ee = '<span class="xetex-e">&#398;</span>';
-    var xe = 'X' + ee;
+    const a = '<span class="latex-a">a</span>';
+    const la = 'L' + a;
+    const e = '<span class="tex-e">e</span>';
+    const tex = 'T' + e + 'X';
+    const eps = '<span class="latex-epsilon">&#949;</span>';
+    const sp = '<span class="latex-space">&nbsp;</span>';
+    const twoe = '2' + eps;
+    const ee = '<span class="xetex-e">&#398;</span>';
+    const xe = 'X' + ee;
     body.find('abbr[title=XeTeX]').html(xe + tex);
     body.find('abbr[title=XeLaTeX]').html(xe + la + tex);
     body.find('abbr[title="LaTeX 2e"]').html(la + tex + sp + twoe);
@@ -392,6 +365,7 @@ utilJq.addTeXLogos = function() {
     body.find('abbr[title=MacTeX]').html('Mac' + tex);
     body.find('abbr[title=lhs2TeX]').html('lhs2' + tex);
     body.find('abbr[title=TeX]').html(tex);
+    return body;
   });
 };
 
@@ -401,14 +375,14 @@ utilJq.relativizeUrls = function(path) {
     $(this)
       .find('a[href]')
       .each(function() {
-        var a = $(this);
-        var href = a.attr('href');
+        const a = $(this);
+        let href = a.attr('href');
         if (!a.hasClass('u-url') && !a.hasClass('external')) {
           // redirect external links to local copy
-          var ref = util.getCachedUrl(href);
+          const ref = util.getCachedUrl(href);
           if (ref) {
-            var hash = util.urlAnchor(href);
-            var refHasAnchor = util.urlAnchor(ref.href) !== '';
+            const hash = util.urlAnchor(href);
+            const refHasAnchor = util.urlAnchor(ref.href) !== '';
             href = ref.href + (refHasAnchor ? '' : hash);
             a.attr('href', href);
             a.attr('title', a.attr('title') || ref.title || '');
@@ -421,8 +395,8 @@ utilJq.relativizeUrls = function(path) {
     $(this)
       .find('img[src]')
       .each(function() {
-        var img = $(this);
-        var src = img.attr('src');
+        const img = $(this);
+        let src = img.attr('src');
         src = util.urlRelative(path, src);
         img.attr('src', src);
       });
@@ -437,17 +411,17 @@ utilJq.addBootstrapDivs = function(path) {
         return $(this).hasClass('bs-callout');
       })
       .each(function() {
-        var blockquote = $(this);
-        var strong = blockquote.find('>:first-child > strong');
+        const blockquote = $(this);
+        const strong = blockquote.find('>:first-child > strong');
         if (strong.length) {
-          var p = strong.parent();
+          const p = strong.parent();
           if (strong.length && p.text() === strong.text()) {
-            var header = $('<h4>');
+            const header = $('<h4>');
             header.html(strong.html());
             p.replaceWith(header);
           }
         }
-        var div = blockquote
+        const div = blockquote
           .prop('outerHTML')
           .trim()
           .replace(/^<blockquote/i, '<div')
@@ -462,7 +436,7 @@ utilJq.fixBlockquotes = function() {
     $(this)
       .find('blockquote > p:last-child')
       .each(function() {
-        var p = $(this);
+        const p = $(this);
         if (
           p
             .text()
@@ -472,8 +446,8 @@ utilJq.fixBlockquotes = function() {
           p.find('em, i').replaceWith(function() {
             return $('<cite>' + $(this).html() + '</cite>');
           });
-          var html = p.html().substr(1);
-          var footer = $('<footer>' + html + '</footer>');
+          const html = p.html().substr(1);
+          const footer = $('<footer>' + html + '</footer>');
           p.replaceWith(footer);
         }
       });
@@ -482,10 +456,10 @@ utilJq.fixBlockquotes = function() {
 
 utilJq.fixCenteredText = function() {
   return this.map(function() {
-    $(this)
+    return $(this)
       .find('center')
       .replaceWith(function() {
-        var p = $('<p class="text-center">');
+        const p = $('<p class="text-center">');
         p.html($(this).html());
         return p;
       });
@@ -494,9 +468,9 @@ utilJq.fixCenteredText = function() {
 
 utilJq.fixMarks = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('mark').each(function() {
-      var mark = $(this);
+      const mark = $(this);
       mark.addClass('mark');
       if (!mark.is('[title]')) {
         mark.attr('title', 'Highlight');
@@ -507,36 +481,32 @@ utilJq.fixMarks = function() {
 
 utilJq.fixLinks = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     // fix internal links
     body.find('a[href^="#"]').each(function() {
-      var link = $(this);
-      var href = link.attr('href').replace(':', '\\:');
-      var title = link.attr('title');
+      const link = $(this);
+      const href = link.attr('href').replace(':', '\\:');
+      const title = link.attr('title');
       // ignore aria-hidden anchors
-      if (
-        link.attr('aria-hidden') === 'true' ||
-        href === '#' ||
-        (title !== undefined && title !== '')
-      ) {
+      if (link.attr('aria-hidden') === 'true' || href === '#' || (title !== undefined && title !== '')) {
         return;
       }
-      var target = body.find(href);
+      let target = body.find(href);
       if (target.length <= 0) {
         return;
       }
       // set title attribute to summary of target
       target = target.first();
-      var text = target.removeAria().text() || '';
+      let text = target.removeAria().text() || '';
       text = text.trim();
       link.attr('title', text);
     });
     // fix external links
     body.find('a').each(function() {
-      var a = $(this);
-      var text = a.text() || '';
+      const a = $(this);
+      let text = a.text() || '';
       text = text.trim();
-      var href = a.attr('href') || '';
+      let href = a.attr('href') || '';
       href = href.trim();
       if (href === undefined || href === '') {
         // not a link: do nothing
@@ -546,29 +516,23 @@ utilJq.fixLinks = function() {
       if (
         text !== '' &&
         text.match(/[a-z]+:\//i) &&
-        (text === href ||
-          text.match(/^[a-z]+:\//i) ||
-          text === decodeURIComponent(href))
+        (text === href || text.match(/^[a-z]+:\//i) || text === decodeURIComponent(href))
       ) {
         a.addClass('url');
       }
       // add index.html to end of link
-      if (
-        util.isLocalFile() &&
-        !util.isExternalUrl(href) &&
-        util.urlWithoutAnchor(href).match(/\/$/)
-      ) {
+      if (util.isLocalFile() && !util.isExternalUrl(href) && util.urlWithoutAnchor(href).match(/\/$/)) {
         href = util.urlPlusIndexHtml(href);
         a.attr('href', href);
       }
       // open external links in a new window
       if (a.hasClass('external') || util.isExternalUrl(href)) {
         // add explanatory tooltip
-        var host = URI(href)
+        const host = URI(href)
           .host()
           .replace(/^www\./, '');
         if (!a.is('[title]')) {
-          var str = 'Open ' + host + ' in a new window';
+          const str = 'Open ' + host + ' in a new window';
           a.attr('title', str.replace(/[ ]+/g, ' '));
         }
         // set target="_blank"
@@ -576,7 +540,7 @@ utilJq.fixLinks = function() {
       }
       // add tooltip for mailto: links
       if (href.match(/^mailto:/i) && !a.is('[title]')) {
-        var mail = href.replace(/^mailto:/i, '');
+        const mail = href.replace(/^mailto:/i, '');
         a.attr('title', 'E-mail ' + mail);
         a.addClass('mail');
       }
@@ -590,7 +554,7 @@ utilJq.fixTables = function() {
     $(this)
       .find('table')
       .each(function() {
-        var table = $(this);
+        const table = $(this);
 
         // add Bootstrap classes
         table.addClass('table table-striped table-bordered table-hover');
@@ -639,7 +603,8 @@ utilJq.addPunctuation = function() {
   return this.each(function() {
     $(this).traverseTextNodes(function(node) {
       // https://github.com/kellym/smartquotesjs
-      node.nodeValue = node.nodeValue
+      const n = node;
+      n.nodeValue = n.nodeValue
         .replace(/([-([«\s]|^)"(\S)/g, '$1\u201c$2') // beginning "
         .replace(/"/g, '\u201d') // ending "
         .replace(/([^0-9])"/g, '$1\u201d') // remaining " at end of word
@@ -694,6 +659,7 @@ utilJq.addPunctuation = function() {
         .replace(/!!/g, '\u203c')
         .replace(/:-\)/g, '\u263a') // smiley
         .replace(/:-\(/g, '\u2639'); // frowning smiley
+      return n;
     });
   });
 };

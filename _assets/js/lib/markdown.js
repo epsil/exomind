@@ -20,40 +20,36 @@ import util from './util';
 import utilJq from './util-jq';
 
 function markdown(str, opts) {
-  str = preprocessor(str);
-  opts = markdown.options(opts);
-  var md = markdown.md;
-  if (opts && !_.isEmpty(opts)) {
-    md = markdown.parser(opts);
+  let mdStr = preprocessor(str);
+  const mdOpts = markdown.options(opts);
+  let md = markdown.md;
+  if (mdOpts && !_.isEmpty(mdOpts)) {
+    md = markdown.parser(mdOpts);
   }
   // ensure that defined references have precedence
   // over wiki references
-  var env = markdown.env({
-    references: Reference.extractReferencesFromMarkdown(str)
+  const env = markdown.env({
+    references: Reference.extractReferencesFromMarkdown(mdStr)
   });
-  str = md.render(str, env);
-  str = str.trim();
-  // str = markdown.highlightInline(str).trim();
-  if (opts && opts.inline && str.match(/^<p>/) && str.match(/<\/p>$/)) {
-    var beg = '<p>'.length;
-    var end = '</p>'.length;
-    str = str.substring(beg, str.length - end);
+  mdStr = md.render(mdStr, env);
+  mdStr = mdStr.trim();
+  // mdStr = markdown.highlightInline(mdStr).trim();
+  if (mdOpts && mdOpts.inline && mdStr.match(/^<p>/) && mdStr.match(/<\/p>$/)) {
+    const beg = '<p>'.length;
+    const end = '</p>'.length;
+    mdStr = mdStr.substring(beg, mdStr.length - end);
   }
-  return str;
+  return mdStr;
 }
 
 markdown.env = function(env) {
-  env = env || {};
-  env.references = env.references || {};
-  env.abbreviations = env.abbreviations || {};
-  env.references = _.assign({}, Reference.getReferences(), env.references);
-  env.references = Reference.removeUnsafeReferences(env.references);
-  env.abbreviations = _.assign(
-    {},
-    abbrev.getAbbreviations(),
-    env.abbreviations
-  );
-  return env;
+  const mdEnv = env || {};
+  mdEnv.references = mdEnv.references || {};
+  mdEnv.abbreviations = mdEnv.abbreviations || {};
+  mdEnv.references = _.assign({}, Reference.getReferences(), mdEnv.references);
+  mdEnv.references = Reference.removeUnsafeReferences(mdEnv.references);
+  mdEnv.abbreviations = _.assign({}, abbrev.getAbbreviations(), mdEnv.abbreviations);
+  return mdEnv;
 };
 
 // markdown.highlightBlock = function(str, lang) {
@@ -68,18 +64,18 @@ markdown.env = function(env) {
 // markdown.highlightInline = function(str) {
 //   return utilJq.dojQuery(str, function(body) {
 //     body.find('code[class]').each(function() {
-//       var code = $(this);
-//       var pre = code.parent();
+//       let code = $(this);
+//       let pre = code.parent();
 //       if (pre.prop('tagName') === 'PRE') {
 //         return;
 //       }
-//       var lang = code.attr('class');
+//       let lang = code.attr('class');
 //       if (lang && hljs.getLanguage(lang)) {
 //         try {
 //           code.removeClass(lang);
 //           code.addClass('language-' + lang);
-//           var str = code.text().trim();
-//           var html = hljs.highlight(lang, str, false).value;
+//           let str = code.text().trim();
+//           let html = hljs.highlight(lang, str, false).value;
 //           code.html(html);
 //         } catch (__) {}
 //       }
@@ -102,95 +98,81 @@ markdown.defaults = {
 };
 
 markdown.options = function(opts) {
-  opts = opts || {};
-  var options = {};
-  if (opts.hasOwnProperty('hard_line_breaks')) {
-    options.breaks = opts.hard_line_breaks;
+  const mdOpts = opts || {};
+  const options = {};
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'hard_line_breaks')) {
+    options.breaks = mdOpts.hard_line_breaks;
   }
-  if (opts.hasOwnProperty('breaks')) {
-    options.breaks = opts.breaks;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'breaks')) {
+    options.breaks = mdOpts.breaks;
   }
-  if (opts.hasOwnProperty('autolink_bare_uris')) {
-    options.linkify = opts.autolink_bare_uris;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'autolink_bare_uris')) {
+    options.linkify = mdOpts.autolink_bare_uris;
   }
-  if (opts.hasOwnProperty('linkify')) {
-    options.linkify = opts.linkify;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'linkify')) {
+    options.linkify = mdOpts.linkify;
   }
-  if (opts.hasOwnProperty('smart')) {
-    options.typographer = opts.smart;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'smart')) {
+    options.typographer = mdOpts.smart;
   }
-  if (opts.hasOwnProperty('typographer')) {
-    options.typographer = opts.typographer;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'typographer')) {
+    options.typographer = mdOpts.typographer;
   }
-  if (opts.hasOwnProperty('emoji')) {
-    options.emoji = opts.emoji;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'emoji')) {
+    options.emoji = mdOpts.emoji;
   }
-  if (opts.hasOwnProperty('mathjax')) {
-    options.mathjax = opts.mathjax;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'mathjax')) {
+    options.mathjax = mdOpts.mathjax;
   }
-  if (opts.hasOwnProperty('inline')) {
-    options.inline = opts.inline;
+  if (Object.prototype.hasOwnProperty.call(mdOpts, 'inline')) {
+    options.inline = mdOpts.inline;
   }
   return options;
 };
 
 markdown.parser = function(opts) {
-  opts = opts || {};
-  opts = _.assign({}, markdown.defaults, opts);
-  return markdown.plugins(markdownit(opts), opts);
+  let mdOpts = opts || {};
+  mdOpts = _.assign({}, markdown.defaults, mdOpts);
+  return markdown.plugins(markdownit(mdOpts), mdOpts);
 };
 
 markdown.plugins = function(md, opts) {
-  opts = opts || {};
-  md = md.use(figures, { figcaption: true });
+  const mdOpts = opts || {};
+  let mdInstance = md.use(figures, { figcaption: true });
   // if (opts.mathjax !== true) {
-  md = md.use(attr);
+  mdInstance = mdInstance.use(attr);
   // }
-  md = md
+  mdInstance = mdInstance
     .use(sub)
     .use(sup)
     .use(footnote)
     .use(taskcheckbox, { disabled: false })
     .use(deflist);
-  md = markdown.containerPlugin(md);
-  if (opts.emoji === true) {
-    md = md.use(emoji);
-    md.renderer.rules.emoji = function(token, idx) {
-      return (
-        '<span class="emoji emoji_' +
-        token[idx].markup +
-        '">' +
-        token[idx].content +
-        '</span>'
-      );
+  mdInstance = markdown.containerPlugin(mdInstance);
+  if (mdOpts.emoji === true) {
+    mdInstance = mdInstance.use(emoji);
+    mdInstance.renderer.rules.emoji = function(token, idx) {
+      return '<span class="emoji emoji_' + token[idx].markup + '">' + token[idx].content + '</span>';
     };
   }
-  if (opts.mathjax === true) {
-    md = md.use(mathjax());
+  if (mdOpts.mathjax === true) {
+    mdInstance = mdInstance.use(mathjax());
   }
-  md = md.use(abbr);
-  md = md.use(prism);
-  return md;
+  mdInstance = mdInstance.use(abbr);
+  mdInstance = mdInstance.use(prism);
+  return mdInstance;
 };
 
 markdown.containerPlugin = function(md) {
-  var renderContainer = function(bsClass, title) {
+  const renderContainer = function(bsClass, title) {
     return function(tokens, idx) {
-      var info = tokens[idx].info.trim();
-      bsClass = bsClass || info.toLowerCase();
-      title = title || _.capitalize(info);
-      var isOpeningTag = tokens[idx].nesting === 1;
-      if (isOpeningTag) {
-        return (
-          '<div class="bs-callout bs-callout-' +
-          bsClass +
-          '"><h4>' +
-          title +
-          '</h4>\n'
-        );
-      } else {
-        return '</div>\n';
-      }
+      const info = tokens[idx].info.trim();
+      const bsClassName = bsClass || info.toLowerCase();
+      const titleStr = title || _.capitalize(info);
+      const isOpeningTag = tokens[idx].nesting === 1;
+      return isOpeningTag
+        ? '<div class="bs-callout bs-callout-' + bsClassName + '"><h4>' + titleStr + '</h4>\n'
+        : '</div>\n';
     };
   };
   return md
@@ -210,7 +192,7 @@ markdown.inline = function(str) {
 };
 
 markdown.toText = function(str) {
-  var html = markdown.inline(str);
+  const html = markdown.inline(str);
   return utilJq.htmlToText(html);
 };
 

@@ -1,84 +1,84 @@
 import $ from 'jquery';
 import util from './util';
 
-var toc = {};
+const toc = {};
 
 toc.addTableOfContents = function() {
   return this.map(function() {
-    var body = $(this);
-    var placeholder = body.find('#toc-placeholder');
-    var toc = body.tableOfContents();
-    if (toc !== '') {
-      placeholder.replaceWith(toc);
+    const body = $(this);
+    const placeholder = body.find('#toc-placeholder');
+    const tocEl = body.tableOfContents();
+    if (tocEl !== '') {
+      placeholder.replaceWith(tocEl);
     }
+    return body;
   });
 };
 
 toc.tableOfContents = function(title) {
-  var body = $(this);
-  var lst = body.listOfContents();
+  const body = $(this);
+  const lst = body.listOfContents();
 
   if (lst === '') {
     return '';
   }
 
-  var toc = $('<div id="toc" class="collapse">' + lst + '</div>');
-  toc.find('li ul').each(function(i, el) {
-    var ul = $(this);
-    var a = ul.prev();
-    var id = util.generateUniqueId(a);
-    var span = a.wrap('<span class="collapse" id="' + id + '">').parent();
+  const tocEl = $('<div id="toc" class="collapse">' + lst + '</div>');
+  tocEl.find('li ul').each(function(i, el) {
+    const ul = $(this);
+    const a = ul.prev();
+    const id = util.generateUniqueId(a);
+    const span = a.wrap('<span class="collapse" id="' + id + '">').parent();
     $.fn.addCollapsibleSections.addButton(span, ul);
   });
 
-  return toc.prop('outerHTML');
+  return tocEl.prop('outerHTML');
 };
 
 toc.listOfContents = function() {
-  var body = $(this);
-  var currentLevel = 0;
-  var str = '';
-  var stack = [];
+  const body = $(this);
+  let currentLevel = 0;
+  let str = '';
+  const stack = [];
 
-  var currentElement = function() {
-    var i = stack.length - 1;
+  const currentElement = function() {
+    const i = stack.length - 1;
     if (i < 0) {
       return '';
-    } else {
-      return stack[i];
     }
+    return stack[i];
   };
 
-  var openTag = function(el, tag) {
+  const openTag = function(el, tag) {
     stack.push(el);
     str += tag;
   };
 
-  var openElement = function(el) {
-    var tag = '<' + el + '>';
+  const openElement = function(el) {
+    const tag = '<' + el + '>';
     openTag(el, tag);
   };
 
-  var closeElement = function() {
-    var el = stack.pop();
-    var tag = '</' + el + '>';
+  const closeElement = function() {
+    const el = stack.pop();
+    const tag = '</' + el + '>';
     str += tag;
     return el;
   };
 
-  var openListElement = function() {
+  const openListElement = function() {
     closeListElement(); // don't allow li elements to nest
     openElement('li');
   };
 
-  var closeListElement = function() {
+  const closeListElement = function() {
     if (currentElement() === 'li') {
       closeElement();
     }
   };
 
-  var addLink = function(id, html) {
-    var a = $('<a href="#' + id + '"></a>');
+  const addLink = function(id, html) {
+    const a = $('<a href="#' + id + '"></a>');
     a.html(html);
     a.find('a').replaceWith(function() {
       return $(this).html();
@@ -87,7 +87,7 @@ toc.listOfContents = function() {
     str += a.prop('outerHTML');
   };
 
-  var startList = function(level) {
+  const startList = function(level) {
     while (currentLevel < level) {
       if (currentElement() === 'ul') {
         openListElement();
@@ -97,9 +97,9 @@ toc.listOfContents = function() {
     }
   };
 
-  var endList = function(level) {
+  const endList = function(level) {
     while (currentLevel > level) {
-      var el = closeElement();
+      const el = closeElement();
       if (el === 'ul') {
         currentLevel--;
       }
@@ -107,18 +107,18 @@ toc.listOfContents = function() {
   };
 
   // generate ID if missing
-  var headerId = function(header) {
-    var id = header.attr('id');
+  const headerId = function(header) {
+    let id = header.attr('id');
 
     if (id === undefined || id === '') {
-      var section = header.parent();
+      const section = header.parent();
       if (section.prop('tagName') === 'SECTION') {
         id = section.attr('id');
       }
     }
 
     if (id === undefined || id === '') {
-      var clone = header.clone();
+      const clone = header.clone();
       clone.find('[aria-hidden="true"]').remove();
       id = util.generateUniqueId(header);
       header.attr('id', id);
@@ -126,21 +126,21 @@ toc.listOfContents = function() {
     return id;
   };
 
-  var headers = body.find('h1, h2, h3, h4, h5, h6');
+  let headers = body.find('h1, h2, h3, h4, h5, h6');
 
   if (headers.length === 0) {
     return '';
   }
 
-  var exclude = '.title'; // should be parametrized
+  const exclude = '.title'; // should be parametrized
   headers = headers.filter(function() {
     return !$(this).is(exclude);
   });
   headers.each(function(i, el) {
-    var header = $(this);
-    var id = headerId(header);
-    var html = header.html();
-    var level = parseInt(header.prop('tagName').match(/\d+/)[0]);
+    const header = $(this);
+    const id = headerId(header);
+    const html = header.html();
+    const level = parseInt(header.prop('tagName').match(/\d+/)[0], 10);
     endList(level);
     startList(level);
     openListElement();
@@ -151,10 +151,7 @@ toc.listOfContents = function() {
   endList(0);
 
   // remove superfluous ul elements
-  while (
-    str.match(/^<ul><li><ul><li>/) &&
-    str.match(/<\/li><\/ul><\/li><\/ul>$/)
-  ) {
+  while (str.match(/^<ul><li><ul><li>/) && str.match(/<\/li><\/ul><\/li><\/ul>$/)) {
     str = str.substring(8, str.length - 10);
   }
 

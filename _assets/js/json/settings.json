@@ -8,6 +8,7 @@
   "noindex": true,
   "referrer": "no-referrer",
   "mathjax": false,
+  "show-title": true,
   "toc": true,
   "typogr": true,
   "no": {

@@ -9,23 +9,24 @@ function escapeCurlyBraces(str) {
 
 function makePhoneLinks(str) {
   return str.replace(/<(\+?[-\s0-9]+)>/gi, function(match, num) {
-    num = num.trim();
-    var digits = num.replace(/[-\s]/gi, '');
-    var link = '[' + num + '](tel:' + digits + ' "Call ' + num + '")';
+    const number = num.trim();
+    const digits = number.replace(/[-\s]/gi, '');
+    const link = '[' + number + '](tel:' + digits + ' "Call ' + number + '")';
     return link;
   });
 }
 
 function preprocessor(str) {
+  let result = str;
   // remove whitespace
-  str = str.trim();
+  result = result.trim();
   // escape curly braces
-  str = escapeCurlyBraces(str);
+  result = escapeCurlyBraces(result);
   // make phone links
-  str = makePhoneLinks(str);
+  result = makePhoneLinks(result);
   // add header and footer
-  str = header + '\n\n' + str + '\n\n' + footer;
-  return str.trim();
+  result = header + '\n\n' + result + '\n\n' + footer;
+  return result.trim();
 }
 
 export default preprocessor;

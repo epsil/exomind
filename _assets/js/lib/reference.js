@@ -1,10 +1,10 @@
+import $ from 'jquery';
+import _ from 'lodash';
 import stringSimilarity from 'string-similarity';
+import URI from 'urijs';
 import page from './page';
 import sort from './sort';
 import references from '../json/references.json';
-import URI from 'urijs';
-import $ from 'jquery';
-import _ from 'lodash';
 
 function Reference(label, href, title, hidden) {
   this.label = label;
@@ -16,16 +16,17 @@ function Reference(label, href, title, hidden) {
 }
 
 Reference.addReferenceToDictionary = function(ref, dict, force) {
-  var label = Reference.normalizeLabel(ref.label);
-  if (!dict[label] || force) {
-    ref = Reference.makeUnlabeledReference(ref);
-    dict[label] = ref;
+  const newDict = dict;
+  const label = Reference.normalizeLabel(ref.label);
+  if (!newDict[label] || force) {
+    const newRef = Reference.makeUnlabeledReference(ref);
+    newDict[label] = newRef;
   }
-  return dict;
+  return newDict;
 };
 
 Reference.arrayToDictionary = function(arr) {
-  var dict = {};
+  const dict = {};
   arr.forEach(function(ref) {
     Reference.addReferenceToDictionary(ref, dict);
   });
@@ -33,94 +34,95 @@ Reference.arrayToDictionary = function(arr) {
 };
 
 Reference.extractReferencesFromMarkdown = function(md) {
-  var dict = {};
+  let dict = {};
   dict = Reference.extractReferenceDefinitionsFromMarkdown(md, dict);
   dict = Reference.extractReferenceAnchorsFromMarkdown(md, dict);
   return dict;
 };
 
 Reference.removeUnsafeReferences = function(refs) {
+  const safeRefs = refs;
   // '[x]' confuses markdown-it-task-checkbox
-  delete refs.X;
-  // '[...]' is reserved by collapse.js
-  delete refs['...'];
-  delete refs['\u2026'];
-  return refs;
+  delete safeRefs.X;
+  // '[...]' is reserved for collapse.js
+  delete safeRefs['...'];
+  delete safeRefs['\u2026'];
+  return safeRefs;
 };
 
 Reference.extractReferenceDefinitionsFromMarkdown = function(md, dict) {
-  dict = dict || {};
-  md = md.trim();
-  var lines = md.split(/\r?\n/);
-  lines.map(function(line) {
-    var match = line.match(/^\[([^\]]+)]: (.*?)( "(.*)")?$/i);
-    var isFootnote = match && match[1].match(/^\^/);
+  let newDict = dict || {};
+  const lines = md.trim().split(/\r?\n/);
+  lines.forEach(function(line) {
+    const match = line.match(/^\[([^\]]+)]: (.*?)( "(.*)")?$/i);
+    const isFootnote = match && match[1].match(/^\^/);
     if (match && !isFootnote) {
-      var ref = new Reference(match[1], match[2], match[4]);
-      dict = Reference.addReferenceToDictionary(ref, dict);
+      const ref = new Reference(match[1], match[2], match[4]);
+      newDict = Reference.addReferenceToDictionary(ref, newDict);
     }
   });
-  return dict;
+  return newDict;
 };
 
 Reference.extractReferenceAnchorsFromMarkdown = function(md, dict) {
-  dict = dict || {};
-  md = md.trim();
-  var regexp = /\[(([^#\]]+)(#[^#\]]+))]/gi;
-  var matches;
-  while ((matches = regexp.exec(md)) !== null) {
-    var label = matches[1];
-    var title = matches[2];
-    var anchor = matches[3];
-    var ref = Reference.getReference(title);
+  let newDict = dict || {};
+  const mdStr = md.trim();
+  const regexp = /\[(([^#\]]+)(#[^#\]]+))]/gi;
+  let matches;
+  while ((matches = regexp.exec(mdStr)) !== null) {
+    const label = matches[1];
+    const title = matches[2];
+    const anchor = matches[3];
+    let ref = Reference.getReference(title);
     if (ref) {
-      var href =
+      const href =
         URI(ref.href)
           .fragment('')
           .toString() + anchor;
       ref = new Reference(label, href, ref.title);
-      dict = Reference.addReferenceToDictionary(ref, dict);
+      newDict = Reference.addReferenceToDictionary(ref, newDict);
     }
   }
-  return dict;
+  return newDict;
 };
 
 Reference.forEach = function(dict, fn) {
-  for (var label in dict) {
-    fn(Reference.makeLabeledReference(label, dict[label]));
-  }
+  const refs = dict || {};
+  Object.keys(refs).forEach(function(label) {
+    fn(Reference.makeLabeledReference(label, refs[label]));
+  });
 };
 
 Reference.getReference = function(obj, dict) {
-  dict = dict || references;
+  const refs = dict || references;
   if (typeof obj === 'string') {
-    return Reference.getReferenceByLabel(obj, dict);
-  } else {
-    return Reference.getReferenceByPredicate(obj, dict);
+    return Reference.getReferenceByLabel(obj, refs);
   }
+  return Reference.getReferenceByPredicate(obj, refs);
 };
 
 Reference.getReferenceByHref = function(href, dict) {
-  dict = dict || references;
+  const refs = dict || references;
   return Reference.getReferenceByPredicate(function(ref) {
     return ref.href === href;
-  }, dict);
+  }, refs);
 };
 
 Reference.getReferenceByLabel = function(label, dict) {
-  dict = dict || references;
-  label = Reference.normalizeLabel(label);
-  if (dict[label]) {
-    return Reference.makeLabeledReference(label, dict[label]);
-  } else {
+  const refs = dict || references;
+  const normLabel = Reference.normalizeLabel(label);
+  if (!refs[normLabel]) {
     return null;
   }
+  return Reference.makeLabeledReference(normLabel, refs[normLabel]);
 };
 
 Reference.getReferenceByPredicate = function(pred, dict) {
-  dict = dict || references;
-  for (var label in dict) {
-    var ref = Reference.makeLabeledReference(label, dict[label]);
+  const refs = dict || references;
+  const labels = Object.keys(refs);
+  for (let i = 0; i < labels.length; i++) {
+    const label = labels[i];
+    const ref = Reference.makeLabeledReference(label, refs[label]);
     if (pred(ref)) {
       return ref;
     }
@@ -129,15 +131,15 @@ Reference.getReferenceByPredicate = function(pred, dict) {
 };
 
 Reference.getReferencesByPredicate = function(pred, dict) {
-  dict = dict || references;
-  var refs = [];
-  for (var label in dict) {
-    var ref = Reference.makeLabeledReference(label, dict[label]);
+  const refs = dict || references;
+  const arr = [];
+  Object.keys(refs).forEach(function(label) {
+    const ref = Reference.makeLabeledReference(label, refs[label]);
     if (pred(ref)) {
-      refs.push(ref);
+      arr.push(ref);
     }
-  }
-  return refs;
+  });
+  return arr;
 };
 
 Reference.getReferences = function() {
@@ -145,9 +147,9 @@ Reference.getReferences = function() {
 };
 
 Reference.dictionaryToArray = function(dict) {
-  dict = dict || references;
-  var arr = [];
-  Reference.forEach(dict, function(ref) {
+  const refs = dict || references;
+  const arr = [];
+  Reference.forEach(refs, function(ref) {
     arr.push(ref);
   });
   return arr;
@@ -158,15 +160,15 @@ Reference.makeReference = function(label, href, title) {
 };
 
 Reference.makeLabeledReference = function(label, ref) {
-  ref = Object.assign({}, ref);
-  ref.label = label;
-  return ref;
+  const labeledRef = Object.assign({}, ref);
+  labeledRef.label = label;
+  return labeledRef;
 };
 
 Reference.makeUnlabeledReference = function(ref) {
-  ref = Object.assign({}, ref);
-  delete ref.label;
-  return ref;
+  const unlabeledRef = Object.assign({}, ref);
+  delete unlabeledRef.label;
+  return unlabeledRef;
 };
 
 Reference.normalizeLabel = function(label) {
@@ -177,20 +179,23 @@ Reference.normalizeLabel = function(label) {
 };
 
 Reference.sortDictionary = function(dict) {
-  var arr = Reference.dictionaryToArray(dict);
+  let arr = Reference.dictionaryToArray(dict);
   arr = arr.sort(function(ref1, ref2) {
-    return ref1.label < ref2.label ? -1 : ref1.label > ref2.label ? 1 : 0;
+    if (ref1.label < ref2.label) {
+      return -1;
+    }
+    return ref1.label > ref2.label ? 1 : 0;
   });
   return Reference.arrayToDictionary(arr);
 };
 
 Reference.search = function(str) {
-  str = str.toUpperCase();
-  if (str === '') {
+  const searchStr = str.toUpperCase();
+  if (searchStr === '') {
     return [];
   }
-  var arr = Reference.dictionaryToArray();
-  var isExplicit = str.match(/!/);
+  let arr = Reference.dictionaryToArray();
+  const isExplicit = searchStr.match(/!/);
   if (!isExplicit) {
     arr = arr.filter(function(x) {
       return x.hidden !== true;
@@ -199,8 +204,8 @@ Reference.search = function(str) {
   sort(
     arr,
     sort.descending(function(x) {
-      var label = x.label.toUpperCase();
-      return stringSimilarity.compareTwoStrings(label, str);
+      const label = x.label.toUpperCase();
+      return stringSimilarity.compareTwoStrings(label, searchStr);
     })
   );
   arr = _.uniqBy(arr, function(x) {
@@ -211,19 +216,19 @@ Reference.search = function(str) {
   });
   arr = _.take(arr, 5);
   // sort(arr, sort.descending(function (x) {
-  //   var title = x.title || x.label
+  //   let title = x.title || x.label
   //   title = title.toUpperCase()
-  //   return stringSimilarity.compareTwoStrings(title, str)
+  //   return stringSimilarity.compareTwoStrings(title, searchStr)
   // }))
   return arr;
 };
 
 Reference.searchHandler = function(e) {
-  var form = $(this);
-  var input = form.find('input');
-  var str = input.val();
+  const form = $(this);
+  const input = form.find('input');
+  let str = input.val();
   str = str.replace(/\s+/gi, ' ').trim();
-  var matches = Reference.search(str);
+  const matches = Reference.search(str);
   Reference.updateSearchMatches(matches);
   return false;
 };
@@ -231,31 +236,30 @@ Reference.searchHandler = function(e) {
 Reference.renderSearchMatches = function(matches) {
   if (matches.length === 0) {
     return '';
-  } else {
-    var counter = 1;
-    return (
-      '<ol>' +
-      matches
-        .map(function(match) {
-          // if only we had some template syntax like JSX
-          // to make this simpler
-          var li = $('<li>');
-          var a = $('<a>');
-          a.attr('accesskey', counter++);
-          a.attr('href', match.href);
-          a.text(match.title || _.capitalize(match.label));
-          li.append(a);
-          return li.prop('outerHTML');
-        })
-        .join('') +
-      '</ol>'
-    );
   }
+  let counter = 1;
+  return (
+    '<ol>' +
+    matches
+      .map(function(match) {
+        // if only we had some template syntax like JSX
+        // to make this simpler
+        const li = $('<li>');
+        const a = $('<a>');
+        a.attr('accesskey', counter++);
+        a.attr('href', match.href);
+        a.text(match.title || _.capitalize(match.label));
+        li.append(a);
+        return li.prop('outerHTML');
+      })
+      .join('') +
+    '</ol>'
+  );
 };
 
 Reference.updateSearchMatches = function(matches) {
-  var html = Reference.renderSearchMatches(matches);
-  var div = Reference.findSearchMatchesContainer();
+  const html = Reference.renderSearchMatches(matches);
+  const div = Reference.findSearchMatchesContainer();
   div.html(html);
   div.relativizeUrls(page.path());
   div.find('a').focus(function() {
@@ -272,35 +276,35 @@ Reference.hideSearchMatches = function() {
 };
 
 Reference.findSearchMatchesContainer = function() {
-  var div = $('nav .search').first();
+  let div = $('nav .search').first();
   if (div.length === 0) {
     div = $('<div class="search container-fluid"></div>');
-    var container = $('nav .container-fluid').first();
+    const container = $('nav .container-fluid').first();
     container.after(div);
   }
   return div;
 };
 
 // Reference.breadcrumbs = function (path) {
-//   var newPathSegments = []
-//   var breadcrumbPaths = []
+//   let newPathSegments = []
+//   let breadcrumbPaths = []
 //   path = path.replace(/^\//, '')
 //              .replace(/\/$/, '')
-//   var pathSegments = path.split('/')
+//   let pathSegments = path.split('/')
 //   pathSegments.pop()
 //   while (pathSegments) { // eslint-disable-line
-//     var newSegment = pathSegments.shift()
+//     let newSegment = pathSegments.shift()
 //     newPathSegments.push(newSegment)
-//     var breadcrumbPath = '/' + newSegment.join('/') + '/'
+//     let breadcrumbPath = '/' + newSegment.join('/') + '/'
 //     breadcrumbPaths.push(breadcrumbPath)
 //   }
 //   return breadcrumbPaths
 // }
 
 // Reference.breadcrumbs2 = function (path) {
-//   var breadcrumbPaths = []
-//   var matches = []
-//   var regexp = /^(.*\/)([/]*\/)$/
+//   let breadcrumbPaths = []
+//   let matches = []
+//   let regexp = /^(.*\/)([/]*\/)$/
 //   while ((matches = path.match(regexp))) {
 //     path = matches[1]
 //     breadcrumbPaths.unshift(path)
@@ -314,7 +318,7 @@ Reference.findSearchMatchesContainer = function() {
 // alternate approach: getReferencesByHref(... regexp ...)
 
 Reference.breadcrumbRefs = function(path) {
-  var refs = Reference.getReferencesByPredicate(function(ref) {
+  const refs = Reference.getReferencesByPredicate(function(ref) {
     return path !== ref.href && path.startsWith(ref.href);
   });
   sort(
@@ -327,7 +331,7 @@ Reference.breadcrumbRefs = function(path) {
 };
 
 Reference.subPageRefs = function(path) {
-  var refs = Reference.getReferencesByPredicate(function(ref) {
+  const refs = Reference.getReferencesByPredicate(function(ref) {
     return path !== ref.href && ref.href.startsWith(path);
   });
   sort(
@@ -341,20 +345,20 @@ Reference.subPageRefs = function(path) {
 
 // move this into the page template as a Handlebars helper?
 Reference.renderBreadcrumbs = function(path) {
-  var breadcrumbRefs = Reference.breadcrumbRefs(path);
+  const breadcrumbRefs = Reference.breadcrumbRefs(path);
   return Reference.renderLinkList(breadcrumbRefs);
 };
 
 Reference.renderSubPages = function(path) {
-  var subPageRefs = Reference.subPageRefs(path);
+  const subPageRefs = Reference.subPageRefs(path);
   return Reference.renderLinkList(subPageRefs);
 };
 
 Reference.renderLinkList = function(refs, ordered) {
-  var lis = refs
+  const lis = refs
     .map(function(ref) {
-      var li = $('<li>');
-      var a = $('<a>');
+      const li = $('<li>');
+      const a = $('<a>');
       a.attr('href', ref.href);
       a.text(ref.title);
       li.append(a);

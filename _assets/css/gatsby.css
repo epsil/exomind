@@ -10,6 +10,12 @@ a:hover {
     background-color: #e0d6eb;
 }
 
+a.image,
+a.image:hover {
+    background-color: transparent;
+    border: none;
+}
+
 body {
     font-size: 125% !important;
     line-height: 1.35;

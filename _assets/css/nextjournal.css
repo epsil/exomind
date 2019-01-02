@@ -1,0 +1,27 @@
+@import url("medium.css");
+
+body {
+    font-family: "PT Serif", "Iowan Old Style", Iowan, "Iowan Web", Charter,
+        Georgia, "Minion Web", "Minion Pro", "Minion Std", Minion,
+        "Crimson Text", "ETBembo", "ETBembo LF", "STIX Two Web", "STIX Two Text",
+        "Hoefler Text", "Libre Baskerville", Baskerville, Cambria, Constantia,
+        Utopia, Marion, Cochin, "Palatino Linotype", Palatino, serif !important;
+    font-size: 130% !important;
+    line-height: 1.4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header {
+    font-family: inherit !important;
+}
+
+@media (max-width: 767px) {
+    body {
+        font-size: 120% !important;
+    }
+}

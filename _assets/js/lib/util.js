@@ -5,11 +5,11 @@ import URI from 'urijs';
 import moment from 'moment';
 import Reference from './reference';
 
-var util = {};
+const util = {};
 
 util.equalsElement = function(x, y) {
-  function html(x) {
-    return x
+  function html(el) {
+    return el
       .prop('outerHTML')
       .replace(/\s+/gi, ' ')
       .replace('> </', '></')
@@ -49,10 +49,10 @@ util.urlRelative = function(base, href) {
     return href;
   }
 
-  base = URI(base).pathname();
-  var uri = new URI(href);
-  var relUri = uri.relativeTo(base);
-  var result = relUri.toString();
+  const baseName = URI(base).pathname();
+  const uri = new URI(href);
+  const relUri = uri.relativeTo(baseName);
+  const result = relUri.toString();
   return result === '' ? './' : result;
 };
 
@@ -67,12 +67,12 @@ util.urlResolve = function(base, href) {
 };
 
 util.unique = function(fn) {
-  var results = [];
+  const results = [];
   return function(arg) {
-    var result = fn(arg);
+    let result = fn(arg);
     if (results.indexOf(result.valueOf()) >= 0) {
-      var i = 1;
-      var newresult = '';
+      let i = 1;
+      let newresult = '';
       do {
         i++;
         newresult = result + '-' + i;
@@ -85,8 +85,7 @@ util.unique = function(fn) {
 };
 
 util.generateId = function(el, prefix) {
-  prefix = prefix || '';
-  var id = prefix + util.slugify(el.text());
+  let id = (prefix || '') + util.slugify(el.text());
   if (!id.match(/^[a-z]/i)) {
     id = 'n' + id;
   }
@@ -100,34 +99,34 @@ util.slugify = function(str) {
 util.generateUniqueId = util.unique(util.generateId);
 
 util.getId = function(el) {
-  var id = el.attr('id');
+  let id = el.attr('id');
   if (id) {
     if (!id.match(/^[a-z]/i)) {
       id = 'n' + id;
       el.attr('id', id);
     }
     return id;
-  } else {
-    id = util.generateUniqueId(el);
-    el.attr('id', id);
-    return id;
   }
+  id = util.generateUniqueId(el);
+  el.attr('id', id);
+  return id;
 };
 
 util.getCachedUrl = function(url) {
-  var ref = Reference.getReference(url);
+  let urlStr = url;
+  let ref = Reference.getReference(urlStr);
   if (!ref) {
-    var newUrl = util.urlWithoutAnchor(url);
-    if (newUrl !== url) {
-      url = newUrl;
-      ref = Reference.getReference(url);
+    const newUrl = util.urlWithoutAnchor(urlStr);
+    if (newUrl !== urlStr) {
+      urlStr = newUrl;
+      ref = Reference.getReference(urlStr);
     }
   }
   if (!ref) {
-    if (url.match(/^http:/i)) {
-      ref = Reference.getReference(url.replace(/^http/i, 'https'));
-    } else if (url.match(/^https:/i)) {
-      ref = Reference.getReference(url.replace(/^https/i, 'http'));
+    if (urlStr.match(/^http:/i)) {
+      ref = Reference.getReference(urlStr.replace(/^http/i, 'https'));
+    } else if (urlStr.match(/^https:/i)) {
+      ref = Reference.getReference(urlStr.replace(/^https/i, 'http'));
     }
   }
   return ref;
@@ -135,17 +134,15 @@ util.getCachedUrl = function(url) {
 
 util.dateFormat = function(context, block) {
   if (moment) {
-    var date = moment(context)
+    const date = moment(context)
       .format('YYYY-MM-DD')
       .trim();
     if (date === 'Invalid date' || date === '1970-01-01') {
       return context;
-    } else {
-      return date;
     }
-  } else {
-    return context;
+    return date;
   }
+  return context;
 };
 
 util.isTextNode = function(node) {
@@ -153,46 +150,46 @@ util.isTextNode = function(node) {
 };
 
 util.isCodeName = function(name) {
-  name = name || '';
-  name = name.toUpperCase().trim();
+  let nodeName = name || '';
+  nodeName = nodeName.toUpperCase().trim();
   return (
-    name === 'CODE' ||
-    name === 'PRE' ||
-    name === 'SCRIPT' ||
-    name === 'TEXTAREA' ||
-    name === 'STYLE'
+    nodeName === 'CODE' ||
+    nodeName === 'PRE' ||
+    nodeName === 'SCRIPT' ||
+    nodeName === 'TEXTAREA' ||
+    nodeName === 'STYLE'
   );
 };
 
 util.isCodeNode = function(node) {
-  while (node) {
-    if (util.isCodeName(node.nodeName)) {
+  let n = node;
+  while (n) {
+    if (util.isCodeName(n.nodeName)) {
       return true;
     }
-    if (node.parentNode !== node) {
-      node = node.parentNode;
+    if (n.parentNode !== n) {
+      n = n.parentNode;
     } else {
-      node = null;
+      n = null;
     }
   }
   return false;
 };
 
 util.replaceInHTML = function(html, fn) {
-  var reSkipTags = /<(\/)?(style|pre|code|kbd|script|math|title)[^>]*>/i;
-  //            (    $1   )(     $2       )(   $3    )
-  var reIntraTag = /(<[^<]*>)?([^<]*)(<\/[^<]*>)?/g;
+  const reSkipTags = /<(\/)?(style|pre|code|kbd|script|math|title)[^>]*>/i;
+  //                  (  $1   ) ( $2  )(   $3    )
+  const reIntraTag = /(<[^<]*>)?([^<]*)(<\/[^<]*>)?/g;
   if (!html && typeof html !== 'string') {
     return html;
   }
-  return html.replace(reIntraTag, function(str, prefix, html, suffix) {
-    prefix = prefix || '';
-    suffix = suffix || '';
-    if (prefix.match(reSkipTags)) {
-      return prefix + html + suffix;
-    } else {
-      return prefix + fn(html) + suffix;
+  return html.replace(reIntraTag, function(str, prefix, htmlStr, suffix) {
+    const prefixStr = prefix || '';
+    const suffixStr = suffix || '';
+    if (prefixStr.match(reSkipTags)) {
+      return prefixStr + htmlStr + suffixStr;
     }
+    return prefixStr + fn(htmlStr) + suffixStr;
   });
 };
 
@@ -207,7 +204,7 @@ util.replaceInHTML = function(html, fn) {
 
 // util.markupPunctuation = function () {
 //   return this.each(function () {
-//     var html = $(this).html()
+//     let html = $(this).html()
 //     html = util.replaceInHTML(html, function (html) {
 //       return html.replace(/:/g, '<span class="colon">:</span>')
 //     })
@@ -218,9 +215,9 @@ util.replaceInHTML = function(html, fn) {
 // }
 
 util.markupPunctuation = function(html) {
-  return util.replaceInHTML(html, function(html) {
+  return util.replaceInHTML(html, function(htmlStr) {
     return (
-      html
+      htmlStr
         .replace(/:/g, '<span class="colon">:</span>')
         // .replace(/;/g, '<span class="semicolon">;</span>')
         .replace(/\?/g, '<span class="questionmark">?</span>')
@@ -236,7 +233,7 @@ util.markupPunctuation = function(html) {
 
 // https://stackoverflow.com/questions/4901133/json-and-escaping-characters#answer-4901205
 util.JSONStringify = function(value, replacer, space, ascii) {
-  var json = JSON.stringify(value, replacer, space);
+  let json = JSON.stringify(value, replacer, space);
   if (ascii) {
     json = json.replace(/[\u007f-\uffff]/gi, function(c) {
       return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
@@ -252,23 +249,23 @@ util.JSONStringify = function(value, replacer, space, ascii) {
  *
  */
 util.amp = function(text) {
-  var reSkipTags = /<(\/)?(style|pre|code|kbd|script|math|title)[^>]*>/i;
-  //            (    $1   )(     $2       )(   $3    )
-  var reAmp = /(\s|&nbsp;)(&|&amp;|&#38;)(\s|&nbsp;)/g;
+  const reSkipTags = /<(\/)?(style|pre|code|kbd|script|math|title)[^>]*>/i;
+  //             (    $1   )(     $       )(   $3    )
+  const reAmp = /(\s|&nbsp;)(&|&amp;|&#38;)(\s|&nbsp;)/g;
   //                  ( prefix) ( txt )(  suffix )
-  var reIntraTag = /(<[^<]*>)?([^<]*)(<\/[^<]*>)?/g;
+  const reIntraTag = /(<[^<]*>)?([^<]*)(<\/[^<]*>)?/g;
   if (!text && typeof text !== 'string') {
-    return;
+    return '';
   }
-  return text.replace(reIntraTag, function(str, prefix, text, suffix) {
-    prefix = prefix || '';
-    suffix = suffix || '';
-    if (prefix.match(reSkipTags)) {
-      return prefix + text + suffix;
-    } else {
-      text = text.replace(reAmp, '$1<span class="amp">&amp;</span>$3');
-      return prefix + text + suffix;
+  return text.replace(reIntraTag, function(str, prefix, txt, suffix) {
+    const prefixStr = prefix || '';
+    const suffixStr = suffix || '';
+    let txtStr = txt;
+    if (prefixStr.match(reSkipTags)) {
+      return prefixStr + txt + suffixStr;
     }
+    txtStr = txtStr.replace(reAmp, '$1<span class="amp">&amp;</span>$3');
+    return prefixStr + txtStr + suffixStr;
   });
 };
 

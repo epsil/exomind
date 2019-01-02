@@ -2,21 +2,22 @@ import $ from 'jquery';
 import URI from 'urijs';
 import settings from '../json/settings.json';
 
-var social = {};
+const social = {};
 
 social.bitbucket = function() {
   return social.bitbucket.url(window.location.href);
 };
 
 social.bitbucket.url = function(url) {
-  if (URI(url).protocol() === 'file') {
-    return url;
+  let urlStr = url;
+  if (URI(urlStr).protocol() === 'file') {
+    return urlStr;
   }
-  url = url.replace(/#[^#]*$/, '');
-  url = url.replace(/index\.html?$/i, '');
-  var repo = settings['bitbucket-repo'] || '';
-  var bitbucket = 'https://bitbucket.org/' + repo + '/src/HEAD';
-  return bitbucket + url + settings.index;
+  urlStr = urlStr.replace(/#[^#]*$/, '');
+  urlStr = urlStr.replace(/index\.html?$/i, '');
+  const repo = settings['bitbucket-repo'] || '';
+  const bitbucket = 'https://bitbucket.org/' + repo + '/src/HEAD';
+  return bitbucket + urlStr + settings.index;
 };
 
 social.bitbucket.resource = function(url) {
@@ -40,8 +41,8 @@ social.bitbucket.history.url = function(url) {
   if (URI(url).protocol() === 'file') {
     return url;
   }
-  var repo = settings['bitbucket-repo'] || '';
-  var bitbucket = 'https://bitbucket.org/' + repo + '/history-node/HEAD';
+  const repo = settings['bitbucket-repo'] || '';
+  const bitbucket = 'https://bitbucket.org/' + repo + '/history-node/HEAD';
   return bitbucket + url + settings.index;
 };
 
@@ -58,9 +59,9 @@ social.github.history.url = function(url) {
     return url;
   }
 
-  var repo = settings['github-repo'] || '';
-  var github = 'https://github.com/' + repo + '/commits/master';
-  var path = social.github.path(url);
+  const repo = settings['github-repo'] || '';
+  const github = 'https://github.com/' + repo + '/commits/master';
+  const path = social.github.path(url);
 
   return github + path + '/' + settings.index;
 };
@@ -74,9 +75,9 @@ social.github.edit.url = function(url) {
     return url;
   }
 
-  var repo = settings['github-repo'] || '';
-  var github = 'https://github.com/' + repo + '/edit/master';
-  var path = social.github.path(url);
+  const repo = settings['github-repo'] || '';
+  const github = 'https://github.com/' + repo + '/edit/master';
+  const path = social.github.path(url);
 
   return github + path + '/' + settings.index;
 };
@@ -90,9 +91,9 @@ social.github.raw.url = function(url) {
     return url;
   }
 
-  var repo = settings['github-repo'] || '';
-  var github = 'https://github.com/' + repo + '/raw/master';
-  var path = social.github.path(url);
+  const repo = settings['github-repo'] || '';
+  const github = 'https://github.com/' + repo + '/raw/master';
+  const path = social.github.path(url);
 
   return github + path + '/' + settings.index;
 };
@@ -102,9 +103,9 @@ social.github.url = function(url) {
     return url;
   }
 
-  var repo = settings['github-repo'] || '';
-  var github = 'https://github.com/' + repo + '/blob/master';
-  var path = social.github.path(url);
+  const repo = settings['github-repo'] || '';
+  const github = 'https://github.com/' + repo + '/blob/master';
+  const path = social.github.path(url);
 
   return github + path + '/' + settings.index;
 };
@@ -114,15 +115,15 @@ social.github.resource = function(url) {
 };
 
 social.github.path = function(url) {
-  url = URI(social.github.resource(url));
-  if (url.is('absolute')) {
-    url = url.relativeTo('/');
+  let urlStr = URI(social.github.resource(url));
+  if (urlStr.is('absolute')) {
+    urlStr = urlStr.relativeTo('/');
   }
-  url = url
+  urlStr = urlStr
     .toString()
     .replace(/index\.html?$/, '')
     .replace(/\/?$/, '');
-  return url;
+  return urlStr;
 };
 
 social.mail = function() {
@@ -134,8 +135,8 @@ social.mail.url = function(url) {
     return url;
   }
 
-  url = encodeURIComponent(url);
-  return 'mailto:?body=' + url;
+  const urlStr = encodeURIComponent(url);
+  return 'mailto:?body=' + urlStr;
 };
 
 social.facebook = function() {
@@ -147,8 +148,8 @@ social.facebook.url = function(url) {
     return url;
   }
 
-  url = encodeURIComponent(url);
-  return 'http://www.facebook.com/share.php?u=' + url;
+  const urlStr = encodeURIComponent(url);
+  return 'http://www.facebook.com/share.php?u=' + urlStr;
 };
 
 social.linkedin = function() {
@@ -160,8 +161,8 @@ social.linkedin.url = function(url) {
     return url;
   }
 
-  url = encodeURIComponent(url);
-  return 'http://www.linkedin.com/shareArticle?url=' + url;
+  const urlStr = encodeURIComponent(url);
+  return 'http://www.linkedin.com/shareArticle?url=' + urlStr;
 };
 
 social.twitter = function() {
@@ -173,8 +174,8 @@ social.twitter.url = function(url) {
     return url;
   }
 
-  url = encodeURIComponent(url);
-  return 'https://twitter.com/intent/tweet?url=' + url;
+  const urlStr = encodeURIComponent(url);
+  return 'https://twitter.com/intent/tweet?url=' + urlStr;
 };
 
 if ($ && $.fn) {

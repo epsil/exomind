@@ -18,45 +18,44 @@ function parse(data) {
   // Note: this hack does not allow the block
   // to contain blank lines, although YAML
   // does support such expressions!
-  if (!data.match(/^---/) && data.match(/^([\s\S]*)[\r\n]+---/)) {
-    data = '---\n' + data;
+  let dataStr = data;
+  if (!dataStr.match(/^---/) && dataStr.match(/^([\s\S]*)[\r\n]+---/)) {
+    dataStr = '---\n' + dataStr;
   }
-  var view = matter(data);
-  var props = view.data;
+  let view = matter(dataStr);
+  const props = view.data;
   view = _.assign(view, props);
   view.content = markdown(view.content, view);
   return view;
 }
 
 function addArrays(view) {
-  if (view.css && !Array.isArray(view.css)) {
-    view.css = [view.css];
+  const v = view;
+  if (v.css && !Array.isArray(v.css)) {
+    v.css = [v.css];
   }
-  if (view.stylesheet && !Array.isArray(view.stylesheet)) {
-    view.stylesheet = [view.stylesheet];
+  if (v.stylesheet && !Array.isArray(v.stylesheet)) {
+    v.stylesheet = [v.stylesheet];
   }
-  if (view.js && !Array.isArray(view.js)) {
-    view.js = [view.js];
+  if (v.js && !Array.isArray(v.js)) {
+    v.js = [v.js];
   }
-  if (view.script && !Array.isArray(view.script)) {
-    view.script = [view.script];
+  if (v.script && !Array.isArray(v.script)) {
+    v.script = [v.script];
   }
-  return view;
+  return v;
 }
 
 function addI18n(view) {
-  if (
-    view.lang === undefined ||
-    view.lang === '' ||
-    settings[view.lang] === undefined
-  ) {
-    view.lang = 'no';
+  const v = view;
+  if (v.lang === undefined || v.lang === '' || settings[v.lang] === undefined) {
+    v.lang = 'no';
   }
-  return _.assign({}, settings[view.lang], view);
+  return _.assign({}, settings[v.lang], v);
 }
 
 function dynamic(view, path) {
-  view = _.assign(
+  const v = _.assign(
     {
       bitbucket: social.bitbucket.url(path),
       'bitbucket-history': social.bitbucket.history.url(path),
@@ -71,26 +70,27 @@ function dynamic(view, path) {
     },
     view
   );
-  if (view.toc !== false) {
-    view.toc = '<div id="toc-placeholder"></div>';
+  if (v.toc !== false) {
+    v.toc = '<div id="toc-placeholder"></div>';
   }
-  // if (view.content.match(/[\\][(]/g)) {
-  //   view.mathjax = true
+  // if (v.content.match(/[\\][(]/g)) {
+  //   v.mathjax = true
   // }
-  if (view.mathjax) {
+  if (v.mathjax) {
     // typogr.js doesn't work well with MathJax
     // https://github.com/ekalinin/typogr.js/issues/31
-    view.typogr = false;
+    v.typogr = false;
   }
-  return view;
+  return v;
 }
 
 function title(view) {
-  if (view.title === undefined || view.title === '') {
-    view.content = utilJq.dojQuery(view.content, function(body) {
-      var heading = body.find('h1').first();
+  const v = view;
+  if (v.title === undefined || v.title === '') {
+    v.content = utilJq.dojQuery(v.content, function(body) {
+      const heading = body.find('h1').first();
       if (heading.length > 0) {
-        view.title = heading
+        v.title = heading
           .removeAriaHidden()
           .html()
           .trim();
@@ -98,46 +98,49 @@ function title(view) {
       }
     });
   }
-  return view;
+  return v;
 }
 
 function footnotes(view) {
-  if (view.sidenotes === undefined) {
-    view.sidenotes = true;
+  const v = view;
+  if (v.sidenotes === undefined) {
+    v.sidenotes = true;
   }
-  if (view.footnotes === undefined || view.footnotes === '') {
-    view.content = utilJq.dojQuery(view.content, function(body) {
-      var section = body.find('section.footnotes').first();
+  if (v.footnotes === undefined || v.footnotes === '') {
+    v.content = utilJq.dojQuery(v.content, function(body) {
+      const section = body.find('section.footnotes').first();
       if (section.length > 0) {
-        var hr = body.find('hr.footnotes-sep');
-        view.footnotes = section.html().trim();
+        const hr = body.find('hr.footnotes-sep');
+        v.footnotes = section.html().trim();
         section.remove();
         hr.remove();
       }
     });
   }
-  return view;
+  return v;
 }
 
 function addToC(view) {
-  if (view.toc !== false) {
-    view.content = utilJq.dojQuery(view.content, function(body) {
-      // var placeholder = body.find('#toc-placeholder');
-      // var content = body.find('.e-content');
-      // view.toc = content.tableOfContents();
-      // if (view.toc !== '') {
-      //   placeholder.replaceWith(view.toc);
+  const v = view;
+  if (v.toc !== false) {
+    v.content = utilJq.dojQuery(v.content, function(body) {
+      // let placeholder = body.find('#toc-placeholder');
+      // let content = body.find('.e-content');
+      // v.toc = content.tableOfContents();
+      // if (v.toc !== '') {
+      //   placeholder.replaceWith(v.toc);
       // }
-      view.toc = body.tableOfContents();
+      v.toc = body.tableOfContents();
     });
   }
-  return view;
+  return v;
 }
 
 function typography(view) {
-  if (view.typogr) {
+  const v = view;
+  if (v.typogr) {
     // typogr.js doesn't understand unescaped quotation marks
-    view.content = view.content
+    v.content = v.content
       .replace(/\u2018/gi, '&#8216;')
       .replace(/\u2019/gi, '&#8217;')
       .replace(/\u201c/gi, '&#8220;')
@@ -145,50 +148,51 @@ function typography(view) {
       // FIXME: this belongs in util.js
       .replace(/&#8220;&#8216;/gi, '&#8220;&nbsp;&#8216;')
       .replace(/&#8216;&#8220;/gi, '&#8216;&nbsp;&#8220;');
-    view.content = typogrify(view.content);
+    v.content = typogrify(v.content);
   }
-  return view;
+  return v;
 }
 
 function typogrify(text) {
-  text = typogr.amp(text);
-  // text = typogr.widont(text)
-  text = typogr.smartypants(text);
-  text = typogr.caps(text);
-  text = typogr.initQuotes(text);
-  text = typogr.ord(text);
-  return text;
+  let txt = typogr.amp(text);
+  // txt = typogr.widont(txt)
+  txt = typogr.smartypants(txt);
+  txt = typogr.caps(txt);
+  txt = typogr.initQuotes(txt);
+  txt = typogr.ord(txt);
+  return txt;
 }
 
 function links(view, path) {
-  if (view.plain !== true) {
-    view.content = utilJq.dojQuery(view.content, function(body) {
+  const v = view;
+  if (v.plain !== true) {
+    v.content = utilJq.dojQuery(v.content, function(body) {
       body.relativizeUrls(path);
       body.fixLinks();
     });
   }
-  return view;
+  return v;
 }
 
 function compile(data, path) {
-  var file = URI(path).filename();
+  let file = URI(path).filename();
   if (file === '') {
     file = 'index.md';
   }
 
-  var view = _.assign({}, settings, {
+  let view = _.assign({}, settings, {
     file: file,
     path: path,
     url: path
   });
 
-  data = data.trim();
-  if (data === '') {
+  const dataStr = data.trim();
+  if (dataStr === '') {
     // return index(view);
   }
 
-  view = _.assign(view, parse(data), {
-    md5: md5(data)
+  view = _.assign(view, parse(dataStr), {
+    md5: md5(dataStr)
   });
 
   view.date = view.date || view.created;
@@ -197,7 +201,6 @@ function compile(data, path) {
   view = addI18n(view);
   view = dynamic(view, path);
   view = title(view);
-  view = footnotes(view);
 
   // if (view.content !== '') {
   //   if (view.plain) {
@@ -215,6 +218,8 @@ function compile(data, path) {
   } else {
     view.content = utilJq.process(view.content);
   }
+
+  view = footnotes(view);
 
   // view.content = document(view);
   // return view.content;

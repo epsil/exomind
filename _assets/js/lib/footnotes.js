@@ -11,37 +11,34 @@
 
 import $ from 'jquery';
 
-var footnotes = {};
+const footnotes = {};
 
-var headingSelector = 'h1, h2, h3, h4, h5, h6';
-var listSelector = 'ul, ol, dl';
-var tableSelector = 'table';
+const headingSelector = 'h1, h2, h3, h4, h5, h6';
+const listSelector = 'ul, ol, dl';
+const tableSelector = 'table';
 
 footnotes.fixFootnotes = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('.footnote-ref a').each(function() {
-      var a = $(this);
-      var html = a.html();
+      const a = $(this);
+      let html = a.html();
       html = html
         .replace('[', '<span class="left-bracket">[</span>')
         .replace(']', '<span class="right-bracket">]</span>')
-        .replace(
-          /(:)([0-9]+)/,
-          '<span class="suffix-colon">$1</span><span class="suffix-number">$2</span>'
-        );
+        .replace(/(:)([0-9]+)/, '<span class="suffix-colon">$1</span><span class="suffix-number">$2</span>');
       a.html(html);
-      var sup = a.parent();
-      var p = sup.parent();
-      var id = a.attr('href').replace(/:.*/, '');
+      const sup = a.parent();
+      const p = sup.parent();
+      const id = a.attr('href').replace(/:.*/, '');
       a.attr('href', id);
-      var note = body.find(id);
-      var backref = note.find('.footnote-backref');
-      var text = note
+      const note = body.find(id);
+      const backref = note.find('.footnote-backref');
+      const text = note
         .text()
         .trim()
         .replace(/(\s*\u21a9.*\s*)+$/, '');
-      var source = p.text().trim();
+      const source = p.text().trim();
       a.attr('title', text);
       backref.attr('title', source);
     });
@@ -51,11 +48,11 @@ footnotes.fixFootnotes = function() {
 // marginalia
 footnotes.addSidenotes = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('.footnote-ref a').each(function() {
-      var a = $(this);
-      var sup = a.parent();
-      var parent = sup.parent();
+      const a = $(this);
+      const sup = a.parent();
+      let parent = sup.parent();
       if (sup.parents(tableSelector).length) {
         parent = sup.parents(tableSelector).last();
       } else if (sup.parents(headingSelector).length) {
@@ -63,19 +60,19 @@ footnotes.addSidenotes = function() {
       } else if (sup.parents(listSelector).length) {
         parent = sup.parents(listSelector).last();
       }
-      var idSelector = a.attr('href');
-      var id = idSelector.replace(/^#/, '');
-      var note = body.find(idSelector);
-      var backref = note.find('.footnote-backref');
-      var backrefLi = backref.parent().parent();
-      var num = a
+      const idSelector = a.attr('href');
+      const id = idSelector.replace(/^#/, '');
+      const note = body.find(idSelector);
+      const backref = note.find('.footnote-backref');
+      const backrefLi = backref.parent().parent();
+      const num = a
         .clone()
         .attr('href', backref.attr('href'))
         .attr('title', backref.attr('title'))
         .attr('id', id.replace(/^fn/, 'sidenote'))
         .wrap('<sup class="ref-mark">')
         .parent();
-      var sidenote = $('<aside class="sidenote">').html(backrefLi.html());
+      const sidenote = $('<aside class="sidenote">').html(backrefLi.html());
       sidenote
         .children()
         .first()
@@ -95,7 +92,7 @@ footnotes.addSidenotes = function() {
 footnotes.footnotetimeout = false;
 
 footnotes.setup = function() {
-  var footnotelinks = $('.footnote-ref a');
+  const footnotelinks = $('.footnote-ref a');
   footnotelinks.off('mouseover', footnotes.footnoteover);
   footnotelinks.off('mouseout', footnotes.footnoteoout);
   footnotelinks.on('mouseover', footnotes.footnoteover);
@@ -104,9 +101,9 @@ footnotes.setup = function() {
 
 footnotes.addFootnoteHandlers = function() {
   return this.each(function() {
-    var body = $(this);
+    const body = $(this);
     body.find('.footnote-ref a').each(function() {
-      var a = $(this);
+      const a = $(this);
       a.removeAttr('title');
       a.off('mouseover', footnotes.footnoteover);
       a.off('mouseout', footnotes.footnoteoout);
@@ -121,28 +118,28 @@ footnotes.footnoteover = function() {
   $('#footnotediv').stop();
   $('#footnotediv').remove();
 
-  var id = $(this)
+  const id = $(this)
     .attr('href')
     .substr(1);
-  var position = $(this).offset();
+  const position = $(this).offset();
 
-  var div = $(document.createElement('div'));
+  const div = $(document.createElement('div'));
   div.attr('id', 'footnotediv');
   div.bind('mouseover', footnotes.divover);
   div.bind('mouseout', footnotes.footnoteoout);
 
-  var el = document.getElementById(id);
+  const el = document.getElementById(id);
   div.html('<div>' + $(el).html() + '</div>');
 
-  // var body = $('.e-content') || $(document.body)
-  var body = $(document.body);
+  // const body = $('.e-content') || $(document.body)
+  const body = $(document.body);
   body.append(div);
 
-  var left = position.left;
+  let left = position.left;
   if (left + 420 > $(window).width() + $(window).scrollLeft()) {
     left = $(window).width() - 420 + $(window).scrollLeft();
   }
-  var top = position.top + 20;
+  let top = position.top + 20;
   if (top + div.height() > $(window).height() + $(window).scrollTop()) {
     top = position.top - div.height() - 15;
   }

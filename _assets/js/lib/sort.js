@@ -8,25 +8,29 @@
  * @return {Array} - The array, sorted.
  */
 function sort(arr, fn) {
-  fn = fn || sort.ascending();
-  var i = 0;
-  var pairs = arr.map(function(x) {
+  const result = arr;
+  const cmp = fn || sort.ascending();
+  let i = 0;
+  let pairs = arr.map(function(x) {
     return {
       idx: i++,
       val: x
     };
   });
   pairs = pairs.sort(function(a, b) {
-    var x = fn(a.val, b.val);
+    const x = cmp(a.val, b.val);
     if (x) {
       return x;
     }
-    return a.idx < b.idx ? -1 : a.idx > b.idx ? 1 : 0;
+    if (a.idx < b.idx) {
+      return -1;
+    }
+    return a.idx > b.idx ? 1 : 0;
   });
   for (i = 0; i < arr.length; i++) {
-    arr[i] = pairs[i].val;
+    result[i] = pairs[i].val;
   }
-  return arr;
+  return result;
 }
 
 /**
@@ -39,7 +43,10 @@ function sort(arr, fn) {
  */
 sort.ascending = function(fn) {
   return sort.comparator(function(x, y) {
-    return x < y ? -1 : x > y ? 1 : 0;
+    if (x < y) {
+      return -1;
+    }
+    return x > y ? 1 : 0;
   }, fn);
 };
 
@@ -53,7 +60,10 @@ sort.ascending = function(fn) {
  */
 sort.descending = function(fn) {
   return sort.comparator(function(x, y) {
-    return x < y ? 1 : x > y ? -1 : 0;
+    if (x < y) {
+      return 1;
+    }
+    return x > y ? -1 : 0;
   }, fn);
 };
 
@@ -66,9 +76,9 @@ sort.descending = function(fn) {
  * and the intended order.
  */
 sort.comparator = function(cmp, fn) {
-  fn = fn || sort.identity;
+  const score = fn || sort.identity;
   return function(a, b) {
-    return cmp(fn(a), fn(b));
+    return cmp(score(a), score(b));
   };
 };
 
@@ -79,11 +89,10 @@ sort.comparator = function(cmp, fn) {
  * the first comparison value unless the comparands are equal,
  * in which case it returns the next value.
  */
-sort.combine = function() {
-  var args = Array.prototype.slice.call(arguments);
+sort.combine = function(...args) {
   return args.reduce(function(fn1, fn2) {
     return function(a, b) {
-      var val = fn1(a, b);
+      const val = fn1(a, b);
       return val === 0 ? fn2(a, b) : val;
     };
   });

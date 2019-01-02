@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-var figure = {};
+const figure = {};
 
 figure.fixFigures = function() {
   return this.each(function() {
@@ -17,14 +17,14 @@ figure.fixFigures = function() {
 };
 
 function setClassesOnContainer() {
-  var img = $(this);
-  var figure = findImageFigure(img);
-  moveAttributes(img, figure);
+  const img = $(this);
+  const fig = findImageFigure(img);
+  moveAttributes(img, fig);
   addLink(img);
 }
 
 function createFigures() {
-  var img = $(this);
+  const img = $(this);
   if (hasCaption(img)) {
     createCaptionedFigure(img);
   } else {
@@ -33,54 +33,55 @@ function createFigures() {
 }
 
 function addImageLinkClass() {
-  var img = $(this);
-  var a = img.parent();
+  const img = $(this);
+  const a = img.parent();
   a.addClass('image');
 }
 
 // replace <p><img></p> with <figure><img></figure>
 function createUncaptionedFigure(img) {
-  var p = findImageParagraph(img);
-  var isSingleImage = p.find('img').length === 1;
+  const p = findImageParagraph(img);
+  const isSingleImage = p.find('img').length === 1;
   if (isEmptyParagraph(p) && isSingleImage) {
-    var figure = $('<figure>');
-    figure.insertBefore(p);
-    figure.html(p.html());
-    img = figure.find('img');
+    const fig = $('<figure>');
+    fig.insertBefore(p);
+    fig.html(p.html());
+    const imgEl = fig.find('img');
     p.remove();
-    if (img.length === 1) {
-      moveAttr('class', img, figure);
+    if (imgEl.length === 1) {
+      moveAttr('class', imgEl, fig);
     }
+    addLink(imgEl);
   }
 }
 
 // create <figure> with <figcaption>
 function createCaptionedFigure(img) {
-  var p = findImageParagraph(img);
-  var alt = img.attr('alt');
-  var div = $('<figure></figure>');
-  var caption = $('<figcaption>' + alt + '</figcaption>');
-  div.append(img);
-  div.append(caption);
-  moveAttributes(img, figure);
+  const p = findImageParagraph(img);
+  const alt = img.attr('alt');
+  const fig = $('<figure></figure>');
+  const caption = $('<figcaption>' + alt + '</figcaption>');
+  fig.append(img);
+  fig.append(caption);
+  moveAttributes(img, fig);
   addLink(img);
   // insert into DOM
-  div.insertBefore(p);
+  fig.insertBefore(p);
   if (isEmptyParagraph(p)) {
     p.remove();
   }
 }
 
 function fileName(url) {
-  var segments = url.trim().split('/');
-  var last = segments[segments.length - 1];
+  const segments = url.trim().split('/');
+  const last = segments[segments.length - 1];
   return last;
 }
 
-function moveAttributes(img, figure) {
-  moveAttr('class', img, figure);
-  moveAttr('id', img, figure);
-  moveWidth(img, figure);
+function moveAttributes(img, fig) {
+  moveAttr('class', img, fig);
+  moveAttr('id', img, fig);
+  moveWidth(img, fig);
 }
 
 function moveAttr(attr, from, to) {
@@ -90,23 +91,17 @@ function moveAttr(attr, from, to) {
   }
 }
 
-function moveWidth(img, figure) {
+function moveWidth(img, fig) {
   if (img.is('[width]')) {
-    var width = parseInt(img.attr('width'));
-    figure.css('width', width + 9 + 'px');
+    const width = parseInt(img.attr('width'), 10);
+    fig.css('width', width + 9 + 'px');
   }
 }
 
 function addLink(img) {
-  var hasLink = img.parents('a').length > 0;
+  const hasLink = img.parents('a').length > 0;
   if (!hasLink) {
-    img.wrap(
-      '<a href="' +
-        img.attr('src') +
-        '" title="View ' +
-        fileName(img.attr('src')) +
-        ' in full screen"></a>'
-    );
+    img.wrap('<a href="' + img.attr('src') + '" title="View ' + fileName(img.attr('src')) + ' in full screen"></a>');
   }
 }
 
@@ -119,16 +114,16 @@ function findImageFigure(img) {
 }
 
 function findParent(el, name) {
-  name = name.toUpperCase();
-  var parent = el.parent();
-  while (parent.prop('tagName') !== name) {
+  const tagName = name.toUpperCase();
+  let parent = el.parent();
+  while (parent.prop('tagName') !== tagName) {
     parent = parent.parent();
   }
   return parent;
 }
 
 function hasCaption(img) {
-  var alt = img.attr('alt') || '';
+  const alt = img.attr('alt') || '';
   return alt.trim() !== '';
 }
 

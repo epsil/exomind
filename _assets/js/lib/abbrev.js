@@ -1,6 +1,6 @@
 import abbr from '../json/abbrev.json';
 
-var abbrev = {};
+const abbrev = {};
 
 abbrev.getAbbreviations = function() {
   return abbr;

@@ -11,7 +11,7 @@ class Prompt extends Component {
   }
 
   componentDidMount() {
-    let input = document.getElementById('password');
+    const input = document.getElementById('password');
     input.focus();
   }
 
@@ -21,22 +21,33 @@ class Prompt extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.callback(this.state.value);
+    const { value } = this.state;
+    const { callback } = this.props;
+    callback(value);
   }
 
   render() {
     // className="modal fade"
+    const { value } = this.state;
+    const { disabled, invalid, success } = this.props;
     return (
       <div id="passwordPrompt" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content text-center">
             <div className="modal-header">
               <h4 className="modal-title" title="Data is encrypted">
-                <i className="fa fa-lock" /> Protected data
+                {success ? (
+                  <i className="fa fa-unlock" />
+                ) : disabled ? (
+                  <i className="fa fa-unlock-alt" />
+                ) : (
+                  <i className="fa fa-lock" />
+                )}
+                &nbsp;Protected data
               </h4>
             </div>
             <div className="modal-body">
-              <form onSubmit={this.handleSubmit} role="form">
+              <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <div className="input-group">
                     <div className="input-group-addon">
@@ -49,27 +60,27 @@ class Prompt extends Component {
                       placeholder="Password"
                       style={{ paddingRight: '4em' }}
                       title="Enter encryption key"
-                      value={this.state.value}
+                      value={value}
                       onChange={this.handleChange}
-                      disabled={this.props.disabled}
+                      disabled={disabled}
                       required
                     />
                   </div>
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-primary btn-block"
+                  className={'btn btn-block ' + (success ? 'btn-success' : 'btn-primary')}
+                  disabled={disabled}
                   title="Unlock data"
                 >
-                  <i className="fa fa-sign-in" /> Decrypt
+                  <i className="fa fa-sign-in" />
+                  &nbsp;Decrypt
                 </button>
               </form>
             </div>
-            {this.props.invalid && (
+            {invalid && !success && (
               <div className="modal-footer">
-                <p className="small text-danger text-center">
-                  Invalid password
-                </p>
+                <p className="small text-danger text-center">Invalid password</p>
               </div>
             )}
           </div>
